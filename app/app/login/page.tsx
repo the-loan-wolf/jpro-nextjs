@@ -39,9 +39,14 @@ export default function Login() {
     setFormStatus("recovery");
   }
   const signInBtn = async ()=> {
-    const uid = await signInToApp(email, password);
+    try{
+      const uid = await signInToApp(email, password);
     localStorage.setItem("loggedInUserId", uid);
     // console.log(uid);
+    router.push("/app");
+    }catch{
+      console.log("error while signing in");
+    }
   }
 
   const handleSignIN = (e: React.FormEvent)=> {

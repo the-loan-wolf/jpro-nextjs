@@ -9,7 +9,7 @@ export default function App() {
 
   useEffect(() => {
     const loggedInUserId = localStorage.getItem("loggedInUserId");
-    console.log(loggedInUserId);
+    // console.log(loggedInUserId);
     if (!loggedInUserId) {
       router.replace("/app/login");  // Redirect if not logged in
     } else {
