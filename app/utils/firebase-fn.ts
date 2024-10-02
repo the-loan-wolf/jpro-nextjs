@@ -9,7 +9,7 @@ import {
   sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
-import { getDoc, getFirestore, doc, setDoc } from "firebase/firestore";
+import { getDoc, getFirestore, doc, setDoc, collection, query,  } from "firebase/firestore";
 import { firebaseConfig } from "./firebase-config";
 
 // Initialize Firebase
@@ -88,17 +88,14 @@ export async function signInToApp(
 }
 
 export async function userLogOut(): Promise<string>{
-  // signOut(auth)
-  //   .then(() => {
-  //     return "success";
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error Signing out:", error);
-  //   });
     try {
       signOut(auth);
       return "success";
     } catch (error) {
       return "Not able to logOut";
     }
+}
+
+export async function getDocument(): Promise<>{
+
 }
