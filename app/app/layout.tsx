@@ -1,5 +1,11 @@
 import "../globals.css";
 import NavBar from "../ui/nav-bar";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "FreeJobSearch",
+    description: "Find Job while sitting at your home",
+};
 
 export default function RootLayout({
   children,

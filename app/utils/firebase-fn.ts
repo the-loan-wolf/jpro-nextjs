@@ -9,7 +9,15 @@ import {
   sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
-import { getDoc, getFirestore, doc, setDoc, collection, query,  } from "firebase/firestore";
+import {
+  getDocs,
+  getFirestore,
+  doc,
+  setDoc,
+  limit,
+  collection,
+  query,
+} from "firebase/firestore";
 import { firebaseConfig } from "./firebase-config";
 
 // Initialize Firebase
@@ -87,15 +95,37 @@ export async function signInToApp(
   }
 }
 
-export async function userLogOut(): Promise<string>{
-    try {
-      signOut(auth);
-      return "success";
-    } catch (error) {
-      return "Not able to logOut";
-    }
+export async function userLogOut(): Promise<string> {
+  try {
+    signOut(auth);
+    return "success";
+  } catch (error) {
+    return "Not able to logOut";
+  }
 }
 
-export async function getDocument(): Promise<>{
+interface Resume {
+  id: string;
+  [key: string]: any; // Allows dynamic fields
+}
 
+
+export async function getDocument(): Promise<Resume[]> {
+  // Reference to the collection
+  const collectionRef = collection(db, "resumes");
+
+  // Create a query to get 5 documents
+  const q = query(collectionRef, limit(5));
+
+  // Execute the query
+  const querySnapshot = await getDocs(q);
+
+  // Process the documents
+  const documents: Resume[] = [];
+  querySnapshot.forEach((doc) => {
+    const data = doc.data() as Resume; // Type assertion with dynamic fields
+    documents.push({ id: doc.id, ...data });
+  });
+
+  return documents;
 }
