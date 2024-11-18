@@ -17,6 +17,7 @@ import {
   limit,
   collection,
   query,
+  getDoc,
 } from "firebase/firestore";
 import { firebaseConfig } from "./firebase-config";
 
@@ -128,4 +129,26 @@ export async function getDocument(): Promise<Resume[]> {
   });
 
   return documents;
+}
+
+interface firestoreDoc {
+  [key: string]: any; // Allows dynamic fields
+}
+
+export async function getUserDetails(uid: string): Promise<firestoreDoc> {
+  // try {
+  //   const docRef = doc(db, "resumes", uid);
+  //   const docSnap = await getDoc(docRef);
+
+  //   if (docSnap.exists()) {
+  //     return docSnap.data() as firestoreDoc;
+  //   } else {
+  //     return "No such document!";
+  //   }
+  // } catch (error: any) {
+  //   return error.message || "Error retrieving document";
+  // }
+  const docRef = doc(db, "resumes", uid);
+  const docSnap = await getDoc(docRef);
+  return docSnap.data() as firestoreDoc;
 }

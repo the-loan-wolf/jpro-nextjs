@@ -177,7 +177,7 @@ export default function NavBar() {
               id="profileDiv"
               className={`${
                 floatingBoxState ? "visible" : "invisible"
-              } backdrop-blur-sm border border-slate-400 rounded-xl p-2 absolute w-40 right-1  top-10 flex flex-col justify-center items-center`}
+              } backdrop-blur-sm backdrop-brightness-75 border border-slate-400 rounded-xl p-2 absolute w-40 right-1  top-10 flex flex-col justify-center items-center text-slate-100`}
             >
               {/* <div className="addResumeBtn">
                 <button className="hover:text-red-400">Add Your Resume</button>

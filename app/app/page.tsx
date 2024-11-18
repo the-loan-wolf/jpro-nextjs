@@ -18,6 +18,7 @@ export default function App() {
         <UserProfileBox
           key={document.id}
           userData={{
+            uid: document.id,
             pic: document.profilePicEle,
             name: document.resumeFName + ' ' + document.resumeLName,
             occupation: document.compPost,
@@ -48,10 +49,10 @@ export default function App() {
   return (
     <>
       {/* <p>Our app homepage</p> */}
-      <main className="mt-5">
+      <main className="mt-5 flex justify-center ">
         <div
           id="user-container"
-          className="flex justify-around flex-wrap gap-2"
+          className="flex justify-evenly flex-wrap gap-4 max-w-5xl"
         >
           {userProfiles}
         </div>
