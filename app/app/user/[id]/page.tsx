@@ -4,7 +4,7 @@ import { getUserDetails } from "@/app/utils/firebase-fn";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { keyOrder } from "@/app/utils/keyOrder";
+import { keyOrder, keyField } from "@/app/utils/keyOrder";
 import ResumeTextDetail from "@/app/ui/ResumeTextDetail";
 
 // type Params = {
@@ -21,44 +21,62 @@ export default function User() {
   const id = getParams.id;
   const [profilePic, setProfilePic] = useState("");
   const [profileName, setProfileName] = useState("");
-  const [data, setData] = useState<ResumeData>();
+  const [textFieldJSX, setTextFieldJSX] = useState<JSX.Element[]>();
+
   useEffect(() => {
-    // const userData = await getUserDetails(id);
-    // const userData = getUserDetails(id);
-    // console.log(userData);
-    // parseData(userData);
-    // userData.then((data) => {parseData(data)})
     getUserDetails(id).then((data) => {
-      // setData(data);
-      // console.log(typeof(data));
-      // console.log(data);
       parseData(data);
     });
   }, []);
 
   function parseData(data: ResumeData): void {
-    // Separate the keys based on the order list
-    // const orderedKeys = keyOrder.filter((key) => key in data); // Keys in the order list
-    // console.log(`keyOrder: ${keyOrder}`);
-    // console.log(`orderedKeys: ${orderedKeys}`)
-    const remainingKeys = Object.keys(data).filter(
-      (key) => !keyOrder.includes(key)
-    ); // Remaining keys
 
-    // Combine keys for rendering: ordered first, then remaining
+    const formatedData = formatDataCorrectly(data);
+    setProfilePic(formatedData["profilePicEle"]);
+    setProfileName(formatedData["resumeFName"]);
+
+    const textFields : JSX.Element[] = Object.entries(formatedData).map(([key, value]) => {
+      if (key === "profilePicEle") {
+        return null;
+      }
+      return <ResumeTextDetail key={key} keyName={keyField[key]} value={value} />;
+    })
+
+    setTextFieldJSX(textFields);
+  }
+
+  function formatDataCorrectly(data: ResumeData): ResumeData {
+    
+    // delete some entries
+    const finalData = Object.fromEntries(
+      Object.entries(data).filter(
+        ([key, value]) =>
+          value != null && value !== "" && !["skillField", "qualificationField", "workField"].includes(key)
+      )
+    );
+    
+
+    // subtract the orderKey from raw data to get the remaining key
+    const remainingKeys = Object.keys(finalData).filter(
+      (key) => !keyOrder.includes(key)
+    )
+    // console.log(remainingKeys)
+
+    // Again Combine keys so ordered key stays first then remaining keys
     const finalKeys = [...keyOrder, ...remainingKeys];
     // console.log(finalKeys);
-    // Step 2: Sort the array based on the order of keys in `orderedKeys`
-    const entries = Object.entries(data);
+
+    // Step 2: Sort the Object based on the order of keys in `keyOrder`
+    const entries = Object.entries(finalData); //First covert object into an array
     const sortedEntries = entries.sort(([keyA], [keyB]) => {
       return finalKeys.indexOf(keyA) - finalKeys.indexOf(keyB);
     });
-    // Convert back to an object (if needed)
+    console.log(sortedEntries);
+    // Convert back to an object (if needed) // optimization needed! if we can use directly array then this function does not need to execute
     const sortedObject = Object.fromEntries(sortedEntries);
-    console.log(sortedObject);
-    setData(sortedObject);
-    setProfilePic(sortedObject["profilePicEle"]);
-    setProfileName(sortedObject["resumeFName"]);
+    // console.log(sortedObject);
+    // setData(sortedObject);
+    return sortedObject
   }
 
   return (
@@ -83,16 +101,7 @@ export default function User() {
           className="basis-2/3 h-[90vh] overflow-y-scroll scroll-smooth"
         >
           {
-            // data &&
-            // for (const i in data){
-            //   <ResumeTextDetail key={key} value={data[key]} />
-            // }
-            data &&
-              Object.entries(data).map(([key, value]) => (
-                <ResumeTextDetail key={key} keyName={key} value={value} />
-              ))
-            // jsxElements &&
-            // jsxElements.map(key => key)
+            textFieldJSX
           }
         </div>
       </div>

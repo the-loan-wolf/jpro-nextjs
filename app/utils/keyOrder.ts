@@ -39,3 +39,61 @@ export const keyOrder = [
   "skillEx",
   "profilePicEle",
 ];
+
+export const keyField = {
+  resumeFName: "First Name",
+  resumeMName: "Middle Name",
+  resumeLName: "Last Name",
+  resumeDOB: "Date of Birth",
+  resumePhoneNo: "Phone Number",
+  resumeFatherName: "Father's Name",
+  resumeMotherName: "Mother's Name",
+  salary: "Salary",
+  sameAddress: "Same Address",
+  resumeCountry: "Country",
+  resumeState: "State",
+  resumeDistrict: "District",
+  resumePlace: "Place",
+  resumePin: "Pin",
+  resumeAddr: "Address",
+  matricInstName: "Institute",
+  matricBoard: "Board",
+  matricMarks: "Marks",
+  interInstName: "Institute",
+  interBoard: "Board",
+  interMarks: "Marks",
+  ugInstName: "Institute",
+  ugBoard: "Board",
+  ugMarks: "Marks",
+  pgInstName: "Institute",
+  pgBoard: "Board",
+  pgMarks: "Marks",
+  phdInstName: "Institute",
+  phdBoard: "Board",
+  phdMarks: "Marks",
+  companyName: "Company Name",
+  compPost: "Post",
+  joinDate: "Joining Date",
+  lastDate: "Worked Till",
+  workEx: "Want to describe your work there?",
+  skillName: "Skill Name",
+  skillSource: "Where you learned it from",
+  skillEx: "Experience Time",
+};
+
+export const QualificationFieldKeys = [
+  "degName",
+  "instName",
+  "instBoard",
+  "instMarks",
+];
+
+export const companyDetailFieldKeys = [
+  "companyName",
+  "compPost",
+  "joinDate",
+  "lastDate",
+  "workEx",
+];
+
+export const skillFieldKeys = ["skillName", "skillSource", "skillEx"];

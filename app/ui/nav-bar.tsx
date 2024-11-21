@@ -89,18 +89,6 @@ export default function NavBar() {
           </button>
         </nav>
       </div>
-      {/* background gradient image overlay on whole site */}
-      <div className="absolute z-20 top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none">
-        <div className="w-[108rem] flex-none flex justify-end">
-          <Image
-            src="/second.png"
-            width={1000}
-            height={760}
-            alt=""
-            className="w-[90rem] flex-none max-w-none"
-          />
-        </div>
-      </div>
       {/* Header bar */}
       <header className="flex justify-between p-2 sticky top-0 z-40 w-full backdrop-blur transition-colors duration-500 lg:z-50 border-b border-slate-50/[0.06] supports-backdrop-blur:bg-white/60 bg-transparent">
         {/* site logo*/}

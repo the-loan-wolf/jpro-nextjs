@@ -1,10 +1,11 @@
 import "../globals.css";
 import NavBar from "../ui/nav-bar";
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
-    title: "FreeJobSearch",
-    description: "Find Job while sitting at your home",
+  title: "FreeJobSearch",
+  description: "Find Job while sitting at your home",
 };
 
 export default function RootLayout({
@@ -24,6 +25,18 @@ export default function RootLayout({
         />
       </head>
       <body className={`antialiased text-slate-400 bg-slate-900`}>
+        {/* background gradient image overlay on whole site */}
+        <div className="absolute z-20 top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none">
+          <div className="w-[108rem] flex-none flex justify-end">
+            <Image
+              src="/second.png"
+              width={800}
+              height={600}
+              alt=""
+              className="w-[90rem] flex-none max-w-none"
+            />
+          </div>
+        </div>
         <NavBar />
         {children}
       </body>
