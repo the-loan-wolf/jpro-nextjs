@@ -60,6 +60,66 @@ export default function User() {
         if (key === "profilePicEle") {
           return null;
         }
+        if(key.startsWith("degName")){
+          return (
+            <ResumeTextDetail key={key} keyName={keyField.degName} value={value} />
+          );
+        }
+        if(key.startsWith("instName")){
+          return (
+            <ResumeTextDetail key={key} keyName={keyField.instName} value={value} />
+          );
+        }
+        if(key.startsWith("instBoard")){
+          return (
+            <ResumeTextDetail key={key} keyName={keyField.instBoard} value={value} />
+          );
+        }
+        if(key.startsWith("instMarks")){
+          return (
+            <ResumeTextDetail key={key} keyName={keyField.instMarks} value={value} />
+          );
+        }
+        if(key.startsWith("companyName")){
+          return (
+            <ResumeTextDetail key={key} keyName={keyField.companyName} value={value} />
+          );
+        }
+        if(key.startsWith("compPost")){
+          return (
+            <ResumeTextDetail key={key} keyName={keyField.compPost} value={value} />
+          );
+        }
+        if(key.startsWith("joinDate")){
+          return (
+            <ResumeTextDetail key={key} keyName={keyField.joinDate} value={value} />
+          );
+        }
+        if(key.startsWith("lastDate")){
+          return (
+            <ResumeTextDetail key={key} keyName={keyField.lastDate} value={value} />
+          );
+        }
+        if(key.startsWith("workEx")){
+          return (
+            <ResumeTextDetail key={key} keyName={keyField.workEx} value={value} />
+          );
+        }
+        if(key.startsWith("skillName")){
+          return (
+            <ResumeTextDetail key={key} keyName={keyField.skillName} value={value} />
+          );
+        }
+        if(key.startsWith("skillSource")){
+          return (
+            <ResumeTextDetail key={key} keyName={keyField.skillSource} value={value} />
+          );
+        }
+        if(key.startsWith("skillEx")){
+          return (
+            <ResumeTextDetail key={key} keyName={keyField.skillEx} value={value} />
+          );
+        }
         return (
           <ResumeTextDetail key={key} keyName={keyField[key]} value={value} />
         );
