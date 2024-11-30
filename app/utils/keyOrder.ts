@@ -1,4 +1,59 @@
-export const keyOrder = [
+// export const keyOrder = [
+//   "resumeFName",
+//   "resumeMName",
+//   "resumeLName",
+//   "resumeDOB",
+//   "resumePhoneNo",
+//   "resumeFatherName",
+//   "resumeMotherName",
+//   "salary",
+//   "sameAddress",
+//   "resumeCountry",
+//   "resumeState",
+//   "resumeDistrict",
+//   "resumePlace",
+//   "resumePin",
+//   "resumeAddr",
+//   "matricInstName",
+//   "matricBoard",
+//   "matricMarks",
+//   "interInstName",
+//   "interBoard",
+//   "interMarks",
+//   "ugInstName",
+//   "ugBoard",
+//   "ugMarks",
+//   "pgInstName",
+//   "pgBoard",
+//   "pgMarks",
+//   "phdInstName",
+//   "phdBoard",
+//   "phdMarks",
+//   "companyName",
+//   "compPost",
+//   "joinDate",
+//   "lastDate",
+//   "workEx",
+//   "skillName",
+//   "skillSource",
+//   "skillEx",
+//   "profilePicEle",
+// ];
+
+export const stateField = [
+  "sameAddress",
+  "enableMatric",
+  "enableInter",
+  "enableUG",
+  "enablePG",
+  "enablePHD",
+  "qualificationField",
+  "workField",
+  "skillField"
+]
+
+
+export const primaryDetails = [
   "resumeFName",
   "resumeMName",
   "resumeLName",
@@ -7,37 +62,75 @@ export const keyOrder = [
   "resumeFatherName",
   "resumeMotherName",
   "salary",
-  "sameAddress",
+];
+
+export const addressDetails = [
   "resumeCountry",
   "resumeState",
   "resumeDistrict",
   "resumePlace",
   "resumePin",
   "resumeAddr",
+]
+
+export const parmanentAddressDetails = [
+  "resumePCountry",
+  "resumePState",
+  "resumePDistrict",
+  "resumePPlace",
+  "resumePPin",
+  "resumePAddr",
+]
+
+export const matricDetails = [
   "matricInstName",
   "matricBoard",
   "matricMarks",
+]
+
+export const interDetails = [
   "interInstName",
   "interBoard",
   "interMarks",
+]
+
+export const ugDetails = [
   "ugInstName",
   "ugBoard",
   "ugMarks",
+]
+
+export const pgDetails = [
   "pgInstName",
   "pgBoard",
   "pgMarks",
+]
+
+export const phdDetails = [
   "phdInstName",
   "phdBoard",
   "phdMarks",
+]
+
+export const companyDetails = [
   "companyName",
   "compPost",
   "joinDate",
   "lastDate",
   "workEx",
+]
+
+export const skillDetails = [
   "skillName",
   "skillSource",
   "skillEx",
-  "profilePicEle",
+]
+
+export const qualificationDetails = [
+  "degName",
+  "instName",
+  "instBoard",
+  "instMarks",
 ];
 
 export const keyField = {
@@ -71,6 +164,10 @@ export const keyField = {
   phdInstName: "Institute",
   phdBoard: "Board",
   phdMarks: "Marks",
+  degName: "Qualification Type",
+  instName: "Institute Name",
+  instBoard: "Board",
+  instMarks: "Marks / Percentage Obtained",
   companyName: "Company Name",
   compPost: "Post",
   joinDate: "Joining Date",
@@ -80,20 +177,3 @@ export const keyField = {
   skillSource: "Where you learned it from",
   skillEx: "Experience Time",
 };
-
-export const QualificationFieldKeys = [
-  "degName",
-  "instName",
-  "instBoard",
-  "instMarks",
-];
-
-export const companyDetailFieldKeys = [
-  "companyName",
-  "compPost",
-  "joinDate",
-  "lastDate",
-  "workEx",
-];
-
-export const skillFieldKeys = ["skillName", "skillSource", "skillEx"];

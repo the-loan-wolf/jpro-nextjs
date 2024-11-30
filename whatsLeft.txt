@@ -1,13 +1,20 @@
-1. passing correct field name to the ResumeTextDetail instead of using key from the fetch json data
+1. passing correct field name to the ResumeTextDetail instead of using key from the fetch json data (Do this Next!!! Partially complete)
 
 2. making a component for compossing the details in ResumeTextDetail. i want to group certain details.
 
 3. hiding certain details like profile pic url, checkboxes value, variable which hold the count of certain field. ✓
 
-4. placing certain field in consecutive order like instBoard, instBoard1, instBoard2
+4. placing certain field in consecutive order like instBoard, instBoard1, instBoard2 ✓
 
 * Dynamic :-
 
 qualification fields // degName, inst name, board, marks
 company fields // companyName, compPost, joinDate, lastDate, workEx,
 skill fields // skillName, skillSource, skillEx,
+
+
+logic: ✓
+step 1: know the value of these variable : qualificationField, workField, skillField
+step 2: add these containers "qualificationDetails, companyDetails, skillDetails" as many time as the previous value of the variable.
+step 3: marge all details containers in order.
+step 4: delete empty fields
