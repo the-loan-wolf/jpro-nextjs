@@ -1,1 +1,0 @@
-1. make a component for compossing the details in ResumeTextDetail. i want to group certain details.
