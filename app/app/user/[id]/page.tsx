@@ -65,8 +65,8 @@ export default function User() {
   }, []);
 
   function parseData(data: ResumeData): void {
-    const keys = Object.keys(data); // remove this line when not needed
-    console.log(keys); // remove this line when not needed
+    // const keys = Object.keys(data); // remove this line when not needed
+    // console.log(keys); // remove this line when not needed
     const formatedData = formatDataCorrectly(data);
     setProfilePic(formatedData["profilePicEle"]);
     setProfileName(formatedData["resumeFName"]);
@@ -78,10 +78,7 @@ export default function User() {
     const ugDetailsArray: JSX.Element[] = [];
     const pgDetailsArray: JSX.Element[] = [];
     const phdDetailsArray: JSX.Element[] = [];
-    // const qualificationDetailsArray: JSX.Element[] = [];
-    // const companyDetailsArray: JSX.Element[] = [];
-    // const skillDetailsArray: JSX.Element[] = [];
-    const qualificationDetailsArray: JSX.Element[] = Object.entries(formatedData).map(
+    const qualificationDetailsArray: JSX.Element[] = Object.entries(formatedData).flatMap(
       ([key, value]) => {
         if (key.startsWith("degName")) {
           return (
@@ -119,10 +116,11 @@ export default function User() {
             />
           );
         }
+        return []; // Return an empty array instead of `undefined`
       }
     );
     setQualificationState(qualificationDetailsArray);
-    const companyDetailsArray: JSX.Element[] = Object.entries(formatedData).map(
+    const companyDetailsArray: JSX.Element[] = Object.entries(formatedData).flatMap(
       ([key, value]) => {
         if (key.startsWith("companyName")) {
           return (
@@ -169,10 +167,11 @@ export default function User() {
             />
           );
         }
+        return []; // Return an empty array instead of `undefined`
       }
     );
     setCompanyState(companyDetailsArray);
-    const skillDetailsArray: JSX.Element[] = Object.entries(formatedData).map(
+    const skillDetailsArray: JSX.Element[] = Object.entries(formatedData).flatMap(
       ([key, value]) => {
         if (key.startsWith("skillName")) {
           return (
@@ -201,6 +200,7 @@ export default function User() {
             />
           );
         }
+        return []; // Return an empty array instead of `undefined`
       }
     );
     setSkillState(skillDetailsArray);
@@ -399,39 +399,14 @@ export default function User() {
           );
           setPhdState(phdDetailsArray);
           break;
-        // case "degName":
-        // case "instName":
-        // case "instBoard":
-        // case "instMarks":
-        //   qualificationDetailsArray.push(
-        //     <ResumeTextDetail key={key} keyName={keyField[key]} value={value} />
-        //   );
-        //   setQualificationState(qualificationDetailsArray);
-        //   break;
-        // case "companyName":
-        // case "compPost":
-        // case "joinDate":
-        // case "lastDate":
-        // case "workEx":
-        //   companyDetailsArray.push(
-        //     <ResumeTextDetail key={key} keyName={keyField[key]} value={value} />
-        //   );
-        //   setCompanyState(companyDetailsArray);
-        //   break;
-        // case "skillName":
-        // case "skillSource":
-        // case "skillEx":
-        //   skillDetailsArray.push(
-        //     <ResumeTextDetail key={key} keyName={keyField[key]} value={value} />
-        //   );
-        //   setSkillState(skillDetailsArray);
-        //   break;
       }
     });
 
-    setTextFieldJSX(textFields);
-    // console.log(typeof(phdState));
-    // console.log(phdState);
+    // setTextFieldJSX(textFields);
+    // console.log(qualificationState);
+    // console.log(companyState);
+    // console.log(skillState);
+    // console.log(skillState.length);
   }
 
   function formatDataCorrectly(data: ResumeData): ResumeData {
@@ -460,11 +435,11 @@ export default function User() {
 
   function addDynamicfield(data: ResumeData): Array<string> {
     const qualificationCount: number = data.qualificationField;
-    console.log(`qualificationCount: ${qualificationCount}`);
+    // console.log(`qualificationCount: ${qualificationCount}`);
     const companyCount: number = data.workField;
-    console.log(`companyCount: ${companyCount}`);
+    // console.log(`companyCount: ${companyCount}`);
     const skillCount: number = data.skillField;
-    console.log(`skillCount: ${skillCount}`);
+    // console.log(`skillCount: ${skillCount}`);
     for (let i = 1; i <= qualificationCount; i++) {
       const newQualificationKeys = qualificationDetails.map((item) => item + i);
       keyOrder.push(...newQualificationKeys);
@@ -484,11 +459,11 @@ export default function User() {
   }
 
   return (
-    <main className="mt-5">
-      <div id="resume-data" className="flex flex-col md:flex-row">
+    <main className="mt-5 flex h-[90vh]">
+      <div id="resume-data" className="flex flex-col md:flex-row w-full">
         <div
           id="profilePicDiv"
-          className="basis-1/3 h-[90vh] flex flex-col justify-center items-center"
+          className="basis-1/3 h-full flex flex-col justify-center items-center"
         >
           <Image
             src={profilePic || "/image-profile.jpg"}
@@ -501,7 +476,7 @@ export default function User() {
         </div>
         <div
           id="profileData"
-          className="basis-2/3 overflow-y-scroll scroll-smooth flex flex-col justify-center items-stretch px-12"
+          className="basis-2/3 h-full overflow-y-scroll scroll-smooth flex flex-col px-12"
         >
           {primaryState.length > 0 ? (
             <UserDetailContainer fieldName="Primary Info">
