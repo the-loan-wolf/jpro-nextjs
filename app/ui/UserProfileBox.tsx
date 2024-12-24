@@ -28,8 +28,8 @@ export default function UserProfileBox({userData}: UserProps) {
       <div className="flex flex-col items-center">
         <Image
           src={userData.pic}
-          width={400}
-          height={500}
+          width={300}
+          height={300}
           id="pic"
           alt=""
           className="p-2 rounded-2xl"

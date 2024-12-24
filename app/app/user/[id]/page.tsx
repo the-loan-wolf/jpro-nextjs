@@ -467,8 +467,8 @@ export default function User() {
         >
           <Image
             src={profilePic || "/image-profile.jpg"}
-            width={400}
-            height={500}
+            width={300}
+            height={300}
             alt=""
             className="w-36 rounded-full md:rounded-2xl m-3"
           />
