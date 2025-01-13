@@ -125,7 +125,8 @@ export async function getDocument(): Promise<Resume[]> {
   const documents: Resume[] = [];
   querySnapshot.forEach((doc) => {
     const data = doc.data() as Resume; // Type assertion with dynamic fields
-    documents.push({ id: doc.id, ...data });
+    const { id, ...rest } = data;
+    documents.push({ id: doc.id, ...rest });
   });
 
   return documents;
