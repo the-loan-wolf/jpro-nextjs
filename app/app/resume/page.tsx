@@ -1,4 +1,26 @@
-export default function resume() {
+"use client";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+export default function Resume() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true); // Loading state
+    // this checks if user has already signed in or if not send them to login page
+  useEffect(() => {
+    const loggedInUserId = localStorage.getItem("loggedInUserId");
+    // console.log(loggedInUserId);
+    if (!loggedInUserId) {
+      router.replace("/app/login"); // Redirect if not logged in
+    } else {
+      setIsLoading(false); // Set loading to false once user is authenticated
+    }
+  }, [router]);
+
+  // Show loading or nothing until the authentication check is complete or fetching of document is complete
+  if (isLoading) {
+    return <div>Loading...</div>; // Or just return null to render nothing
+  }
+
   return (
     // <p>enter your resume here!</p>
     <div id="formContainer" className="md:w-1/2 md:mx-auto">
