@@ -8,7 +8,7 @@ import { getDocument } from "../utils/firebase-fn";
 
 export default function App() {
   // const router = useRouter();
-  // const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [isLoading, setIsLoading] = useState(true); // Loading state
   const [userProfiles, setUserProfiles] = useState<JSX.Element[]>([]);
 
   // // this checks if user has already signed in or if not send them to login page
