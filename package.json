@@ -14,7 +14,7 @@
     "clsx": "^2.1.1",
     "firebase": "^10.13.1",
     "lucide-react": "^0.439.0",
-    "next": "15.1.2",
+    "next": "15.1.4",
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^2.5.2",
