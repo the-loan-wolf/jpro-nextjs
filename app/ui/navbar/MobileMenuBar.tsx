@@ -1,8 +1,13 @@
 import Link from "next/link";
-import { useState } from "react";
+import { isLoggedIn, logoutAndRedirect } from "@/app/utils/Utils";
 
-export default function MobileMenuBar({menuToggle, menuState}: {menuToggle: ()=> void, menuState: boolean}) {
-
+export default function MobileMenuBar({
+  menuToggle,
+  menuState,
+}: {
+  menuToggle: () => void;
+  menuState: boolean;
+}) {
   return (
     <div
       id="mobileHamMenu"
@@ -34,10 +39,18 @@ export default function MobileMenuBar({menuToggle, menuState}: {menuToggle: ()=>
         <Link href="/app/resume" onClick={menuToggle}>
           Add Your Resume
         </Link>
-        <Link href="/app/profile">Your Profile</Link>
-        <button id="logout" className="rounded-xl bg-red-600 py-2 px-5">
-          Log Out?
-        </button>
+        {isLoggedIn() && (
+          <>
+            <Link href="/app/profile" className="hover:text-red-400">
+              <p>Your Profile</p>
+            </Link>
+            <div id="LogoutBtn">
+              <button className="hover:text-red-400" onClick={logoutAndRedirect}>
+                Log Out?
+              </button>
+            </div>
+          </>
+        )}
       </nav>
     </div>
   );

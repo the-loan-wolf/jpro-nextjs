@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
-import { userLogOut } from "@/app/utils/firebase-fn";
+import { isLoggedIn, logoutAndRedirect } from "@/app/utils/Utils";
 
 export default function FloatingProfileBox() {
   const [floatingBoxState, setFloatingBoxState] = useState(false);
@@ -11,14 +10,7 @@ export default function FloatingProfileBox() {
   const hideFloatingBox = () => {
     setFloatingBoxState(false);
   };
-  const router = useRouter();
-  const logoutFn = async ()=> {
-    const value = await userLogOut();
-    if (value === "success"){
-      localStorage.removeItem("loggedInUserId");
-      router.push("/app/login");
-    }
-  }
+  
   return (
     <div
       id="profile"
@@ -39,14 +31,18 @@ export default function FloatingProfileBox() {
         <Link href="/app/resume" className="hover:text-red-400">
           <p>Add Your Resume</p>
         </Link>
-        <Link href="/app/profile" className="hover:text-red-400">
-          <p>Your Profile</p>
-        </Link>
-        <div id="LogoutBtn">
-          <button className="hover:text-red-400" onClick={logoutFn}>
-            Log Out?
-          </button>
-        </div>
+        {isLoggedIn() && (
+          <>
+            <Link href="/app/profile" className="hover:text-red-400">
+              <p>Your Profile</p>
+            </Link>
+            <div id="LogoutBtn">
+              <button className="hover:text-red-400" onClick={logoutAndRedirect}>
+                Log Out?
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

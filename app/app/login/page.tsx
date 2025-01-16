@@ -14,6 +14,7 @@ import PasswordField from "@/app/ui/login/PasswordField";
 import SubmitBtn from "@/app/ui/login/SubmitBtn";
 import RecoverBtn from "@/app/ui/login/RecoveryBtn";
 import NameField from "@/app/ui/login/NameField";
+import { isLoggedIn } from "@/app/utils/Utils";
 
 export default function Login() {
   const [formStatus, setFormStatus] = useState("signIn");
@@ -25,7 +26,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(true); // Loading state
 
   useEffect(() => {
-    const loggedInUserId = localStorage.getItem("loggedInUserId");
+    const loggedInUserId = isLoggedIn();
     if (loggedInUserId) {
       router.push("/app"); // Redirect if not logged in
     } else {
