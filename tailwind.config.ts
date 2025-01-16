@@ -62,6 +62,7 @@ const config: Config = {
       fontFamily: {
         ebGaramond: ["EB Garamond", "ui-serif", "Georgia"],
         poppins: ["Poppins", "sans-serif"],
+        inter: ["Inter", "sans-serif"]
       },
     },
   },
