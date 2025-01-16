@@ -4,7 +4,10 @@ import { redirect } from "next/navigation";
 import { userLogOut } from "@/app/utils/firebase-fn";
 
 export function isLoggedIn(): boolean {
-  const loggedInUserId = localStorage.getItem("loggedInUserId");
+  let loggedInUserId;
+  if (typeof window !== "undefined") {
+    loggedInUserId = localStorage.getItem("loggedInUserId");
+  }
   if (loggedInUserId) return true;
   else return false;
 }
