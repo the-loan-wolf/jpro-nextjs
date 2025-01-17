@@ -13,9 +13,14 @@ export function isLoggedIn(): boolean {
 }
 
 export async function logoutAndRedirect(): Promise<void> {
-  const value = await userLogOut();
-  if (value === "success") {
-    localStorage.removeItem("loggedInUserId");
-    redirect("/app/login");
+  try{
+    const value = await userLogOut();
+    if (value === "success" && typeof window !== "undefined") {
+      console.log("logged out successfull")
+      localStorage.removeItem("loggedInUserId");
+      redirect("/app/login");
+    }
+  }catch(error){
+    console.error(error);
   }
 }

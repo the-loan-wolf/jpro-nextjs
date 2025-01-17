@@ -26,7 +26,7 @@ export default function Login() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true); // Loading state
   const [message, setMessage] = useState("");
-  
+
   useEffect(() => {
     const loggedInUserId = isLoggedIn();
     if (loggedInUserId) {
@@ -45,19 +45,23 @@ export default function Login() {
     setFormStatus("signUp");
   };
   const toggleSignIn = () => {
+    setMessage("");
     setFormStatus("signIn");
   };
   const toggleRecovery = () => {
+    setMessage("");
     setFormStatus("recovery");
   };
   const signInBtn = async () => {
     try {
       const uid = await signInToApp(email, password);
+      setMessage("Signing In Successfull ✔️");
       localStorage.setItem("loggedInUserId", uid);
       // console.log(uid);
       router.push("/app");
-    } catch {
-      console.log("error while signing in");
+    } catch (e) {
+      console.error("error while signing in:", e);
+      setMessage("Signing Unsuccessfull! ❌");
     }
   };
 
@@ -66,20 +70,24 @@ export default function Login() {
     signInBtn();
   };
 
-  function handleSignUp(e: React.FormEvent){
+  function handleSignUp(e: React.FormEvent) {
     e.preventDefault();
-    signUpBtn(fname,lname, email, password);
+    signUpBtn(fname, lname, email, password);
   }
 
-  async function signUpBtn(firstName: string, lastName: string, email: string, password: string){
-    try{
+  async function signUpBtn(
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ) {
+    try {
       await signUp(firstName, lastName, email, password);
-      setMessage("Sign Up successfull! ✔️ kindly login again.")
-      setTimeout(()=> setMessage(""), 5000)
-    } catch(e) {
+      setMessage("Sign Up successfull! ✔️ kindly login again.");
+      setTimeout(() => toggleSignIn(), 5000);
+    } catch (e) {
       console.error(e);
-      setMessage("Sign Up Unsuccessfull! ❌.")
-
+      setMessage("Sign Up Unsuccessfull! ❌");
     }
   }
   return (
@@ -106,7 +114,7 @@ export default function Login() {
       <FormContainer formStatus={formStatus} targetStatus="signIn" id="signIn">
         <Header heading="Sign In" />
         <form method="post" action="" className="my-0 mx-8">
-          <div id="signInMessage" className="messageDiv hidden"></div>
+          <MessageBox message={message} />
           <EmailField setEmail={setEmail} email={email} />
           <PasswordField setPassword={setPassword} password={password} />
           <RecoverBtn toggleBtn={toggleRecovery} />
@@ -125,7 +133,7 @@ export default function Login() {
       >
         <Header heading="Account Recover" />
         <form method="post" action="" className="my-0 mx-8">
-          <div id="recoveryMessage" className="messageDiv hidden"></div>
+          <MessageBox message={message} />
           <EmailField setEmail={setEmail} email={email} />
           <SubmitBtn whichSubmitBtn="Send recovery Email" />
         </form>
