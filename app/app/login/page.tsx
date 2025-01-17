@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import clsx from "clsx";
-import { signInToApp } from "@/app/utils/firebase-fn";
+import { signInToApp, signUp } from "@/app/utils/firebase-fn";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/app/ui/login/Header";
@@ -63,6 +63,19 @@ export default function Login() {
     e.preventDefault();
     signInBtn();
   };
+
+  function handleSignUp(e: React.FormEvent){
+    e.preventDefault();
+    signUpBtn(fname,lname, email, password);
+  }
+
+  async function signUpBtn(firstName: string, lastName: string, email: string, password: string){
+    try{
+      signUp(firstName, lastName, email, password);
+    } catch {
+      console.log("error while signing up");
+    }
+  }
   return (
     <>
       {/* Sign Up form */}
@@ -76,7 +89,7 @@ export default function Login() {
           <EmailField setEmail={setEmail} email={email} />
           <PasswordField setPassword={setPassword} password={password} />
           <RecoverBtn toggleBtn={toggleRecovery} />
-          <SubmitBtn whichSubmitBtn="Sign Up" />
+          <SubmitBtn whichSubmitBtn="Sign Up" clickHandler={handleSignUp} />
         </form>
         <GoogleLogin />
         <LoginToggle toggleHandler={toggleSignIn} LoginType="Sign In" />

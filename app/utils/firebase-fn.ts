@@ -20,6 +20,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { firebaseConfig } from "./firebase-config";
+import { redirect, router } from "next/navigation";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -37,38 +38,41 @@ const provider = new GoogleAuthProvider();
 //   }, 5000);
 // }
 
-// export default function signUp(email: string, password: string): void {
-//   createUserWithEmailAndPassword(auth, email, password)
-//     .then((userCredential) => {
-//       const user = userCredential.user;
-//       const userData = {
-//         email: email,
-//         firstName: firstName,
-//         lastName: lastName,
-//       };
-//       showMessage("Account Created Successfully", "signUpMessage");
-//       const docRef = doc(db, "users", user.uid);
-//       setDoc(docRef, userData)
-//         .then(() => {
-//           window.location.href = "index.html";
-//         })
-//         .catch((error) => {
-//           console.error("error writing document", error);
-//         });
-//       sendEmailVerification(auth.currentUser).then(function () {
-//         // Email Verification sent!
-//         alert("Email Verification Sent! Please verify your email!");
-//       });
-//     })
-//     .catch((error) => {
-//       const errorCode = error.code;
-//       if (errorCode == "auth/email-already-in-use") {
-//         showMessage("Email Address Already Exists !!!", "signUpMessage");
-//       } else {
-//         showMessage("unable to create User", "signUpMessage");
-//       }
-//     });
-// }
+export async function signUp(
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string
+): Promise<void> {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    const userData = {
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+    };
+
+    console.log("User signed up:", user);
+
+    const docRef = doc(db, "users", user.uid);
+    await setDoc(docRef, userData);
+
+    if (user) {
+      await sendEmailVerification(user);
+      console.log("Email Verification Sent! Please verify your email!");
+    }
+
+    // Ensure redirect happens after Firestore write completes
+    redirect("/app");
+  } catch (error) {
+    console.error("Error during sign-up:", error);
+  }
+}
 
 export async function signInToApp(
   email: string,
@@ -109,7 +113,6 @@ interface Resume {
   id: string;
   [key: string]: any; // Allows dynamic fields
 }
-
 
 export async function getDocument(): Promise<Resume[]> {
   // Reference to the collection
