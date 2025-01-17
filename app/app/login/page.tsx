@@ -15,6 +15,7 @@ import SubmitBtn from "@/app/ui/login/SubmitBtn";
 import RecoverBtn from "@/app/ui/login/RecoveryBtn";
 import NameField from "@/app/ui/login/NameField";
 import { isLoggedIn } from "@/app/utils/Utils";
+import MessageBox from "@/app/ui/MessageBox";
 
 export default function Login() {
   const [formStatus, setFormStatus] = useState("signIn");
@@ -24,7 +25,8 @@ export default function Login() {
   const [lname, setLname] = useState("");
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true); // Loading state
-
+  const [message, setMessage] = useState("");
+  
   useEffect(() => {
     const loggedInUserId = isLoggedIn();
     if (loggedInUserId) {
@@ -71,9 +73,13 @@ export default function Login() {
 
   async function signUpBtn(firstName: string, lastName: string, email: string, password: string){
     try{
-      signUp(firstName, lastName, email, password);
-    } catch {
-      console.log("error while signing up");
+      await signUp(firstName, lastName, email, password);
+      setMessage("Sign Up successfull! ✔️ kindly login again.")
+      setTimeout(()=> setMessage(""), 5000)
+    } catch(e) {
+      console.error(e);
+      setMessage("Sign Up Unsuccessfull! ❌.")
+
     }
   }
   return (
@@ -83,7 +89,7 @@ export default function Login() {
       <FormContainer formStatus={formStatus} targetStatus="signUp" id="signup">
         <Header heading="Register" />
         <form method="post" action="" className="my-0 mx-8">
-          <div id="signUpMessage" className="messageDiv hidden"></div>
+          <MessageBox message={message} />
           <NameField setName={setFname} value={fname} name="First Name" />
           <NameField setName={setLname} value={lname} name="Last Name" />
           <EmailField setEmail={setEmail} email={email} />

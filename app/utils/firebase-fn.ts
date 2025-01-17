@@ -68,9 +68,9 @@ export async function signUp(
     }
 
     // Ensure redirect happens after Firestore write completes
-    redirect("/app");
+    // redirect("/app");
   } catch (error) {
-    console.error("Error during sign-up:", error);
+    throw error;
   }
 }
 
