@@ -20,7 +20,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { firebaseConfig } from "./firebase-config";
-import { redirect, router } from "next/navigation";
+import { redirect } from "next/navigation";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
