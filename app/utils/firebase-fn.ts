@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, FirebaseError } from "firebase/app";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -152,12 +152,14 @@ export async function sendPasswordReset(email: string) {
     await sendPasswordResetEmail(auth, email);
     console.log("Password Reset Email Sent!");
   } catch (error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    if (errorCode == "auth/invalid-email") {
-      console.error(errorMessage);
-    } else if (errorCode == "auth/user-not-found") {
-      console.error(errorMessage);
+    if (error instanceof FirebaseError) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      if (errorCode == "auth/invalid-email") {
+        console.error(errorMessage);
+      } else if (errorCode == "auth/user-not-found") {
+        console.error(errorMessage);
+      }
     }
     // console.error(error);
   }
