@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import clsx from "clsx";
-import { signInToApp, signUp } from "@/app/utils/firebase-fn";
+import {
+  signInToApp,
+  signUp,
+  sendPasswordReset,
+} from "@/app/utils/firebase-fn";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/app/ui/login/Header";
@@ -90,11 +94,22 @@ export default function Login() {
       setMessage("Sign Up Unsuccessfull! ❌");
     }
   }
+
+  async function handleRecovery(e: React.FormEvent) {
+    try {
+      e.preventDefault();
+      sendPasswordReset(email);
+      setMessage("Password Reset Email Sent!");
+    } catch(error) {
+      setMessage("Error! The Email couldn't be send");
+    }
+  }
+
   return (
     <>
       {/* Sign Up form */}
 
-      <FormContainer formStatus={formStatus} targetStatus="signUp" id="signup">
+      <FormContainer formStatus={formStatus} targetStatus="signUp">
         <Header heading="Register" />
         <form method="post" action="" className="my-0 mx-8">
           <MessageBox message={message} />
@@ -111,7 +126,7 @@ export default function Login() {
 
       {/* Sign In form */}
 
-      <FormContainer formStatus={formStatus} targetStatus="signIn" id="signIn">
+      <FormContainer formStatus={formStatus} targetStatus="signIn">
         <Header heading="Sign In" />
         <form method="post" action="" className="my-0 mx-8">
           <MessageBox message={message} />
@@ -126,16 +141,15 @@ export default function Login() {
 
       {/** recovery  form */}
 
-      <FormContainer
-        formStatus={formStatus}
-        targetStatus="recovery"
-        id="recovery"
-      >
+      <FormContainer formStatus={formStatus} targetStatus="recovery">
         <Header heading="Account Recover" />
         <form method="post" action="" className="my-0 mx-8">
           <MessageBox message={message} />
           <EmailField setEmail={setEmail} email={email} />
-          <SubmitBtn whichSubmitBtn="Send recovery Email" />
+          <SubmitBtn
+            whichSubmitBtn="Send recovery Email"
+            clickHandler={handleRecovery}
+          />
         </form>
         <GoogleLogin />
         <LoginToggle toggleHandler={toggleSignIn} LoginType="Sign In" />

@@ -28,16 +28,6 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-// function showMessage(message, divId) {
-//   var messageDiv = document.getElementById(divId);
-//   messageDiv.style.display = "block";
-//   messageDiv.innerHTML = message;
-//   messageDiv.style.opacity = 1;
-//   setTimeout(function () {
-//     messageDiv.style.opacity = 0;
-//   }, 5000);
-// }
-
 export async function signUp(
   firstName: string,
   lastName: string,
@@ -155,4 +145,20 @@ export async function getUserDetails(uid: string): Promise<firestoreDoc> {
   const docRef = doc(db, "resumes", uid);
   const docSnap = await getDoc(docRef);
   return docSnap.data() as firestoreDoc;
+}
+
+export async function sendPasswordReset(email: string) {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    console.log("Password Reset Email Sent!");
+  } catch (error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    if (errorCode == "auth/invalid-email") {
+      console.error(errorMessage);
+    } else if (errorCode == "auth/user-not-found") {
+      console.error(errorMessage);
+    }
+    // console.error(error);
+  }
 }
