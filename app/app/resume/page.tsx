@@ -1,5 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Resume() {
@@ -36,9 +37,11 @@ export default function Resume() {
         {/* <!-- ---------------------- Personal Info -------------------------------------------------------------- --> */}
         {/* <!-- upload profile pic --> */}
         <div className="flex flex-col md:flex-row items-center justify-center">
-          <img
+          <Image
             id="profilePicEle"
             src="/image-profile.jpg"
+            width={300}
+            height={300}
             alt=""
             className="w-36 rounded-full md:rounded-2xl m-3"
           />
@@ -131,7 +134,7 @@ export default function Resume() {
 
           <div className="py-3 flex justify-between">
             <label htmlFor="salary">
-              How Much money you want to work htmlFor?
+              How much money you want to work for?
             </label>
             <input
               type="text"
