@@ -1,12 +1,14 @@
 "use client";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { useEffect, useState } from "react";
+import Header from "@/app/ui/resumeEntry/Header";
+import ProfilePicUpload from "@/app/ui/resumeEntry/ProfilePicUpload";
+import InputField from "@/app/ui/resumeEntry/InputField";
 
 export default function Resume() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true); // Loading state
-    // this checks if user has already signed in or if not send them to login page
+  // this checks if user has already signed in or if not send them to login page
   useEffect(() => {
     const loggedInUserId = localStorage.getItem("loggedInUserId");
     // console.log(loggedInUserId);
@@ -25,9 +27,7 @@ export default function Resume() {
   return (
     // <p>enter your resume here!</p>
     <div id="formContainer" className="md:w-1/2 md:mx-auto">
-      <h1 className="font-ebGaramond text-3xl font-bold text-white p-5">
-        Add your resume here
-      </h1>
+      <Header Header="Add your resume here" />
       {/* <!-- ---------------------- FORM-------------------------------------------------------------- --> */}
       <form
         action="post"
@@ -35,57 +35,12 @@ export default function Resume() {
         id="myForm"
       >
         {/* <!-- ---------------------- Personal Info -------------------------------------------------------------- --> */}
-        {/* <!-- upload profile pic --> */}
-        <div className="flex flex-col md:flex-row items-center justify-center">
-          <Image
-            id="profilePicEle"
-            src="/image-profile.jpg"
-            width={300}
-            height={300}
-            alt=""
-            className="w-36 rounded-full md:rounded-2xl m-3"
-          />
-          <div className="flex flex-col">
-            <input type="file" id="profilePic" />
-            <button
-              id="profilePicBtn"
-              className="p-3 bg-lime-200 m-3 rounded-xl hover:-translate-y-1 hover:scale-110 hover:bg-lime-300 transition ease-in-out"
-            >
-              Upload Picture
-            </button>
-          </div>
-        </div>
+        <ProfilePicUpload />
         <div id="personalInfo" className="border-b-2 p-3">
           <div className="py-3">
-            <div className="py-1 flex justify-between">
-              <label htmlFor="resumeFName">First Name</label>
-              <input
-                type="text"
-                id="resumeFName"
-                name="resumeFName"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-
-            <div className="py-1 flex justify-between">
-              <label htmlFor="resumeMName">Middle Name</label>
-              <input
-                type="text"
-                id="resumeMName"
-                name="resumeMName"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-
-            <div className="py-1 flex justify-between">
-              <label htmlFor="resumeLName">Last Name</label>
-              <input
-                type="text"
-                id="resumeLName"
-                name="resumeLName"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
+            <InputField id="resumeFName" labelName="First Name" />
+            <InputField id="resumeMName" labelName="Middle Name" />
+            <InputField id="resumeLName" labelName="Last Name" />
           </div>
 
           <div className="py-3 flex justify-between">
@@ -112,37 +67,12 @@ export default function Resume() {
             />
           </div>
 
-          <div className="py-3 flex justify-between">
-            <label htmlFor="resumeFatherName">Father Name</label>
-            <input
-              type="text"
-              id="resumeFatherName"
-              name="resumeFatherName"
-              className="border rounded px-2 focus:outline-none"
-            />
-          </div>
-
-          <div className="py-3 flex justify-between">
-            <label htmlFor="resumeMotherName">Mother Name</label>
-            <input
-              type="text"
-              id="resumeMotherName"
-              name="resumeMotherName"
-              className="border rounded px-2 focus:outline-none"
-            />
-          </div>
-
-          <div className="py-3 flex justify-between">
-            <label htmlFor="salary">
-              How much money you want to work for?
-            </label>
-            <input
-              type="text"
-              id="salary"
-              name="salary"
-              className="border rounded px-2 focus:outline-none"
-            />
-          </div>
+          <InputField id="resumeFatherName" labelName="Father Name" />
+          <InputField id="resumeMotherName" labelName="Mother Name" />
+          <InputField
+            id="salary"
+            labelName="How much money you want to work for?"
+          />
         </div>
         {/* <!-- ----------------- Address Info ----------------------------------------------------- --> */}
         <div id="addressInfo" className="border-b-2 p-3">
@@ -150,45 +80,10 @@ export default function Resume() {
             <p>Current Address</p>
           </div>
           <div id="currentAddress" className="py-3 border-b-2">
-            <div className="py-3 flex justify-between">
-              <label htmlFor="resumeCountry">Country</label>
-              <input
-                type="text"
-                id="resumeCountry"
-                name="resumeCountry"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-
-            <div className="py-3 flex justify-between">
-              <label htmlFor="resumeState">State</label>
-              <input
-                type="text"
-                id="resumeState"
-                name="resumeState"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-
-            <div className="py-3 flex justify-between">
-              <label htmlFor="resumeDistrict">District</label>
-              <input
-                type="text"
-                id="resumeDistrict"
-                name="resumeDistrict"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-
-            <div className="py-3 flex justify-between">
-              <label htmlFor="resumePlace">City/Village</label>
-              <input
-                type="text"
-                id="resumePlace"
-                name="resumePlace"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
+            <InputField id="resumeCountry" labelName="Country" />
+            <InputField id="resumeState" labelName="State" />
+            <InputField id="resumeDistrict" labelName="District" />
+            <InputField id="resumePlace" labelName="City/Village" />
 
             <div className="py-3 flex justify-between">
               <label htmlFor="resumePin">Pin Code</label>
@@ -203,15 +98,7 @@ export default function Resume() {
               />
             </div>
 
-            <div className="py-3 flex justify-between">
-              <label htmlFor="resumeAddr">Remaining Address</label>
-              <input
-                type="text"
-                id="resumeAddr"
-                name="resumeAddr"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
+            <InputField id="resumeAddr" labelName="Remaining Address" />
           </div>
           <div id="parmanentAddressPara" className="py-3">
             <p>Parmanent Address</p>
@@ -221,45 +108,10 @@ export default function Resume() {
             <label htmlFor="sameAddress">Same as Current Address?</label>
           </div>
           <div id="parmanentAddress" className="py-3">
-            <div className="py-3 flex justify-between">
-              <label htmlFor="resumePCountry">Country</label>
-              <input
-                type="text"
-                id="resumePCountry"
-                name="resumePCountry"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-
-            <div className="py-3 flex justify-between">
-              <label htmlFor="resumePState">State</label>
-              <input
-                type="text"
-                id="resumePState"
-                name="resumePState"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-
-            <div className="py-3 flex justify-between">
-              <label htmlFor="resumePDistrict">District</label>
-              <input
-                type="text"
-                id="resumePDistrict"
-                name="resumePDistrict"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-
-            <div className="py-3 flex justify-between">
-              <label htmlFor="resumePPlace">City/Village</label>
-              <input
-                type="text"
-                id="resumePPlace"
-                name="resumePPlace"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
+            <InputField id="resumePCountry" labelName="Country" />
+            <InputField id="resumePState" labelName="State" />
+            <InputField id="resumePDistrict" labelName="District" />
+            <InputField id="resumePPlace" labelName="City/Village" />
 
             <div className="py-3 flex justify-between">
               <label htmlFor="resumePPin">Pin Code</label>
@@ -274,15 +126,7 @@ export default function Resume() {
               />
             </div>
 
-            <div className="py-3 flex justify-between">
-              <label htmlFor="resumePAddr">Remaining Address</label>
-              <input
-                type="text"
-                id="resumePAddr"
-                name="resumePAddr"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
+            <InputField id="resumePAddr" labelName="Remaining Address" />
           </div>
         </div>
         {/* <!-- ----------------- Educational Info ----------------------------------------------------- --> */}
@@ -302,33 +146,12 @@ export default function Resume() {
             <div className="py-3">
               <p>Matric / 10th Details</p>
             </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="matricInstName">Institute Name</label>
-              <input
-                type="text"
-                id="matricInstName"
-                name="matricInstName"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="matricBoard">Board</label>
-              <input
-                type="text"
-                id="matricBoard"
-                name="matricBoard"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="matricMarks">Marks / Percentage Obtained</label>
-              <input
-                type="text"
-                id="matricMarks"
-                name="matricMarks"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
+            <InputField id="matricInstName" labelName="Institute Name" />
+            <InputField id="matricBoard" labelName="Board" />
+            <InputField
+              id="matricMarks"
+              labelName="Marks / Percentage Obtained"
+            />
           </div>
           <div>
             <input type="checkbox" id="enableInter" name="enableInter" />
@@ -342,33 +165,12 @@ export default function Resume() {
             <div className="py-3">
               <p>Inter / 12th Details</p>
             </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="interInstName">Institute Name</label>
-              <input
-                type="text"
-                id="interInstName"
-                name="interInstName"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="interBoard">Board</label>
-              <input
-                type="text"
-                id="interBoard"
-                name="interBoard"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="interMarks">Marks / Percentage Obtained</label>
-              <input
-                type="text"
-                id="interMarks"
-                name="interMarks"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
+            <InputField id="interInstName" labelName="Institute Name" />
+            <InputField id="interBoard" labelName="Board" />
+            <InputField
+              id="interMarks"
+              labelName="Marks / Percentage Obtained"
+            />
           </div>
           <div>
             <input type="checkbox" id="enableUG" name="enableUG" />
@@ -382,33 +184,9 @@ export default function Resume() {
             <div className="py-3">
               <p>UG Details</p>
             </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="ugInstName">Institute Name</label>
-              <input
-                type="text"
-                id="ugInstName"
-                name="ugInstName"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="ugBoard">Board</label>
-              <input
-                type="text"
-                id="ugBoard"
-                name="ugBoard"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="ugMarks">Marks / Percentage Obtained</label>
-              <input
-                type="text"
-                id="ugMarks"
-                name="ugMarks"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
+            <InputField id="ugInstName" labelName="Institute Name" />
+            <InputField id="ugBoard" labelName="Board" />
+            <InputField id="ugMarks" labelName="Marks / Percentage Obtained" />
           </div>
           <div>
             <input type="checkbox" id="enablePG" name="enablePG" />
@@ -422,33 +200,9 @@ export default function Resume() {
             <div className="py-3">
               <p>PG Details</p>
             </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="pgInstName">Institute Name</label>
-              <input
-                type="text"
-                id="pgInstName"
-                name="pgInstName"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="pgBoard">Board</label>
-              <input
-                type="text"
-                id="pgBoard"
-                name="pgBoard"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="pgMarks">Marks / Percentage Obtained</label>
-              <input
-                type="text"
-                id="pgMarks"
-                name="pgMarks"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
+            <InputField id="pgInstName" labelName="Institute Name" />
+            <InputField id="pgBoard" labelName="Board" />
+            <InputField id="pgMarks" labelName="Marks / Percentage Obtained" />
           </div>
           <div>
             <input type="checkbox" id="enablePHD" name="enablePHD" />
@@ -458,33 +212,9 @@ export default function Resume() {
             <div className="py-3">
               <p>PhD Details</p>
             </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="phdInstName">Institute Name</label>
-              <input
-                type="text"
-                id="phdInstName"
-                name="phdInstName"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="phdBoard">Board</label>
-              <input
-                type="text"
-                id="phdBoard"
-                name="phdBoard"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="phdMarks">Marks / Percentage Obtained</label>
-              <input
-                type="text"
-                id="phdMarks"
-                name="phdMarks"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
+            <InputField id="phdInstName" labelName="Institute Name" />
+            <InputField id="phdBoard" labelName="Board" />
+            <InputField id="phdMarks" labelName="Marks / Percentage Obtained" />
           </div>
           <button
             className="p-3 bg-lime-200 m-3 rounded-xl hover:-translate-y-1 hover:scale-110 hover:bg-lime-300 transition ease-in-out"
@@ -497,24 +227,8 @@ export default function Resume() {
         {/* <!-- ----------------- Work Info ----------------------------------------------------- --> */}
         <div id="workInfo" className="py-3 border-b-2">
           <div id="workInfoChild">
-            <div className="py-3 flex justify-between">
-              <label htmlFor="companyName">Company Name</label>
-              <input
-                type="text"
-                id="companyName"
-                name="companyName"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="compPost">Post</label>
-              <input
-                type="text"
-                id="compPost"
-                name="compPost"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
+            <InputField id="companyName" labelName="Company Name" />
+            <InputField id="companyPost" labelName="Post" />
             <div className="py-3 flex justify-between">
               <label htmlFor="joinDate">Joining Date</label>
               <input
@@ -555,33 +269,12 @@ export default function Resume() {
         {/* <!-- ----------------- Skill Info ----------------------------------------------------- --> */}
         <div id="skillsInfo" className="py-3 border-b-2">
           <div id="skillInfoChild">
-            <div className="py-3 flex justify-between">
-              <label htmlFor="skillName">Skill Name</label>
-              <input
-                type="text"
-                id="skillName"
-                name="skillName"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="skillSource">Where you learned it from</label>
-              <input
-                type="text"
-                id="skillSource"
-                name="skillSource"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
-            <div className="py-3 flex justify-between">
-              <label htmlFor="skillEx">Experience Time</label>
-              <input
-                type="text"
-                id="skillEx"
-                name="skillEx"
-                className="border rounded px-2 focus:outline-none"
-              />
-            </div>
+            <InputField id="skillName" labelName="Skill Name" />
+            <InputField
+              id="skillSource"
+              labelName="Where you learned it from"
+            />
+            <InputField id="skillEx" labelName="Experience Time" />
           </div>
           <button
             id="skillBtn"
