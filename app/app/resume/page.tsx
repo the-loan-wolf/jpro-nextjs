@@ -20,9 +20,9 @@ export default function Resume() {
   }, [router]);
 
   // Show loading or nothing until the authentication check is complete or fetching of document is complete
-  if (isLoading) {
-    return <div>Loading...</div>; // Or just return null to render nothing
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>; // Or just return null to render nothing
+  // }
 
   return (
     // <p>enter your resume here!</p>

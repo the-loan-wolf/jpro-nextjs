@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import UserProfileBox from "../ui/UserProfileBox";
 import { getDocument } from "../utils/firebase-fn";
 
-
 export default function App() {
   // const router = useRouter();
   const [isLoading, setIsLoading] = useState(true); // Loading state
@@ -33,7 +32,7 @@ export default function App() {
           userData={{
             uid: document.id,
             pic: document.profilePicEle,
-            name: document.resumeFName + ' ' + document.resumeLName,
+            name: document.resumeFName + " " + document.resumeLName,
             occupation: document.compPost,
             salary: document.salary,
           }}
@@ -45,14 +44,18 @@ export default function App() {
   }, []);
 
   // Show loading or nothing until the authentication check is complete or fetching of document is complete
-  // if (isLoading) {
-  //   return <div>Loading...</div>; // Or just return null to render nothing
-  // }
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
 
   return (
     <>
       {/* <p>Our app homepage</p> */}
-      <main className="mt-5 flex justify-center ">
+      <main className="mt-5 flex justify-center h-screen">
         <div
           id="user-container"
           className="flex justify-evenly flex-wrap gap-4 max-w-5xl"
