@@ -1,8 +1,7 @@
 import ProfilePicUpload from "@/app/ui/resumeEntry/ProfilePicUpload";
 import InputField from "@/app/ui/resumeEntry/InputField";
 
-type Props = {};
-const PersonalInfo = (props: Props) => {
+const PersonalInfo = () => {
   return (
     <>
       <ProfilePicUpload />
