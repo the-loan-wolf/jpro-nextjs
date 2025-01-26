@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Header from "@/app/ui/resumeEntry/Header";
 import PersonalInfo from "@/app/ui/resumeEntry/PersonalInfo";
 import AddressInfo from "@/app/ui/resumeEntry/AddressInfo";
@@ -23,14 +23,23 @@ export default function Resume() {
     }
   }, [router]);
 
+  function formHandler(e: React.FormEvent<HTMLFormElement>){
+    e.preventDefault();
+    console.log("submit button get clicked")
+    const formData = new FormData(e.currentTarget);
+    console.log(formData);
+
+  }
+
+  
+
   return (
-    <div id="formContainer" className="md:w-1/2 md:mx-auto">
+    <div className="md:w-1/2 md:mx-auto">
       <Header Header="Add your resume here" />
-      {/* <!-- ---------------------- FORM-------------------------------------------------------------- --> */}
       <form
-        action="post"
+      action="#"
         className="py-5 px-2 mb-5 md:border-2 md:rounded-xl font-poppins bg-white text-slate-900"
-        id="myForm"
+        onSubmit={formHandler}
       >
         <PersonalInfo />
         <AddressInfo />

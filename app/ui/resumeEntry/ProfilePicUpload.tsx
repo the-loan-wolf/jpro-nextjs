@@ -13,11 +13,11 @@ const ProfilePicUpload = () => {
         />
         <div className="flex flex-col">
           <input type="file" id="profilePic" />
-          <button
+          {/* <button
             className="p-3 bg-lime-200 m-3 rounded-xl hover:-translate-y-1 hover:scale-110 hover:bg-lime-300 transition ease-in-out"
           >
             Upload Picture
-          </button>
+          </button> */}
         </div>
       </div>
     </>
