@@ -1,4 +1,5 @@
 import ButtonAddField from "./ButtonAddField";
+import CheckBoxEducation from "./CheckBoxEducation";
 import InputField from "./InputField";
 
 const EducationalInfo = () => {
@@ -7,10 +8,7 @@ const EducationalInfo = () => {
       <div>
         <p>Educational</p>
       </div>
-      <div>
-        <input type="checkbox" id="enableMatric" name="enableMatric" />
-        <label htmlFor="enableMatric">Add Matric / 10th Details</label>
-      </div>
+      <CheckBoxEducation id="enableMatric" />
       <div
         id="matricDiv"
         className="py-3 border-b-2"
@@ -23,10 +21,7 @@ const EducationalInfo = () => {
         <InputField id="matricBoard" labelName="Board" />
         <InputField id="matricMarks" labelName="Marks / Percentage Obtained" />
       </div>
-      <div>
-        <input type="checkbox" id="enableInter" name="enableInter" />
-        <label htmlFor="enableInter">Add Inter / 12th Details</label>
-      </div>
+      <CheckBoxEducation id="enableInter" />
       <div
         id="interDiv"
         className="py-3 border-b-2"
@@ -39,10 +34,7 @@ const EducationalInfo = () => {
         <InputField id="interBoard" labelName="Board" />
         <InputField id="interMarks" labelName="Marks / Percentage Obtained" />
       </div>
-      <div>
-        <input type="checkbox" id="enableUG" name="enableUG" />
-        <label htmlFor="enableUG">Add Undergraduate Details</label>
-      </div>
+      <CheckBoxEducation id="enableUG" />
       <div id="ugDiv" className="py-3 border-b-2" style={{ display: "none" }}>
         <div className="py-3">
           <p>UG Details</p>
@@ -51,10 +43,7 @@ const EducationalInfo = () => {
         <InputField id="ugBoard" labelName="Board" />
         <InputField id="ugMarks" labelName="Marks / Percentage Obtained" />
       </div>
-      <div>
-        <input type="checkbox" id="enablePG" name="enablePG" />
-        <label htmlFor="enablePG">Add Postgraduate Details</label>
-      </div>
+      <CheckBoxEducation id="enablePG" />
       <div id="pgDiv" className="py-3 border-b-2" style={{ display: "none" }}>
         <div className="py-3">
           <p>PG Details</p>
@@ -63,10 +52,7 @@ const EducationalInfo = () => {
         <InputField id="pgBoard" labelName="Board" />
         <InputField id="pgMarks" labelName="Marks / Percentage Obtained" />
       </div>
-      <div>
-        <input type="checkbox" id="enablePHD" name="enablePHD" />
-        <label htmlFor="enablePHD">Add PhD Details</label>
-      </div>
+      <CheckBoxEducation id="enablePHD" />
       <div id="phdDiv" className="py-3" style={{ display: "none" }}>
         <div className="py-3">
           <p>PhD Details</p>

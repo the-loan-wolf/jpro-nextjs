@@ -3,7 +3,7 @@ type Props = {
   id: string;
 };
 export default function ButtonAddField({ clickHandler, id }: Props) {
-    let buttonText = null;
+  let buttonText = null;
   if (id === "skillBtn") {
     buttonText = "Add more Skill";
   } else if (id === "workBtn") {
