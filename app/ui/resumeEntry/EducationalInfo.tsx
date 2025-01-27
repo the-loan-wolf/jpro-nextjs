@@ -1,3 +1,4 @@
+import ButtonAddField from "./ButtonAddField";
 import InputField from "./InputField";
 
 const EducationalInfo = () => {
@@ -74,13 +75,7 @@ const EducationalInfo = () => {
         <InputField id="phdBoard" labelName="Board" />
         <InputField id="phdMarks" labelName="Marks / Percentage Obtained" />
       </div>
-      <button
-        className="p-3 bg-lime-200 m-3 rounded-xl hover:-translate-y-1 hover:scale-110 hover:bg-lime-300 transition ease-in-out"
-        id="addQualificationBtn"
-        type="button"
-      >
-        Add any other Qualification
-      </button>
+      <ButtonAddField id="qualificationBtn" />
     </div>
   );
 };

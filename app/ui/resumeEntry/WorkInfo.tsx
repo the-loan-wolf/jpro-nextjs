@@ -3,6 +3,7 @@ import DateField from "./DateField";
 import TextAreaField from "./TextAreaField";
 import { useState } from "react";
 import { addNewField } from "@/app/utils/Utils";
+import ButtonAddField from "./ButtonAddField";
 
 const WorkInfo = () => {
   const [workFieldCount, setWorkFieldCount] = useState(1);
@@ -19,15 +20,7 @@ const WorkInfo = () => {
         <DateField date="lastDate" />
         <TextAreaField />
       </div>
-
-      <button
-        id="workBtn"
-        type="button"
-        className="p-3 bg-lime-200 m-3 rounded-xl hover:-translate-y-1 hover:scale-110 hover:bg-lime-300 transition ease-in-out"
-        onClick={clickHandler}
-      >
-        Add more company detail
-      </button>
+      <ButtonAddField clickHandler={clickHandler} id="workBtn" />
     </div>
   );
 };

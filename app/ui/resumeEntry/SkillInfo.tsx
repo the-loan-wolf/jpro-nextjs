@@ -1,6 +1,7 @@
 import { useState } from "react";
 import InputField from "./InputField";
 import { addNewField } from "@/app/utils/Utils";
+import ButtonAddField from "./ButtonAddField";
 
 const SkillInfo = () => {
   const [skillFieldCount, setSkillFieldCount] = useState(1);
@@ -16,14 +17,7 @@ const SkillInfo = () => {
         <InputField id="skillSource" labelName="Where you learned it from" />
         <InputField id="skillEx" labelName="Experience Time" />
       </div>
-      <button
-        id="skillBtn"
-        type="button"
-        className="p-3 bg-lime-200 m-3 rounded-xl hover:-translate-y-1 hover:scale-110 hover:bg-lime-300 transition ease-in-out"
-        onClick={clickHandler}
-      >
-        Add more Skill
-      </button>
+      <ButtonAddField clickHandler={clickHandler} id="skillBtn" />
     </div>
   );
 };
