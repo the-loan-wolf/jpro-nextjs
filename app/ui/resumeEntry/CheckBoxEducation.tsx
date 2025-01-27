@@ -17,7 +17,7 @@ export default function CheckBoxEducation({ id }: Props) {
   return (
     <div>
       <input type="checkbox" id={id} name={id} />
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id}> {label}</label>
     </div>
   );
 }
