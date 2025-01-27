@@ -1,6 +1,6 @@
 import InputField from "@/app/ui/resumeEntry/InputField";
 
-const AddressInfo = () => {
+export default function AddressInfo(){
   return (
     <div id="addressInfo" className="border-b-2 p-3">
       <div id="currentAddressPara">
@@ -32,7 +32,7 @@ const AddressInfo = () => {
       </div>
       <div className="py-3">
         <input type="checkbox" id="sameAddress" name="sameAddress" />
-        <label htmlFor="sameAddress">Same as Current Address?</label>
+        <label htmlFor="sameAddress"> Same as Current Address?</label>
       </div>
       <div id="parmanentAddress" className="py-3">
         <InputField id="resumePCountry" labelName="Country" />
@@ -58,4 +58,3 @@ const AddressInfo = () => {
     </div>
   );
 };
-export default AddressInfo;

@@ -1,4 +1,4 @@
-const DateField = ({date}: {date: string}) => {
+export default function DateField({date}: {date: string}){
   return (
     <div className="py-3 flex justify-between">
       <label htmlFor={date}>Joining Date</label>
@@ -11,4 +11,3 @@ const DateField = ({date}: {date: string}) => {
     </div>
   );
 };
-export default DateField;

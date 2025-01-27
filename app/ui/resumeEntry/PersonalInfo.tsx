@@ -1,7 +1,7 @@
 import ProfilePicUpload from "@/app/ui/resumeEntry/ProfilePicUpload";
 import InputField from "@/app/ui/resumeEntry/InputField";
 
-const PersonalInfo = () => {
+export default function PersonalInfo(){
   return (
     <>
       <ProfilePicUpload />
@@ -46,4 +46,3 @@ const PersonalInfo = () => {
     </>
   );
 };
-export default PersonalInfo;

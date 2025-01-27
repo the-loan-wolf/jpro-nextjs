@@ -1,5 +1,5 @@
 import Image from "next/image";
-const ProfilePicUpload = () => {
+export default function ProfilePicUpload(){
   return (
     <>
       {/* <!-- upload profile pic --> */}
@@ -23,4 +23,3 @@ const ProfilePicUpload = () => {
     </>
   );
 };
-export default ProfilePicUpload;

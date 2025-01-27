@@ -3,7 +3,7 @@ import InputField from "./InputField";
 import { addNewField } from "@/app/utils/Utils";
 import ButtonAddField from "./ButtonAddField";
 
-const SkillInfo = () => {
+export default function SkillInfo(){
   const [skillFieldCount, setSkillFieldCount] = useState(1);
 
   function clickHandler(e: React.MouseEvent<HTMLButtonElement>) {
@@ -21,4 +21,3 @@ const SkillInfo = () => {
     </div>
   );
 };
-export default SkillInfo;

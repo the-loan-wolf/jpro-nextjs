@@ -3,7 +3,7 @@ import CheckBoxEducation from "./CheckBoxEducation";
 import InputField from "./InputField";
 import QualificationFieldContainer from "./QualificationFieldContainer";
 
-const EducationalInfo = () => {
+export default function EducationalInfo(){
   return (
     <div id="educationalInfo" className="py-3 border-b-2">
       <div>
@@ -43,4 +43,3 @@ const EducationalInfo = () => {
     </div>
   );
 };
-export default EducationalInfo;

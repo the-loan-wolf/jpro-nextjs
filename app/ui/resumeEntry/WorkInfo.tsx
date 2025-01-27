@@ -5,7 +5,7 @@ import { useState } from "react";
 import { addNewField } from "@/app/utils/Utils";
 import ButtonAddField from "./ButtonAddField";
 
-const WorkInfo = () => {
+export default function WorkInfo(){
   const [workFieldCount, setWorkFieldCount] = useState(1);
 
   function clickHandler(e: React.MouseEvent<HTMLButtonElement>) {
@@ -24,4 +24,3 @@ const WorkInfo = () => {
     </div>
   );
 };
-export default WorkInfo;

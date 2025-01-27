@@ -1,4 +1,4 @@
-const TextAreaField = () => {
+export default function TextAreaField(){
   return (
     <div className="py-3 flex justify-between">
       <label htmlFor="workEx">Want to describe your work there?</label>
@@ -11,4 +11,3 @@ const TextAreaField = () => {
     </div>
   );
 };
-export default TextAreaField;

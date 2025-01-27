@@ -2,7 +2,7 @@ type Props = {
     id: string;
     labelName: string;
 };
-const InputField = ({id, labelName}: Props) => {
+export default function InputField({id, labelName}: Props){
     const nameList = ["resumeFName", "resumeMName", "resumeLName"]
     let padding
     // if (nameList.includes(id)){
@@ -21,4 +21,3 @@ const InputField = ({id, labelName}: Props) => {
     </div>
   );
 };
-export default InputField;
