@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ButtonAddField from "./ButtonAddField";
 import CheckBoxEducation from "./CheckBoxEducation";
 import InputField from "./InputField";
@@ -13,14 +13,17 @@ export default function EducationalInfo() {
   }
   function addNewField() {
     setQualificationField((prevValue) => prevValue + 1);
-    setExtraField((prevValue) => [
-      ...prevValue,
-      <QualificationExtraField
-        key={qualificationField}
-        id={qualificationField}
-      />,
-    ]);
   }
+
+  useEffect(() => {
+    if (qualificationField === 0) return; // Prevent initial render issue
+  
+    setExtraField((prevExtraField) => [
+      ...prevExtraField,
+      <QualificationExtraField key={qualificationField} id={qualificationField} />,
+    ]);
+  }, [qualificationField]);
+
   return (
     <div id="educationalInfo" className="py-3 border-b-2">
       <div>
