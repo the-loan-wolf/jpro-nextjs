@@ -1,9 +1,26 @@
+import { useState } from "react";
 import ButtonAddField from "./ButtonAddField";
 import CheckBoxEducation from "./CheckBoxEducation";
 import InputField from "./InputField";
 import QualificationFieldContainer from "./QualificationFieldContainer";
+import QualificationExtraField from "./QualificationExtraField";
 
-export default function EducationalInfo(){
+export default function EducationalInfo() {
+  const [qualificationField, setQualificationField] = useState(0);
+  const [extraField, setExtraField] = useState<JSX.Element[]>([]);
+  function clickHandler() {
+    addNewField();
+  }
+  function addNewField() {
+    setQualificationField((prevValue) => prevValue + 1);
+    setExtraField((prevValue) => [
+      ...prevValue,
+      <QualificationExtraField
+        key={qualificationField}
+        id={qualificationField}
+      />,
+    ]);
+  }
   return (
     <div id="educationalInfo" className="py-3 border-b-2">
       <div>
@@ -39,7 +56,8 @@ export default function EducationalInfo(){
         <InputField id="phdBoard" labelName="Board" />
         <InputField id="phdMarks" labelName="Marks / Percentage Obtained" />
       </QualificationFieldContainer>
-      <ButtonAddField id="qualificationBtn" />
+      {extraField}
+      <ButtonAddField id="qualificationBtn" clickHandler={clickHandler} />
     </div>
   );
-};
+}

@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import Header from "@/app/ui/resumeEntry/Header";
 import PersonalInfo from "@/app/ui/resumeEntry/PersonalInfo";
 import AddressInfo from "@/app/ui/resumeEntry/AddressInfo";
@@ -11,15 +11,13 @@ import SubmitBtn from "@/app/ui/resumeEntry/SubmitBtn";
 
 export default function Resume() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true); // Loading state
+  // const [isLoading, setIsLoading] = useState(true); // Loading state
   // this checks if user has already signed in or if not send them to login page
   useEffect(() => {
     const loggedInUserId = localStorage.getItem("loggedInUserId");
     // console.log(loggedInUserId);
     if (!loggedInUserId) {
       router.push("/app/login"); // Redirect if not logged in
-    } else {
-      setIsLoading(false); // Set loading to false once user is authenticated
     }
   }, [router]);
 

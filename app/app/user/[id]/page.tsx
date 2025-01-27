@@ -31,7 +31,7 @@ export default function User() {
   const id = getParams.id;
   const [profilePic, setProfilePic] = useState("");
   const [profileName, setProfileName] = useState("");
-  const [textFieldJSX, setTextFieldJSX] = useState<JSX.Element[]>();
+  // const [textFieldJSX, setTextFieldJSX] = useState<JSX.Element[]>();
   const [primaryState, setPrimaryState] = useState<JSX.Element[]>([]);
   const [addressState, setAddressState] = useState<JSX.Element[]>([]);
   const [parmanentAddressState, setParmanentAddressState] = useState<
