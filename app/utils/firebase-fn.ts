@@ -3,8 +3,6 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithRedirect,
   sendEmailVerification,
   sendPasswordResetEmail,
   signOut,
@@ -20,13 +18,11 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { firebaseConfig } from "./firebase-config";
-import { redirect } from "next/navigation";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
 
 export async function signUp(
   firstName: string,
@@ -119,7 +115,7 @@ export async function getDocument(): Promise<Resume[]> {
   querySnapshot.forEach((doc) => {
     const data = doc.data() as Resume; // Type assertion with dynamic fields
     const { id, ...rest } = data;
-    documents.push({ id: doc.id, ...rest });
+    documents.push({ id: id, ...rest });
   });
 
   return documents;
