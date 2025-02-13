@@ -1,0 +1,7 @@
+1. profile pic upload feature
+2. profile pic crop tool
+3. automatic fetching more data on homepage while scrolling
+4. resume upload feature
+5. make firebase more secure
+6. try to convert utils function to server side api
+7. try to convert more client components to server side components

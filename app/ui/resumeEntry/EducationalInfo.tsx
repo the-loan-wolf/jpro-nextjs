@@ -8,21 +8,15 @@ import QualificationExtraField from "./QualificationExtraField";
 export default function EducationalInfo() {
   const [qualificationField, setQualificationField] = useState(0);
   const [extraField, setExtraField] = useState<JSX.Element[]>([]);
-  function clickHandler() {
-    addNewField();
-  }
-  function addNewField() {
-    setQualificationField((prevValue) => prevValue + 1);
-  }
 
-  useEffect(() => {
-    if (qualificationField === 0) return; // Prevent initial render issue
-  
+  function clickHandler() {
+    const newValue = qualificationField + 1;
+    setQualificationField(newValue);
     setExtraField((prevExtraField) => [
       ...prevExtraField,
-      <QualificationExtraField key={qualificationField} id={qualificationField} />,
+      <QualificationExtraField key={newValue} id={newValue} />,
     ]);
-  }, [qualificationField]);
+  }
 
   return (
     <div id="educationalInfo" className="py-3 border-b-2">
@@ -59,7 +53,7 @@ export default function EducationalInfo() {
         <InputField id="phdBoard" labelName="Board" />
         <InputField id="phdMarks" labelName="Marks / Percentage Obtained" />
       </QualificationFieldContainer>
-      {extraField}
+      <div className="qualification-block">{extraField}</div>
       <ButtonAddField id="qualificationBtn" clickHandler={clickHandler} />
     </div>
   );

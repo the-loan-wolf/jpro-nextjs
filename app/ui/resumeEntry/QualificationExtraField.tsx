@@ -1,6 +1,6 @@
 export default function QualificationExtraField({id}:{id: number}) {
   return (
-    <div className="qualification-block">
+    <div className="border-t-2">
       <div className="py-3 flex justify-between">
         <label htmlFor={`degName${id}`}>Qualification Type</label>
         <input

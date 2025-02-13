@@ -1,7 +1,10 @@
+import { memo } from "react";
+
 type Props = {
   id: string;
 };
-export default function CheckBoxEducation({ id }: Props) {
+
+const CheckBoxEducation = memo(({ id }: Props) => {
   let label = null;
   if (id === "enableMatric") {
     label = "Add Matric / 10th Details";
@@ -14,10 +17,14 @@ export default function CheckBoxEducation({ id }: Props) {
   } else if (id === "enablePHD") {
     label = "Add PhD Details";
   }
+
   return (
     <div>
       <input type="checkbox" id={id} name={id} />
       <label htmlFor={id}> {label}</label>
     </div>
   );
-}
+});
+
+CheckBoxEducation.displayName = "CheckBoxEducation";
+export default CheckBoxEducation;
