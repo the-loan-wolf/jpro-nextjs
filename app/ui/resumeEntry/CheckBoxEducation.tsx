@@ -1,7 +1,9 @@
 import { memo } from "react";
+import { checkBoxToggleState } from "@/app/utils/globalStates";
+import { useSetAtom } from "jotai";
 
 type Props = {
-  id: string;
+  id: "enableMatric" | "enableInter" | "enableUG" | "enablePG" | "enablePHD";
 };
 
 const CheckBoxEducation = memo(({ id }: Props) => {
@@ -18,9 +20,17 @@ const CheckBoxEducation = memo(({ id }: Props) => {
     label = "Add PhD Details";
   }
 
+  const setState = useSetAtom(checkBoxToggleState);
+
+  const toggleHandler = () => {
+    setState((prevState) => {
+      return { ...prevState, [id]: !prevState[id] };
+    });
+  };
+
   return (
     <div>
-      <input type="checkbox" id={id} name={id} />
+      <input type="checkbox" id={id} name={id} onChange={toggleHandler} />
       <label htmlFor={id}> {label}</label>
     </div>
   );

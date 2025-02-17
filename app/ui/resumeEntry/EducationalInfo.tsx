@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ButtonAddField from "./ButtonAddField";
 import CheckBoxEducation from "./CheckBoxEducation";
 import InputField from "./InputField";
