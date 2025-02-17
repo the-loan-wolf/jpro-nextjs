@@ -5,3 +5,7 @@
 5. make firebase more secure
 6. try to convert utils function to server side api
 7. try to convert more client components to server side components
+
+Priority List:
+
+1. make parament address checkbox working inside resume route

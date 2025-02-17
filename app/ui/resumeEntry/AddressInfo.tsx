@@ -1,11 +1,17 @@
 import InputField from "@/app/ui/resumeEntry/InputField";
+import CheckBox from "../CheckBox";
 
-export default function AddressInfo(){
+export default function AddressInfo() {
+  const toggleHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target);
+  };
   return (
     <div id="addressInfo" className="border-b-2 p-3">
+      {/* Current Address fields Heading */}
       <div id="currentAddressPara">
         <p>Current Address</p>
       </div>
+
       <div id="currentAddress" className="py-3 border-b-2">
         <InputField id="resumeCountry" labelName="Country" />
         <InputField id="resumeState" labelName="State" />
@@ -27,13 +33,19 @@ export default function AddressInfo(){
 
         <InputField id="resumeAddr" labelName="Remaining Address" />
       </div>
+
+      {/* Parmanent Address fields Heading ****************************************/}
       <div id="parmanentAddressPara" className="py-3">
         <p>Parmanent Address</p>
       </div>
-      <div className="py-3">
-        <input type="checkbox" id="sameAddress" name="sameAddress" />
-        <label htmlFor="sameAddress"> Same as Current Address?</label>
-      </div>
+
+      {/* CheckBox for toggling Parmanent Address */}
+      <CheckBox
+        id="sameAddress"
+        label="Same as Current Address?"
+        toggleHandler={toggleHandler}
+      />
+
       <div id="parmanentAddress" className="py-3">
         <InputField id="resumePCountry" labelName="Country" />
         <InputField id="resumePState" labelName="State" />
@@ -57,4 +69,4 @@ export default function AddressInfo(){
       </div>
     </div>
   );
-};
+}
