@@ -1,10 +1,62 @@
-import InputField from "@/app/ui/resumeEntry/InputField";
 import CheckBox from "../CheckBox";
+import { useState } from "react";
+import InputFieldAddress from "./InputFieldAddress";
 
 export default function AddressInfo() {
+  const [state, setState] = useState({
+    currentAddress: [
+      { resumeCountry: "Country", value: "" },
+      { resumeState: "State", value: "" },
+      { resumeDistrict: "District", value: "" },
+      { resumePlace: "City/Village", value: "" },
+      { resumePin: "Pin Code", value: "" },
+      { resumeAddr: "Remaining Address", value: "" },
+    ],
+    parmanentAddress: [
+      { resumePCountry: "Country", value: "" },
+      { resumePState: "State", value: "" },
+      { resumePDistrict: "District", value: "" },
+      { resumePPlace: "City/Village", value: "" },
+      { resumePPin: "Pin Code", value: "" },
+      { resumePAddr: "Remaining Address", value: "" },
+    ],
+  });
+
+  const [disable, setDisable] = useState(false);
+
+  function updateAddressValue(
+    states: typeof state,
+    key: string,
+    newValue: string,
+    addressType: "currentAddress" | "parmanentAddress"
+  ) {
+    return {
+      ...state,
+      [addressType]: states[addressType].map((obj) =>
+        Object.keys(obj).includes(key) ? { ...obj, value: newValue } : obj
+      ),
+    };
+  }
+
   const toggleHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target);
+    setDisable((pre) => !pre);
+    setState((prevState) => ({
+      ...prevState,
+      parmanentAddress: prevState.parmanentAddress.map((item, index) => ({
+        ...item,
+        value: prevState.currentAddress[index].value, // Copy value from currentAddress
+      })),
+    }));
   };
+
+  const inputHandler = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    key: string,
+    addressType: "currentAddress" | "parmanentAddress"
+  ) => {
+    setState(updateAddressValue(state, key, event.target.value, addressType));
+  };
+
   return (
     <div id="addressInfo" className="border-b-2 p-3">
       {/* Current Address fields Heading */}
@@ -13,25 +65,21 @@ export default function AddressInfo() {
       </div>
 
       <div id="currentAddress" className="py-3 border-b-2">
-        <InputField id="resumeCountry" labelName="Country" />
-        <InputField id="resumeState" labelName="State" />
-        <InputField id="resumeDistrict" labelName="District" />
-        <InputField id="resumePlace" labelName="City/Village" />
-
-        <div className="py-3 flex justify-between">
-          <label htmlFor="resumePin">Pin Code</label>
-          <input
-            type="text"
-            id="resumePin"
-            name="resumePin"
-            pattern="[0-9]{6}"
-            title="Example: 123456"
-            maxLength={6}
-            className="border rounded px-2 focus:outline-none"
-          />
-        </div>
-
-        <InputField id="resumeAddr" labelName="Remaining Address" />
+        {state.currentAddress.map((obj, index) => {
+          // console.log(Object.keys(obj)[0])
+          const key = Object.keys(obj)[0];
+          const val = Object.values(obj)[0];
+          // console.log(obj);
+          return (
+            <InputFieldAddress
+              key={index}
+              id={key}
+              labelName={val}
+              value={obj.value}
+              inputHandler={(e) => inputHandler(e, key, "currentAddress")}
+            />
+          );
+        })}
       </div>
 
       {/* Parmanent Address fields Heading ****************************************/}
@@ -47,25 +95,22 @@ export default function AddressInfo() {
       />
 
       <div id="parmanentAddress" className="py-3">
-        <InputField id="resumePCountry" labelName="Country" />
-        <InputField id="resumePState" labelName="State" />
-        <InputField id="resumePDistrict" labelName="District" />
-        <InputField id="resumePPlace" labelName="City/Village" />
-
-        <div className="py-3 flex justify-between">
-          <label htmlFor="resumePPin">Pin Code</label>
-          <input
-            type="text"
-            id="resumePPin"
-            name="resumePPin"
-            pattern="[0-9]{6}"
-            title="Example: 123456"
-            maxLength={6}
-            className="border rounded px-2 focus:outline-none"
-          />
-        </div>
-
-        <InputField id="resumePAddr" labelName="Remaining Address" />
+        {state.parmanentAddress.map((obj, index) => {
+          // console.log(Object.keys(obj)[0])
+          const key = Object.keys(obj)[0];
+          const val = Object.values(obj)[0];
+          // console.log(obj);
+          return (
+            <InputFieldAddress
+              key={index}
+              id={key}
+              labelName={val}
+              value={obj.value}
+              isDisable={disable}
+              inputHandler={(e) => inputHandler(e, key, "parmanentAddress")}
+            />
+          );
+        })}
       </div>
     </div>
   );
