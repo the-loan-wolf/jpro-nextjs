@@ -1,42 +1,15 @@
-export default function QualificationExtraField({id}:{id: number}) {
+import InputField from "./InputField";
+
+export default function QualificationExtraField({ id }: { id: number }) {
   return (
     <div className="border-t-2">
-      <div className="py-3 flex justify-between">
-        <label htmlFor={`degName${id}`}>Qualification Type</label>
-        <input
-          type="text"
-          id={`degName${id}`}
-          name={`degName${id}`}
-          className="border rounded px-2 focus:outline-none"
-        />
-      </div>
-      <div className="py-3 flex justify-between">
-        <label htmlFor={`instName${id}`}>Institute Name</label>
-        <input
-          type="text"
-          id={`instName${id}`}
-          name={`instName${id}`}
-          className="border rounded px-2 focus:outline-none"
-        />
-      </div>
-      <div className="py-3 flex justify-between">
-        <label htmlFor={`instBoard${id}`}>Board</label>
-        <input
-          type="text"
-          id={`instBoard${id}`}
-          name={`instBoard${id}`}
-          className="border rounded px-2 focus:outline-none"
-        />
-      </div>
-      <div className="py-3 flex justify-between">
-        <label htmlFor={`instMarks${id}`}>Marks / Percentage Obtained</label>
-        <input
-          type="text"
-          id={`instMarks${id}`}
-          name={`instMarks${id}`}
-          className="border rounded px-2 focus:outline-none"
-        />
-      </div>
+      <InputField id={`degName${id}`} labelName="Qualification Type" />
+      <InputField id={`instName${id}`} labelName="Institute Name" />
+      <InputField id={`instBoard${id}`} labelName="Board" />
+      <InputField
+        id={`instMarks${id}`}
+        labelName="Marks / Percentage Obtained"
+      />
     </div>
   );
 }

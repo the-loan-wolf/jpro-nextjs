@@ -18,7 +18,7 @@ export default function PersonalInfo(){
             type="date"
             id="resumeDOB"
             name="resumeDOB"
-            className="border rounded px-2 focus:outline-none"
+            className="border rounded px-2 focus:outline-none border-[#0f172A]"
           />
         </div>
 
@@ -31,7 +31,7 @@ export default function PersonalInfo(){
             pattern="[0-9]{10}"
             title="Example: 1234567895"
             maxLength={10}
-            className="border rounded px-2 focus:outline-none"
+            className="border rounded px-2 focus:outline-none border-[#0f172A]"
             required
           />
         </div>

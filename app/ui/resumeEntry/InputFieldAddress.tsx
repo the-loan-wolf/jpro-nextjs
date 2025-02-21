@@ -25,7 +25,7 @@ export default function InputFieldAddress({
         value={value}
         disabled={isDisable}
         onChange={inputHandler}
-        className="border rounded px-2 focus:outline-none"
+        className="border rounded px-2 focus:outline-none border-[#0f172A]"
       />
     </div>
   );

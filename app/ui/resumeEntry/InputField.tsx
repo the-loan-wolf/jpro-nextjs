@@ -16,7 +16,7 @@ export default function InputField({id, labelName}: Props){
         type="text"
         id={id}
         name={id}
-        className="border rounded px-2 focus:outline-none"
+        className="border rounded px-2 focus:outline-none border-[#0f172A]"
       />
     </div>
   );

@@ -6,7 +6,7 @@ export default function TextAreaField(){
         // type="text"
         id="workEx"
         name="workEx"
-        className="border rounded px-2 focus:outline-none"
+        className="border rounded px-2 focus:outline-none border-[#0f172A]"
       ></textarea>
     </div>
   );
