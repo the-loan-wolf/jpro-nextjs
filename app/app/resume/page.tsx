@@ -8,9 +8,16 @@ import WorkInfo from "@/app/ui/resumeEntry/WorkInfo";
 import SkillInfo from "@/app/ui/resumeEntry/SkillInfo";
 import SubmitBtn from "@/app/ui/resumeEntry/SubmitBtn";
 import { memo } from "react";
+import { workField, skillField, qualificationField } from "@/app/utils/globalStates";
+import { useAtomValue } from "jotai";
 
 const Resume = memo(() => {
   const router = useRouter();
+  
+  const qualificationFieldCount = useAtomValue(qualificationField);
+  const workFieldCount = useAtomValue(workField);
+  const skillFieldCount = useAtomValue(skillField);
+
   if (typeof window !== "undefined") {
     const loggedInUserId = localStorage.getItem("loggedInUserId");
     if (!loggedInUserId) {
@@ -22,6 +29,11 @@ const Resume = memo(() => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const formValues = Object.fromEntries(formData.entries());
+    formValues["qualificationField"] = qualificationFieldCount.toString();
+    formValues["workField"] = workFieldCount.toString();
+    formValues["skillField"] = skillFieldCount.toString();
+    // formValues["profilePicEle"] = profilePicUrl;
+
     console.log(formValues);
   }
 

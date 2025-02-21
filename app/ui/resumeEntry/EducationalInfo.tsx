@@ -4,14 +4,16 @@ import CheckBoxEducation from "./CheckBoxEducation";
 import InputField from "./InputField";
 import QualificationFieldContainer from "./QualificationFieldContainer";
 import QualificationExtraField from "./QualificationExtraField";
+import { qualificationField } from "@/app/utils/globalStates";
+import { useAtom } from "jotai";
 
 export default function EducationalInfo() {
-  const [qualificationField, setQualificationField] = useState(0);
+  const [qualificationFieldCount, setQualificationFieldCount] = useAtom(qualificationField);
   const [extraField, setExtraField] = useState<JSX.Element[]>([]);
 
   function clickHandler() {
-    const newValue = qualificationField + 1;
-    setQualificationField(newValue);
+    const newValue = qualificationFieldCount + 1;
+    setQualificationFieldCount(newValue);
     setExtraField((prevExtraField) => [
       ...prevExtraField,
       <QualificationExtraField key={newValue} id={newValue} />,

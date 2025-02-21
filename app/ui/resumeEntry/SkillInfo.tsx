@@ -2,9 +2,11 @@ import { useState } from "react";
 import InputField from "./InputField";
 import { addNewField } from "@/app/utils/Utils";
 import ButtonAddField from "./ButtonAddField";
+import { skillField } from "@/app/utils/globalStates";
+import { useAtom } from "jotai";
 
 export default function SkillInfo(){
-  const [skillFieldCount, setSkillFieldCount] = useState(1);
+  const [skillFieldCount, setSkillFieldCount] = useAtom(skillField);
 
   function clickHandler(e: React.MouseEvent<HTMLButtonElement>) {
     addNewField(e, skillFieldCount, setSkillFieldCount);

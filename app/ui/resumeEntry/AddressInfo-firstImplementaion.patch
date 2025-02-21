@@ -1,0 +1,90 @@
+diff --git a/app/ui/resumeEntry/AddressInfo.tsx b/app/ui/resumeEntry/AddressInfo.tsx
+index 9ff35ec..d9fc6e8 100644
+--- a/app/ui/resumeEntry/AddressInfo.tsx
++++ b/app/ui/resumeEntry/AddressInfo.tsx
+@@ -1,9 +1,28 @@
+ import InputField from "@/app/ui/resumeEntry/InputField";
+ import CheckBox from "../CheckBox";
++import { ReactNode, useRef, useState } from "react";
+ 
+ export default function AddressInfo() {
++  const [checked, setChecked] = useState(false);
++  const currentAddress = useRef<HTMLDivElement | null>(null);
++  const parmanentAddress = useRef<HTMLDivElement | null>(null);
++
+   const toggleHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+-    console.log(event.target);
++    const isChecked = checked;
++    setChecked((prevState) => !prevState);
++    const currAdd = currentAddress.current;
++    const parAdd = parmanentAddress.current;
++    for (let i = 0; i <= 5; i++) {
++      const current = currAdd?.childNodes[i].lastChild as HTMLInputElement;
++      const parmanent = parAdd?.childNodes[i].lastChild as HTMLInputElement;
++      if (!checked) {
++        parmanent.value = current.value;
++        parmanent.disabled = true;
++      } else {
++        parmanent.value = "";
++        parmanent.disabled = false;
++      }
++    }
+   };
+   return (
+     <div id="addressInfo" className="border-b-2 p-3">
+@@ -12,25 +31,12 @@ export default function AddressInfo() {
+         <p>Current Address</p>
+       </div>
+ 
+-      <div id="currentAddress" className="py-3 border-b-2">
++      <div id="currentAddress" className="py-3 border-b-2" ref={currentAddress}>
+         <InputField id="resumeCountry" labelName="Country" />
+         <InputField id="resumeState" labelName="State" />
+         <InputField id="resumeDistrict" labelName="District" />
+         <InputField id="resumePlace" labelName="City/Village" />
+-
+-        <div className="py-3 flex justify-between">
+-          <label htmlFor="resumePin">Pin Code</label>
+-          <input
+-            type="text"
+-            id="resumePin"
+-            name="resumePin"
+-            pattern="[0-9]{6}"
+-            title="Example: 123456"
+-            maxLength={6}
+-            className="border rounded px-2 focus:outline-none"
+-          />
+-        </div>
+-
++        <InputField id="resumePin" labelName="Pin Code" />
+         <InputField id="resumeAddr" labelName="Remaining Address" />
+       </div>
+ 
+@@ -46,25 +52,12 @@ export default function AddressInfo() {
+         toggleHandler={toggleHandler}
+       />
+ 
+-      <div id="parmanentAddress" className="py-3">
++      <div id="parmanentAddress" className="py-3" ref={parmanentAddress}>
+         <InputField id="resumePCountry" labelName="Country" />
+         <InputField id="resumePState" labelName="State" />
+         <InputField id="resumePDistrict" labelName="District" />
+         <InputField id="resumePPlace" labelName="City/Village" />
+-
+-        <div className="py-3 flex justify-between">
+-          <label htmlFor="resumePPin">Pin Code</label>
+-          <input
+-            type="text"
+-            id="resumePPin"
+-            name="resumePPin"
+-            pattern="[0-9]{6}"
+-            title="Example: 123456"
+-            maxLength={6}
+-            className="border rounded px-2 focus:outline-none"
+-          />
+-        </div>
+-
++        <InputField id="resumePPin" labelName="Pin Code" />
+         <InputField id="resumePAddr" labelName="Remaining Address" />
+       </div>
+     </div>

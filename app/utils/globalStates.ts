@@ -8,4 +8,8 @@ const checkBoxToggleState = atom({
   enablePHD: false,
 });
 
-export { checkBoxToggleState };
+const workField = atom(1)
+const skillField = atom(1)
+const qualificationField = atom(0)
+
+export { checkBoxToggleState, workField, skillField, qualificationField };

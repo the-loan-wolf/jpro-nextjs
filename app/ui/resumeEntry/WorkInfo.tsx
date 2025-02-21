@@ -4,9 +4,11 @@ import TextAreaField from "./TextAreaField";
 import { useState } from "react";
 import { addNewField } from "@/app/utils/Utils";
 import ButtonAddField from "./ButtonAddField";
+import { workField } from "@/app/utils/globalStates";
+import { useAtom } from "jotai";
 
 export default function WorkInfo(){
-  const [workFieldCount, setWorkFieldCount] = useState(1);
+  const [workFieldCount, setWorkFieldCount] = useAtom(workField);
 
   function clickHandler(e: React.MouseEvent<HTMLButtonElement>) {
     addNewField(e, workFieldCount, setWorkFieldCount);
