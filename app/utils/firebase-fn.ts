@@ -17,12 +17,19 @@ import {
   query,
   getDoc,
 } from "firebase/firestore";
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "firebase/storage";
 import { firebaseConfig } from "./firebase-config";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 export async function signUp(
   firstName: string,
@@ -156,5 +163,20 @@ export async function sendPasswordReset(email: string) {
       }
     }
     // console.error(error);
+  }
+}
+
+export const uploadPic = async (picFile: File): Promise<string> => {
+  // Create a reference to the file you want to upload
+  const fileRef = ref(storage, "profile-pics/" + picFile.name);
+  try{
+    await uploadBytes(fileRef, picFile);
+    console.log("Uploaded the pic!");
+    const url = await getDownloadURL(fileRef);
+    console.log(url);
+    return url;
+  }catch(error){
+    console.error(error);
+    return "error"
   }
 }

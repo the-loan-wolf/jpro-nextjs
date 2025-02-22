@@ -7,16 +7,23 @@ import EducationalInfo from "@/app/ui/resumeEntry/EducationalInfo";
 import WorkInfo from "@/app/ui/resumeEntry/WorkInfo";
 import SkillInfo from "@/app/ui/resumeEntry/SkillInfo";
 import SubmitBtn from "@/app/ui/resumeEntry/SubmitBtn";
+import ProfilePicUpload from "@/app/ui/resumeEntry/ProfilePicUpload";
 import { memo } from "react";
-import { workField, skillField, qualificationField } from "@/app/utils/globalStates";
+import {
+  workField,
+  skillField,
+  qualificationField,
+  profilePicUrl
+} from "@/app/utils/globalStates";
 import { useAtomValue } from "jotai";
 
 const Resume = memo(() => {
   const router = useRouter();
-  
+
   const qualificationFieldCount = useAtomValue(qualificationField);
   const workFieldCount = useAtomValue(workField);
   const skillFieldCount = useAtomValue(skillField);
+  const profilePicUrlString = useAtomValue(profilePicUrl);
 
   if (typeof window !== "undefined") {
     const loggedInUserId = localStorage.getItem("loggedInUserId");
@@ -32,7 +39,7 @@ const Resume = memo(() => {
     formValues["qualificationField"] = qualificationFieldCount.toString();
     formValues["workField"] = workFieldCount.toString();
     formValues["skillField"] = skillFieldCount.toString();
-    // formValues["profilePicEle"] = profilePicUrl;
+    formValues["profilePicEle"] = profilePicUrlString;
 
     console.log(formValues);
   }
@@ -45,6 +52,7 @@ const Resume = memo(() => {
         className="py-5 px-2 mb-5 md:border-2 md:rounded-xl font-poppins bg-white text-slate-900"
         onSubmit={formHandler}
       >
+        <ProfilePicUpload />
         <PersonalInfo />
         <AddressInfo />
         <EducationalInfo />

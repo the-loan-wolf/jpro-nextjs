@@ -1,10 +1,8 @@
-import ProfilePicUpload from "@/app/ui/resumeEntry/ProfilePicUpload";
 import InputField from "@/app/ui/resumeEntry/InputField";
 
 export default function PersonalInfo(){
   return (
     <>
-      <ProfilePicUpload />
       <div id="personalInfo" className="border-b-2 p-3">
         <div className="py-3">
           <InputField id="resumeFName" labelName="First Name" />
