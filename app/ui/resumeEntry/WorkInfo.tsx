@@ -1,28 +1,79 @@
-import InputField from "./InputField";
-import DateField from "./DateField";
-import TextAreaField from "./TextAreaField";
-import { useState } from "react";
-import { addNewField } from "@/app/utils/Utils";
+import { useEffect, useState } from "react";
 import ButtonAddField from "./ButtonAddField";
 import { workField } from "@/app/utils/globalStates";
 import { useAtom } from "jotai";
+import InputFieldAddress from "./InputFieldAddress";
 
-export default function WorkInfo(){
+// Define the WorkField type
+type WorkField = {
+  [key: string]: string;
+  value: string;
+};
+
+export default function WorkInfo() {
   const [workFieldCount, setWorkFieldCount] = useAtom(workField);
 
-  function clickHandler(e: React.MouseEvent<HTMLButtonElement>) {
-    addNewField(e, workFieldCount, setWorkFieldCount);
+  const [init, setInit] = useState<WorkField[]>([
+    { companyName: "Company Name", value: "" },
+    { companyPost: "Post", value: "" },
+    { joinDate: "Joining Date", value: "" },
+    { lastDate: "Worked Till", value: "" },
+  ]);
+
+  useEffect(() => {
+    const newInit: WorkField[] = [];
+    for (let i = 0; i < workFieldCount; i++) {
+      newInit.push(
+        { [`companyName${i > 0 ? i : ""}`]: "Company Name", value: "" },
+        {
+          [`companyPost${i > 0 ? i : ""}`]: "Post",
+          value: "",
+        },
+        { [`joinDate${i > 0 ? i : ""}`]: "Joining Date", value: "" },
+        { [`lastDate${i > 0 ? i : ""}`]: "Worked Till", value: "" }
+      );
+    }
+    setInit(newInit);
+  }, [workFieldCount]);
+
+  function updateAddressValue(
+    states: WorkField[],
+    key: string,
+    newValue: string
+  ): WorkField[] {
+    return states.map((obj: WorkField) =>
+      Object.keys(obj).includes(key) ? { ...obj, value: newValue } : obj
+    );
   }
+
+  const inputHandler = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    key: string
+  ) => {
+    setInit(updateAddressValue(init, key, event.target.value));
+  };
+
   return (
     <div id="workInfo" className="py-3 border-b-2">
       <div id="workInfoChild">
-        <InputField id="companyName" labelName="Company Name" />
-        <InputField id="companyPost" labelName="Post" />
-        <DateField date="joinDate" />
-        <DateField date="lastDate" />
-        <TextAreaField />
+        {init.map((obj, index) => {
+          const key = Object.keys(obj)[0];
+          const val = Object.values(obj)[0];
+          return (
+            <InputFieldAddress
+              key={index}
+              id={key}
+              labelName={val}
+              value={obj.value}
+              inputHandler={(e) => inputHandler(e, key)}
+            />
+          );
+        })}
       </div>
-      <ButtonAddField clickHandler={clickHandler} id="workBtn" />
+      <ButtonAddField
+        clickHandler={() => setWorkFieldCount((prev) => prev + 1)}
+        id="workBtn"
+      />
     </div>
   );
-};
+}
