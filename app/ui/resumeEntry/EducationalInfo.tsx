@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ButtonAddField from "./ButtonAddField";
 import CheckBoxEducation from "./CheckBoxEducation";
 import InputField from "./InputField";
@@ -8,17 +8,8 @@ import { qualificationField } from "@/app/utils/globalStates";
 import { useAtom } from "jotai";
 
 export default function EducationalInfo() {
-  const [qualificationFieldCount, setQualificationFieldCount] = useAtom(qualificationField);
-  const [extraField, setExtraField] = useState<JSX.Element[]>([]);
-
-  function clickHandler() {
-    const newValue = qualificationFieldCount + 1;
-    setQualificationFieldCount(newValue);
-    setExtraField((prevExtraField) => [
-      ...prevExtraField,
-      <QualificationExtraField key={newValue} id={newValue} />,
-    ]);
-  }
+  const [qualificationFieldCount, setQualificationFieldCount] =
+    useAtom(qualificationField);
 
   return (
     <div id="educationalInfo" className="py-3 border-b-2">
@@ -55,8 +46,15 @@ export default function EducationalInfo() {
         <InputField id="phdBoard" labelName="Board" />
         <InputField id="phdMarks" labelName="Marks / Percentage Obtained" />
       </QualificationFieldContainer>
-      <div className="qualification-block">{extraField}</div>
-      <ButtonAddField id="qualificationBtn" clickHandler={clickHandler} />
+      <div className="qualification-block">
+        {Array.from({ length: qualificationFieldCount }, (_, i) => (
+          <QualificationExtraField key={`qual-${i}`} id={i + 1} />
+        ))}
+      </div>
+      <ButtonAddField
+        id="qualificationBtn"
+        clickHandler={() => setQualificationFieldCount((prev) => prev + 1)}
+      />
     </div>
   );
 }
