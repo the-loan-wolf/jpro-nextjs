@@ -59,9 +59,17 @@ export default function User() {
   ];
 
   useEffect(() => {
-    getUserDetails(id).then((data) => {
-      parseData(data);
-    });
+    const fetchData = async ()=>{
+      try{
+        const data = await getUserDetails(id)
+        if(data && typeof data === "object"){
+          parseData(data);
+        }
+      }catch(error){
+        console.error(error)
+      }
+    }
+    fetchData();
   }, []);
 
   function parseData(data: ResumeData): void {

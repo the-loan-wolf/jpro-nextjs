@@ -17,12 +17,7 @@ import {
   query,
   getDoc,
 } from "firebase/firestore";
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL,
-} from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { firebaseConfig } from "./firebase-config";
 
 // Initialize Firebase
@@ -130,22 +125,21 @@ interface firestoreDoc {
   [key: string]: any; // Allows dynamic fields
 }
 
-export async function getUserDetails(uid: string): Promise<firestoreDoc> {
-  // try {
-  //   const docRef = doc(db, "resumes", uid);
-  //   const docSnap = await getDoc(docRef);
+export async function getUserDetails(
+  uid: string
+): Promise<firestoreDoc | string> {
+  try {
+    const docRef = doc(db, "resumes", uid);
+    const docSnap = await getDoc(docRef);
 
-  //   if (docSnap.exists()) {
-  //     return docSnap.data() as firestoreDoc;
-  //   } else {
-  //     return "No such document!";
-  //   }
-  // } catch (error: any) {
-  //   return error.message || "Error retrieving document";
-  // }
-  const docRef = doc(db, "resumes", uid);
-  const docSnap = await getDoc(docRef);
-  return docSnap.data() as firestoreDoc;
+    if (docSnap.exists()) {
+      return docSnap.data() as firestoreDoc;
+    } else {
+      return "No such document!";
+    }
+  } catch (error: any) {
+    return error.message || "Error retrieving document";
+  }
 }
 
 export async function sendPasswordReset(email: string) {
@@ -169,14 +163,14 @@ export async function sendPasswordReset(email: string) {
 export const uploadPic = async (picFile: File): Promise<string> => {
   // Create a reference to the file you want to upload
   const fileRef = ref(storage, "profile-pics/" + picFile.name);
-  try{
+  try {
     await uploadBytes(fileRef, picFile);
     console.log("Uploaded the pic!");
     const url = await getDownloadURL(fileRef);
     console.log(url);
     return url;
-  }catch(error){
+  } catch (error) {
     console.error(error);
-    return "error"
+    return "error";
   }
-}
+};
