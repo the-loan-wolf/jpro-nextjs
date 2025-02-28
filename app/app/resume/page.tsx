@@ -8,14 +8,15 @@ import WorkInfo from "@/app/ui/resumeEntry/WorkInfo";
 import SkillInfo from "@/app/ui/resumeEntry/SkillInfo";
 import SubmitBtn from "@/app/ui/resumeEntry/SubmitBtn";
 import ProfilePicUpload from "@/app/ui/resumeEntry/ProfilePicUpload";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import {
   workField,
   skillField,
   qualificationField,
-  profilePicUrl
+  profilePicUrl,
 } from "@/app/utils/globalStates";
 import { useAtomValue } from "jotai";
+import { getUserDetails } from "@/app/utils/firebase-fn";
 
 const Resume = memo(() => {
   const router = useRouter();
@@ -24,13 +25,30 @@ const Resume = memo(() => {
   const workFieldCount = useAtomValue(workField);
   const skillFieldCount = useAtomValue(skillField);
   const profilePicUrlString = useAtomValue(profilePicUrl);
+  let loggedInUserId: string | null = null;
 
   if (typeof window !== "undefined") {
-    const loggedInUserId = localStorage.getItem("loggedInUserId");
+    loggedInUserId = localStorage.getItem("loggedInUserId");
     if (!loggedInUserId) {
       router.push("/app/login"); // Redirect if not logged in
     }
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (loggedInUserId) {
+          const data = await getUserDetails(loggedInUserId);
+          if (data && typeof data === "object") {
+            // parseData(data);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   function formHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
