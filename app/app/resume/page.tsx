@@ -15,16 +15,21 @@ import {
   qualificationField,
   profilePicUrl,
 } from "@/app/utils/globalStates";
-import { useAtomValue } from "jotai";
-import { getUserDetails } from "@/app/utils/firebase-fn";
+import { useAtom, useAtomValue } from "jotai";
+import { getUserDetails, firestoreDoc } from "@/app/utils/firebase-fn";
 
 const Resume = memo(() => {
   const router = useRouter();
 
-  const qualificationFieldCount = useAtomValue(qualificationField);
-  const workFieldCount = useAtomValue(workField);
-  const skillFieldCount = useAtomValue(skillField);
-  const profilePicUrlString = useAtomValue(profilePicUrl);
+  // const qualificationFieldCount = useAtomValue(qualificationField);
+  // const workFieldCount = useAtomValue(workField);
+  // const skillFieldCount = useAtomValue(skillField);
+  // const profilePicUrlString = useAtomValue(profilePicUrl);
+  const [qualificationFieldCount, setQualificationFieldCount] =
+    useAtom(qualificationField);
+  const [workFieldCount, setWorkFieldCount] = useAtom(workField);
+  const [skillFieldCount, setSkillFieldCount] = useAtom(skillField);
+  const [profilePicUrlString, setProfilePicUrlString] = useAtom(profilePicUrl);
   let loggedInUserId: string | null = null;
 
   if (typeof window !== "undefined") {
@@ -40,7 +45,7 @@ const Resume = memo(() => {
         if (loggedInUserId) {
           const data = await getUserDetails(loggedInUserId);
           if (data && typeof data === "object") {
-            // parseData(data);
+            parseData(data);
           }
         }
       } catch (error) {
@@ -49,6 +54,13 @@ const Resume = memo(() => {
     };
     fetchData();
   }, []);
+
+  const parseData = (data: firestoreDoc) => {
+    setQualificationFieldCount(data.qualificationField);
+    setWorkFieldCount(data.workField);
+    setSkillFieldCount(data.skillField);
+    setProfilePicUrlString(data.profilePicEle);
+  };
 
   function formHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
