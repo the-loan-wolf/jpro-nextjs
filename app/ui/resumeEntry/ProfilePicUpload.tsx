@@ -2,10 +2,10 @@ import Image from "next/image";
 import { useRef } from "react";
 import { uploadPic } from "@/app/utils/firebase-fn";
 import { profilePicUrl } from "@/app/utils/globalStates";
-import { useSetAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 
 export default function ProfilePicUpload() {
-  const setUrl = useSetAtom(profilePicUrl);
+  const [url, setUrl] = useAtom(profilePicUrl);
   const picInput = useRef<null | HTMLInputElement>(null);
   const clickHandler = async (event: React.MouseEvent) => {
     event.preventDefault();
@@ -21,12 +21,14 @@ export default function ProfilePicUpload() {
       alert("No file selected");
     }
   };
+  console.log("setUrl value: ", url)
   return (
     <>
       {/* <!-- upload profile pic --> */}
       <div className="flex flex-col md:flex-row items-center justify-center">
         <Image
-          src="/image-profile.jpg"
+          // src="/image-profile.jpg"
+          src={url || "/image-profile.jpg"}
           width={300}
           height={300}
           alt=""
