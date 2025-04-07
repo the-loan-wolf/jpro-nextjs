@@ -9,3 +9,8 @@
 Priority List:
 
 1. make parament address checkbox working inside resume route
+
+
+1. fetch user data fom server
+2. add total number of field based on how much field is needed from the server data
+3. fill all the value from server data in their corresponding fields

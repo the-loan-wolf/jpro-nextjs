@@ -45,7 +45,10 @@ export default function MobileMenuBar({
               <p>Your Profile</p>
             </Link>
             <div id="LogoutBtn">
-              <button className="hover:text-red-400" onClick={logoutAndRedirect}>
+              <button
+                className="hover:text-red-400"
+                onClick={logoutAndRedirect}
+              >
                 Log Out?
               </button>
             </div>

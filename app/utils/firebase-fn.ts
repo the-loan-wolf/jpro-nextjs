@@ -121,7 +121,7 @@ export async function getDocument(): Promise<Resume[]> {
   return documents;
 }
 
-interface firestoreDoc {
+export interface firestoreDoc {
   [key: string]: any; // Allows dynamic fields
 }
 
