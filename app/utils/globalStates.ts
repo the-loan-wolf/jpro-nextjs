@@ -12,5 +12,6 @@ const workField = atom(1);
 const skillField = atom(1);
 const qualificationField = atom(0);
 const profilePicUrl = atom("");
+const serverData = atom({});
 
-export { checkBoxToggleState, workField, skillField, qualificationField, profilePicUrl };
+export { checkBoxToggleState, workField, skillField, qualificationField, profilePicUrl, serverData };

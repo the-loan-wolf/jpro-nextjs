@@ -1,13 +1,113 @@
 import InputField from "@/app/ui/resumeEntry/InputField";
+import InputFieldAddress from "./InputFieldAddress";
+import { useEffect, useState } from "react";
+import { serverData } from "@/app/utils/globalStates";
+import { useAtom } from "jotai";
 
-export default function PersonalInfo(){
+// Define the PersonalInfoState type
+type PersonalInfoField = {
+  [key: string]: string;
+  value: string;
+};
+
+export default function PersonalInfo() {
+  const [personalInfoState, setPersonalInfoState] = useState<
+    PersonalInfoField[]
+  >([
+    { resumeFName: "First Name", value: "" },
+    { resumeMName: "Middle Name", value: "" },
+    { resumeLName: "Last Name", value: "" },
+    { resumeDOB: "Date of Birth", value: "" },
+    { resumePhoneNo: "Phone Number", value: "" },
+    { resumeFatherName: "Father Name", value: "" },
+    { resumeMotherName: "Mother Name", value: "" },
+    { salary: "How much money you want to work for?", value: "" },
+  ]);
+  const [serverDataState, setServerDataState] = useAtom(serverData);
+
+  useEffect(() => {
+    let updatedState = personalInfoState;
+    updatedState = updateAddressValue(
+      updatedState,
+      "resumeFName",
+      serverDataState.resumeFName
+    );
+    updatedState = updateAddressValue(
+      updatedState,
+      "resumeMName",
+      serverDataState.resumeMName
+    );
+    updatedState = updateAddressValue(
+      updatedState,
+      "resumeLName",
+      serverDataState.resumeLName
+    );
+    updatedState = updateAddressValue(
+      updatedState,
+      "resumeDOB",
+      serverDataState.resumeDOB
+    );
+    updatedState = updateAddressValue(
+      updatedState,
+      "resumePhoneNo",
+      serverDataState.resumePhoneNo
+    );
+    updatedState = updateAddressValue(
+      updatedState,
+      "resumeFatherName",
+      serverDataState.resumeFatherName
+    );
+    updatedState = updateAddressValue(
+      updatedState,
+      "resumeMotherName",
+      serverDataState.resumeMotherName
+    );
+    updatedState = updateAddressValue(
+      updatedState,
+      "salary",
+      serverDataState.salary
+    );
+
+    setPersonalInfoState(updatedState);
+  }, [serverDataState]);
+
+  function updateAddressValue(
+    states: PersonalInfoField[],
+    key: string,
+    newValue: string
+  ): PersonalInfoField[] {
+    return states.map((obj: PersonalInfoField) =>
+      Object.keys(obj).includes(key) ? { ...obj, value: newValue } : obj
+    );
+  }
+
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>, id: string) => {
+    setPersonalInfoState(
+      updateAddressValue(personalInfoState, id, e.target.value)
+    );
+  };
   return (
     <>
       <div id="personalInfo" className="border-b-2 p-3">
         <div className="py-3">
-          <InputField id="resumeFName" labelName="First Name" />
-          <InputField id="resumeMName" labelName="Middle Name" />
-          <InputField id="resumeLName" labelName="Last Name" />
+          <InputFieldAddress
+            id="resumeFName"
+            labelName="First Name"
+            value={personalInfoState[0].value}
+            inputHandler={(e) => inputHandler(e, "resumeFName")}
+          />
+          <InputFieldAddress
+            id="resumeMName"
+            labelName="Middle Name"
+            value={personalInfoState[1].value}
+            inputHandler={(e) => inputHandler(e, "resumeMName")}
+          />
+          <InputFieldAddress
+            id="resumeLName"
+            labelName="Last Name"
+            value={personalInfoState[2].value}
+            inputHandler={(e) => inputHandler(e, "resumeLName")}
+          />
         </div>
 
         <div className="py-3 flex justify-between">
@@ -16,6 +116,8 @@ export default function PersonalInfo(){
             type="date"
             id="resumeDOB"
             name="resumeDOB"
+            value={personalInfoState[3].value}
+            onChange={(e) => inputHandler(e, "resumeDOB")}
             className="border rounded px-2 focus:outline-none border-[#0f172A]"
           />
         </div>
@@ -29,18 +131,32 @@ export default function PersonalInfo(){
             pattern="[0-9]{10}"
             title="Example: 1234567895"
             maxLength={10}
+            value={personalInfoState[4].value}
+            onChange={(e) => inputHandler(e, "resumePhoneNo")}
             className="border rounded px-2 focus:outline-none border-[#0f172A]"
             required
           />
         </div>
 
-        <InputField id="resumeFatherName" labelName="Father Name" />
-        <InputField id="resumeMotherName" labelName="Mother Name" />
-        <InputField
+        <InputFieldAddress
+          id="resumeFatherName"
+          labelName="Father Name"
+          value={personalInfoState[5].value}
+          inputHandler={(e) => inputHandler(e, "resumeFatherName")}
+        />
+        <InputFieldAddress
+          id="resumeMotherName"
+          labelName="Mother Name"
+          value={personalInfoState[6].value}
+          inputHandler={(e) => inputHandler(e, "resumeMotherName")}
+        />
+        <InputFieldAddress
           id="salary"
           labelName="How much money you want to work for?"
+          value={personalInfoState[7].value}
+          inputHandler={(e) => inputHandler(e, "salary")}
         />
       </div>
     </>
   );
-};
+}

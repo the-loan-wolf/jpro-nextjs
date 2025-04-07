@@ -14,6 +14,7 @@ import {
   skillField,
   qualificationField,
   profilePicUrl,
+  serverData,
 } from "@/app/utils/globalStates";
 import { useAtom, useAtomValue } from "jotai";
 import { getUserDetails, firestoreDoc } from "@/app/utils/firebase-fn";
@@ -30,6 +31,7 @@ const Resume = memo(() => {
   const [workFieldCount, setWorkFieldCount] = useAtom(workField);
   const [skillFieldCount, setSkillFieldCount] = useAtom(skillField);
   const [profilePicUrlString, setProfilePicUrlString] = useAtom(profilePicUrl);
+  const [serverDataState, setServerDataState] = useAtom(serverData);
   let loggedInUserId: string | null = null;
 
   if (typeof window !== "undefined") {
@@ -60,6 +62,7 @@ const Resume = memo(() => {
     setWorkFieldCount(data.workField);
     setSkillFieldCount(data.skillField);
     setProfilePicUrlString(data.profilePicEle);
+    setServerDataState(data);
   };
 
   function formHandler(e: React.FormEvent<HTMLFormElement>) {
