@@ -17,6 +17,7 @@ export interface ServerDataShape {
   resumeFatherName?: string;
   resumeMotherName?: string;
   salary?: string;
+  sameAddress?: string;
 }
 
 const workField = atom(1);

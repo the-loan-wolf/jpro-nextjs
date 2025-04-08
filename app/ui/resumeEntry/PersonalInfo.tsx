@@ -25,52 +25,6 @@ export default function PersonalInfo() {
   ]);
   const [serverDataState, setServerDataState] = useAtom(serverData);
 
-  // useEffect(() => {
-  //   let updatedState = personalInfoState;
-  //   updatedState = updateAddressValue(
-  //     updatedState,
-  //     "resumeFName",
-  //     serverDataState.resumeFName
-  //   );
-  //   updatedState = updateAddressValue(
-  //     updatedState,
-  //     "resumeMName",
-  //     serverDataState.resumeMName
-  //   );
-  //   updatedState = updateAddressValue(
-  //     updatedState,
-  //     "resumeLName",
-  //     serverDataState.resumeLName
-  //   );
-  //   updatedState = updateAddressValue(
-  //     updatedState,
-  //     "resumeDOB",
-  //     serverDataState.resumeDOB
-  //   );
-  //   updatedState = updateAddressValue(
-  //     updatedState,
-  //     "resumePhoneNo",
-  //     serverDataState.resumePhoneNo
-  //   );
-  //   updatedState = updateAddressValue(
-  //     updatedState,
-  //     "resumeFatherName",
-  //     serverDataState.resumeFatherName
-  //   );
-  //   updatedState = updateAddressValue(
-  //     updatedState,
-  //     "resumeMotherName",
-  //     serverDataState.resumeMotherName
-  //   );
-  //   updatedState = updateAddressValue(
-  //     updatedState,
-  //     "salary",
-  //     serverDataState.salary
-  //   );
-
-  //   setPersonalInfoState(updatedState);
-  // }, [serverDataState]);
-
   const fieldKeys: (keyof ServerDataShape)[] = [
     "resumeFName",
     "resumeMName",
