@@ -1,6 +1,8 @@
 import CheckBox from "../CheckBox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputFieldAddress from "./InputFieldAddress";
+import { useAtom } from "jotai";
+import { serverData, ServerDataShape } from "@/app/utils/globalStates";
 
 export default function AddressInfo() {
   const [state, setState] = useState({
@@ -23,6 +25,34 @@ export default function AddressInfo() {
   });
 
   const [disable, setDisable] = useState(false);
+  const [serverDataState, setServerDataState] = useAtom(serverData);
+
+  type AddressField = {
+    [key: string]: string; // e.g., { resumeCountry: "Country", value: "India" }
+    value: string;
+  };
+
+  useEffect(() => {
+    if (!serverDataState) return;
+
+    const updateSection = (section: any) => {
+      return section.map((item: any) => {
+        const key = Object.keys(item)[0]; // e.g., 'resumeCountry'
+        return {
+          [key]: item[key],
+          value: serverDataState[key as keyof ServerDataShape] || "", // fallback to empty string
+        };
+      });
+    };
+
+    setState((prev) => ({
+      ...prev,
+      currentAddress: updateSection(prev.currentAddress),
+      parmanentAddress: updateSection(prev.parmanentAddress),
+    }));
+
+    if(serverDataState.sameAddress === "on") setDisable(true);
+  }, [serverDataState]);
 
   function updateAddressValue(
     states: typeof state,
@@ -38,7 +68,7 @@ export default function AddressInfo() {
     };
   }
 
-  const toggleHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const toggleHandler = () => {
     setDisable((pre) => !pre);
     setState((prevState) => ({
       ...prevState,
@@ -91,6 +121,7 @@ export default function AddressInfo() {
       <CheckBox
         id="sameAddress"
         label="Same as Current Address?"
+        checked={disable}
         toggleHandler={toggleHandler}
       />
 
