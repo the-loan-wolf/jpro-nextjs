@@ -85,7 +85,7 @@ export default function PersonalInfo() {
           />
         </div>
 
-        <div className="py-3 flex justify-between">
+        <div className="py-3 flex flex-wrap justify-between">
           <label htmlFor="resumeDOB">Date of Birth</label>
           <input
             type="date"
@@ -97,7 +97,7 @@ export default function PersonalInfo() {
           />
         </div>
 
-        <div className="py-3 flex justify-between">
+        <div className="py-3 flex flex-wrap justify-between">
           <label htmlFor="resumePhoneNo">Phone Number</label>
           <input
             type="tel"

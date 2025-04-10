@@ -32,7 +32,6 @@ export default function QualificationFieldContainer({
 
   return (
     <div
-      id="matricDiv"
       className={clsx(
         {
           block: checkBoxValue,

@@ -10,7 +10,7 @@ export default function InputField({id, labelName}: Props){
     // }else padding
     nameList.includes(id)? padding = "py-1" : padding = "py-3"
   return (
-    <div className={`${padding} flex justify-between`}>
+    <div className={`${padding} flex flex-wrap justify-between`}>
       <label htmlFor={id}>{labelName}</label>
       <input
         type="text"

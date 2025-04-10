@@ -25,7 +25,7 @@ export default function ProfilePicUpload() {
   return (
     <>
       {/* <!-- upload profile pic --> */}
-      <div className="flex flex-col md:flex-row items-center justify-center">
+      <div className="flex flex-col flex-wrap md:flex-row items-center justify-center">
         <Image
           // src="/image-profile.jpg"
           src={url || "/image-profile.jpg"}
