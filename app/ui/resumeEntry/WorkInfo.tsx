@@ -57,7 +57,7 @@ export default function WorkInfo() {
       );
     }
     setInit(newInit);
-  }, [workFieldCount]);
+  }, [workFieldCount, serverDataState]);
 
   function updateAddressValue(
     states: WorkField[],

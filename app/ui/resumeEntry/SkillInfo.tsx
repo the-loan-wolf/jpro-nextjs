@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ButtonAddField from "./ButtonAddField";
-import { skillField } from "@/app/utils/globalStates";
+import { serverData, skillField } from "@/app/utils/globalStates";
 import { useAtom } from "jotai";
 import InputFieldAddress from "./InputFieldAddress";
 
@@ -12,6 +12,7 @@ type SkillField = {
 
 export default function SkillInfo() {
   const [skillFieldCount, setSkillFieldCount] = useAtom(skillField);
+  const [serverDataState, setServerDataState] = useAtom(serverData);
 
   const [init, setInit] = useState<SkillField[]>([
     { skillName: "Skill Name", value: "" },
@@ -23,16 +24,31 @@ export default function SkillInfo() {
     const newInit: SkillField[] = [];
     for (let i = 0; i < skillFieldCount; i++) {
       newInit.push(
-        { [`skillName${i > 0 ? i : ""}`]: "Skill Name", value: "" },
+        {
+          [`skillName${i > 0 ? i : ""}`]: "Skill Name",
+          value:
+            (serverDataState as Record<string, string | undefined>)[
+              `skillName${i > 0 ? i : ""}`
+            ] ?? "",
+        },
         {
           [`skillSource${i > 0 ? i : ""}`]: "Where you learned it from",
-          value: "",
+          value:
+            (serverDataState as Record<string, string | undefined>)[
+              `skillSource${i > 0 ? i : ""}`
+            ] ?? "",
         },
-        { [`skillEx${i > 0 ? i : ""}`]: "Experience Time", value: "" }
+        {
+          [`skillEx${i > 0 ? i : ""}`]: "Experience Time",
+          value:
+            (serverDataState as Record<string, string | undefined>)[
+              `skillEx${i > 0 ? i : ""}`
+            ] ?? "",
+        }
       );
     }
     setInit(newInit);
-  }, [skillFieldCount]);
+  }, [skillFieldCount, serverDataState]);
 
   function updateAddressValue(
     states: SkillField[],
