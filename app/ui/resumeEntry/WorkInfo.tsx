@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ButtonAddField from "./ButtonAddField";
-import { workField } from "@/app/utils/globalStates";
+import { serverData, workField } from "@/app/utils/globalStates";
 import { useAtom } from "jotai";
 import InputFieldAddress from "./InputFieldAddress";
 
@@ -12,25 +12,48 @@ type WorkField = {
 
 export default function WorkInfo() {
   const [workFieldCount, setWorkFieldCount] = useAtom(workField);
+  const [serverDataState, setServerDataState] = useAtom(serverData);
 
   const [init, setInit] = useState<WorkField[]>([
     { companyName: "Company Name", value: "" },
-    { companyPost: "Post", value: "" },
+    { compPost: "Post", value: "" },
     { joinDate: "Joining Date", value: "" },
     { lastDate: "Worked Till", value: "" },
   ]);
 
   useEffect(() => {
+    console.log(serverDataState)
     const newInit: WorkField[] = [];
     for (let i = 0; i < workFieldCount; i++) {
       newInit.push(
-        { [`companyName${i > 0 ? i : ""}`]: "Company Name", value: "" },
         {
-          [`companyPost${i > 0 ? i : ""}`]: "Post",
-          value: "",
+          [`companyName${i > 0 ? i : ""}`]: "Company Name",
+          value:
+            (serverDataState as Record<string, string | undefined>)[
+              `companyName${i > 0 ? i : ""}`
+            ] ?? "",
         },
-        { [`joinDate${i > 0 ? i : ""}`]: "Joining Date", value: "" },
-        { [`lastDate${i > 0 ? i : ""}`]: "Worked Till", value: "" }
+        {
+          [`compPost${i > 0 ? i : ""}`]: "Post",
+          value:
+            (serverDataState as Record<string, string | undefined>)[
+              `compPost${i > 0 ? i : ""}`
+            ] ?? "",
+        },
+        {
+          [`joinDate${i > 0 ? i : ""}`]: "Joining Date",
+          value:
+            (serverDataState as Record<string, string | undefined>)[
+              `joinDate${i > 0 ? i : ""}`
+            ] ?? "",
+        },
+        {
+          [`lastDate${i > 0 ? i : ""}`]: "Worked Till",
+          value:
+            (serverDataState as Record<string, string | undefined>)[
+              `lastDate${i > 0 ? i : ""}`
+            ] ?? "",
+        }
       );
     }
     setInit(newInit);
