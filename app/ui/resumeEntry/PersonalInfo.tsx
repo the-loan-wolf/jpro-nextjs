@@ -40,7 +40,7 @@ export default function PersonalInfo() {
     let updatedState = personalInfoState;
     for (const key of fieldKeys) {
       if(serverDataState[key]){
-        updatedState = updateAddressValue(updatedState, key, serverDataState[key]);
+        updatedState = updateAddressValue(updatedState, key, String(serverDataState[key]));
       }
     }
     setPersonalInfoState(updatedState);
