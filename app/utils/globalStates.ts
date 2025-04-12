@@ -18,6 +18,26 @@ export interface ServerDataShape {
   resumeMotherName?: string;
   salary?: string;
   sameAddress?: string;
+  enableMatric?: boolean;
+  enableInter?: boolean;
+  enableUG?: boolean;
+  enablePG?: boolean;
+  enablePHD?: boolean;
+  matricInstName?: string;
+  matricBoard?: string;
+  matricMarks?: string;
+  interInstName?: string;
+  interBoard?: string;
+  interMarks?: string;
+  ugInstName?: string;
+  ugBoard?: string;
+  ugMarks?: string;
+  pgInstName?: string;
+  pgBoard?: string;
+  pgMarks?: string;
+  phdInstName?: string;
+  phdBoard?: string;
+  phdMarks?: string;
 }
 
 const workField = atom(1);
