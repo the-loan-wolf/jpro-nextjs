@@ -8,7 +8,7 @@ import WorkInfo from "@/app/ui/resumeEntry/WorkInfo";
 import SkillInfo from "@/app/ui/resumeEntry/SkillInfo";
 import SubmitBtn from "@/app/ui/resumeEntry/SubmitBtn";
 import ProfilePicUpload from "@/app/ui/resumeEntry/ProfilePicUpload";
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 import {
   workField,
   skillField,
@@ -17,7 +17,11 @@ import {
   serverData,
 } from "@/app/utils/globalStates";
 import { useAtom, useAtomValue } from "jotai";
-import { getUserDetails, firestoreDoc } from "@/app/utils/firebase-fn";
+import {
+  getUserDetails,
+  firestoreDoc,
+  uploadResume,
+} from "@/app/utils/firebase-fn";
 
 const Resume = memo(() => {
   const router = useRouter();
@@ -33,6 +37,8 @@ const Resume = memo(() => {
   const [profilePicUrlString, setProfilePicUrlString] = useAtom(profilePicUrl);
   const [serverDataState, setServerDataState] = useAtom(serverData);
   let loggedInUserId: string | null = null;
+  const [disable, setDisable] = useState(false);
+  const [shouldSubmit, setShouldSubmit] = useState(false);
 
   if (typeof window !== "undefined") {
     loggedInUserId = localStorage.getItem("loggedInUserId");
@@ -67,15 +73,26 @@ const Resume = memo(() => {
 
   function formHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const formValues = Object.fromEntries(formData.entries());
-    formValues["qualificationField"] = qualificationFieldCount.toString();
-    formValues["workField"] = workFieldCount.toString();
-    formValues["skillField"] = skillFieldCount.toString();
-    formValues["profilePicEle"] = profilePicUrlString;
-
-    console.log(formValues);
+    setDisable(false);
+    setShouldSubmit(true); // triggers effect to run submission later
   }
+
+  useEffect(() => {
+    if (shouldSubmit && !disable) {
+      const form = document.querySelector("form") as HTMLFormElement;
+      const formData = new FormData(form);
+      const formValues = Object.fromEntries(formData.entries());
+      formValues["qualificationField"] = qualificationFieldCount.toString();
+      formValues["workField"] = workFieldCount.toString();
+      formValues["skillField"] = skillFieldCount.toString();
+      formValues["profilePicEle"] = profilePicUrlString;
+      setDisable(true); // here is a bug, checkbox and parmanent address input fields share common state, after changing state here wrong value is getting submited for checkbox
+      loggedInUserId && uploadResume(loggedInUserId, formValues);
+      console.log(formValues);
+
+      setShouldSubmit(false); // reset
+    }
+  }, [shouldSubmit, disable]);
 
   return (
     <div className="md:w-1/2 md:mx-auto">
@@ -87,7 +104,7 @@ const Resume = memo(() => {
       >
         <ProfilePicUpload />
         <PersonalInfo />
-        <AddressInfo />
+        <AddressInfo disable={disable} setDisable={setDisable} />
         <EducationalInfo />
         <WorkInfo />
         <SkillInfo />

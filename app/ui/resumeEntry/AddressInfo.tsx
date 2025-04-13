@@ -1,10 +1,16 @@
 import CheckBox from "../CheckBox";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import InputFieldAddress from "./InputFieldAddress";
-import { useAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import { serverData, ServerDataShape } from "@/app/utils/globalStates";
 
-export default function AddressInfo() {
+export default function AddressInfo({
+  disable,
+  setDisable,
+}: {
+  disable: boolean;
+  setDisable: Dispatch<SetStateAction<boolean>>;
+}) {
   const [state, setState] = useState({
     currentAddress: [
       { resumeCountry: "Country", value: "" },
@@ -24,7 +30,9 @@ export default function AddressInfo() {
     ],
   });
 
-  const [disable, setDisable] = useState(false);
+  // const [disable, setDisable] = useState(false);
+  // const checkboxState = atom(false)
+  // const [disable, setDisable] = useAtom(checkboxState);
   const [serverDataState, setServerDataState] = useAtom(serverData);
 
   type AddressField = {
@@ -51,7 +59,7 @@ export default function AddressInfo() {
       parmanentAddress: updateSection(prev.parmanentAddress),
     }));
 
-    if(serverDataState.sameAddress === "on") setDisable(true);
+    if (serverDataState.sameAddress === "on") setDisable(true);
   }, [serverDataState]);
 
   function updateAddressValue(

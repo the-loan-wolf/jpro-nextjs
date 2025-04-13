@@ -174,3 +174,16 @@ export const uploadPic = async (picFile: File): Promise<string> => {
     return "error";
   }
 };
+
+export const uploadResume = async (uid: string, resume: {
+  [k: string]: FormDataEntryValue;
+}) => {
+  const docRef = doc(db, "resumes", uid);
+  setDoc(docRef, resume)
+    .then(() => {
+      console.log("resumes saved successfully");
+    })
+    .catch((error) => {
+      console.error("resumes is not saved in database", error);
+    });
+};
