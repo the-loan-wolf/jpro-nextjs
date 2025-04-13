@@ -21,7 +21,7 @@ export default function ProfilePicUpload() {
       alert("No file selected");
     }
   };
-  console.log("setUrl value: ", url)
+  // console.log("setUrl value: ", url)
   return (
     <>
       {/* <!-- upload profile pic --> */}

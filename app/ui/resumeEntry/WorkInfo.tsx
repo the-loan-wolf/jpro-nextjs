@@ -22,7 +22,7 @@ export default function WorkInfo() {
   ]);
 
   useEffect(() => {
-    console.log(serverDataState)
+    // console.log(serverDataState)
     const newInit: WorkField[] = [];
     for (let i = 0; i < workFieldCount; i++) {
       newInit.push(
