@@ -1,16 +1,5 @@
-1. profile pic upload feature
-2. profile pic crop tool
-3. automatic fetching more data on homepage while scrolling
-4. resume upload feature
-5. make firebase more secure
-6. try to convert utils function to server side api
-7. try to convert more client components to server side components
-
-Priority List:
-
-1. make parament address checkbox working inside resume route
-
-
-1. fetch user data fom server
-2. add total number of field based on how much field is needed from the server data
-3. fill all the value from server data in their corresponding fields
+1. profile pic crop tool
+2. automatic fetching more data on homepage while scrolling
+3. make firebase more secure
+4. try to convert utils function to server side api
+5. try to convert more client components to server side components
