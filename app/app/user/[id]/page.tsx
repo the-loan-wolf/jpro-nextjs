@@ -1,9 +1,5 @@
-"use client";
-
 import { getUserDetails } from "@/app/utils/firebase-fn";
-import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useParams } from "next/navigation";
 import {
   stateField,
   keyField,
@@ -26,27 +22,28 @@ type ResumeData = {
   [key: string]: any; // Allows dynamic fields
 };
 
-export default function User() {
-  const getParams = useParams<{ id: string }>();
-  const id = getParams.id;
-  const [profilePic, setProfilePic] = useState("");
-  const [profileName, setProfileName] = useState("");
-  // const [textFieldJSX, setTextFieldJSX] = useState<JSX.Element[]>();
-  const [primaryState, setPrimaryState] = useState<JSX.Element[]>([]);
-  const [addressState, setAddressState] = useState<JSX.Element[]>([]);
-  const [parmanentAddressState, setParmanentAddressState] = useState<
-    JSX.Element[]
-  >([]);
-  const [matricState, setMatricState] = useState<JSX.Element[]>([]);
-  const [interState, setInterState] = useState<JSX.Element[]>([]);
-  const [ugState, setUgState] = useState<JSX.Element[]>([]);
-  const [pgState, setPgState] = useState<JSX.Element[]>([]);
-  const [phdState, setPhdState] = useState<JSX.Element[]>([]);
-  const [qualificationState, setQualificationState] = useState<JSX.Element[]>(
-    []
-  );
-  const [companyState, setCompanyState] = useState<JSX.Element[]>([]);
-  const [skillState, setSkillState] = useState<JSX.Element[]>([]);
+// app/blog/[id]/page.tsx
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function User({ params }: Props) {
+  const { id } = await params;
+
+  let profilePic: string = "";
+  let profileName: string = "";
+  const primaryDetailsArray: JSX.Element[] = [];
+  const addressDetailsArray: JSX.Element[] = [];
+  const ParmanentaddressDetailsArray: JSX.Element[] = [];
+  const matricDetailsArray: JSX.Element[] = [];
+  const interDetailsArray: JSX.Element[] = [];
+  const ugDetailsArray: JSX.Element[] = [];
+  const pgDetailsArray: JSX.Element[] = [];
+  const phdDetailsArray: JSX.Element[] = [];
+  let qualificationDetailsArray: JSX.Element[] = [];
+  let companyDetailsArray: JSX.Element[] = [];
+  let skillDetailsArray: JSX.Element[] = [];
+
   const keyOrder = [
     ...primaryDetails,
     ...addressDetails,
@@ -58,35 +55,21 @@ export default function User() {
     ...phdDetails,
   ];
 
-  useEffect(() => {
-    const fetchData = async ()=>{
-      try{
-        const data = await getUserDetails(id)
-        if(data && typeof data === "object"){
-          parseData(data);
-        }
-      }catch(error){
-        console.error(error)
-      }
+  try {
+    const data = await getUserDetails(id);
+    if (data && typeof data === "object") {
+      parseData(data);
     }
-    fetchData();
-  }, []);
+  } catch (error) {
+    console.error(error);
+  }
 
   function parseData(data: ResumeData): void {
-    // const keys = Object.keys(data); // remove this line when not needed
-    // console.log(keys); // remove this line when not needed
     const formatedData = formatDataCorrectly(data);
-    setProfilePic(formatedData["profilePicEle"]);
-    setProfileName(formatedData["resumeFName"]);
-    const primaryDetailsArray: JSX.Element[] = [];
-    const addressDetailsArray: JSX.Element[] = [];
-    const ParmanentaddressDetailsArray: JSX.Element[] = [];
-    const matricDetailsArray: JSX.Element[] = [];
-    const interDetailsArray: JSX.Element[] = [];
-    const ugDetailsArray: JSX.Element[] = [];
-    const pgDetailsArray: JSX.Element[] = [];
-    const phdDetailsArray: JSX.Element[] = [];
-    const qualificationDetailsArray: JSX.Element[] = Object.entries(formatedData).flatMap(
+    profilePic = formatedData["profilePicEle"];
+    profileName = formatedData["resumeFName"];
+
+    qualificationDetailsArray = Object.entries(formatedData).flatMap(
       ([key, value]) => {
         if (key.startsWith("degName")) {
           return (
@@ -127,8 +110,8 @@ export default function User() {
         return []; // Return an empty array instead of `undefined`
       }
     );
-    setQualificationState(qualificationDetailsArray);
-    const companyDetailsArray: JSX.Element[] = Object.entries(formatedData).flatMap(
+
+    companyDetailsArray = Object.entries(formatedData).flatMap(
       ([key, value]) => {
         if (key.startsWith("companyName")) {
           return (
@@ -178,158 +161,38 @@ export default function User() {
         return []; // Return an empty array instead of `undefined`
       }
     );
-    setCompanyState(companyDetailsArray);
-    const skillDetailsArray: JSX.Element[] = Object.entries(formatedData).flatMap(
-      ([key, value]) => {
-        if (key.startsWith("skillName")) {
-          return (
-            <ResumeTextDetail
-              key={key}
-              keyName={keyField.skillName}
-              value={value}
-            />
-          );
-        }
-        if (key.startsWith("skillSource")) {
-          return (
-            <ResumeTextDetail
-              key={key}
-              keyName={keyField.skillSource}
-              value={value}
-            />
-          );
-        }
-        if (key.startsWith("skillEx")) {
-          return (
-            <ResumeTextDetail
-              key={key}
-              keyName={keyField.skillEx}
-              value={value}
-            />
-          );
-        }
-        return []; // Return an empty array instead of `undefined`
+
+    skillDetailsArray = Object.entries(formatedData).flatMap(([key, value]) => {
+      if (key.startsWith("skillName")) {
+        return (
+          <ResumeTextDetail
+            key={key}
+            keyName={keyField.skillName}
+            value={value}
+          />
+        );
       }
-    );
-    setSkillState(skillDetailsArray);
-    // const textFields: JSX.Element[] = Object.entries(formatedData).map(
-    //   ([key, value]) => {
-    //     if (key === "profilePicEle") {
-    //       return null;
-    //     }
-    //     if (key.startsWith("degName")) {
-    //       return (
-    //         <ResumeTextDetail
-    //           key={key}
-    //           keyName={keyField.degName}
-    //           value={value}
-    //         />
-    //       );
-    //     }
-    //     if (key.startsWith("instName")) {
-    //       return (
-    //         <ResumeTextDetail
-    //           key={key}
-    //           keyName={keyField.instName}
-    //           value={value}
-    //         />
-    //       );
-    //     }
-    //     if (key.startsWith("instBoard")) {
-    //       return (
-    //         <ResumeTextDetail
-    //           key={key}
-    //           keyName={keyField.instBoard}
-    //           value={value}
-    //         />
-    //       );
-    //     }
-    //     if (key.startsWith("instMarks")) {
-    //       return (
-    //         <ResumeTextDetail
-    //           key={key}
-    //           keyName={keyField.instMarks}
-    //           value={value}
-    //         />
-    //       );
-    //     }
-    //     if (key.startsWith("companyName")) {
-    //       return (
-    //         <ResumeTextDetail
-    //           key={key}
-    //           keyName={keyField.companyName}
-    //           value={value}
-    //         />
-    //       );
-    //     }
-    //     if (key.startsWith("compPost")) {
-    //       return (
-    //         <ResumeTextDetail
-    //           key={key}
-    //           keyName={keyField.compPost}
-    //           value={value}
-    //         />
-    //       );
-    //     }
-    //     if (key.startsWith("joinDate")) {
-    //       return (
-    //         <ResumeTextDetail
-    //           key={key}
-    //           keyName={keyField.joinDate}
-    //           value={value}
-    //         />
-    //       );
-    //     }
-    //     if (key.startsWith("lastDate")) {
-    //       return (
-    //         <ResumeTextDetail
-    //           key={key}
-    //           keyName={keyField.lastDate}
-    //           value={value}
-    //         />
-    //       );
-    //     }
-    //     if (key.startsWith("workEx")) {
-    //       return (
-    //         <ResumeTextDetail
-    //           key={key}
-    //           keyName={keyField.workEx}
-    //           value={value}
-    //         />
-    //       );
-    //     }
-    //     if (key.startsWith("skillName")) {
-    //       return (
-    //         <ResumeTextDetail
-    //           key={key}
-    //           keyName={keyField.skillName}
-    //           value={value}
-    //         />
-    //       );
-    //     }
-    //     if (key.startsWith("skillSource")) {
-    //       return (
-    //         <ResumeTextDetail
-    //           key={key}
-    //           keyName={keyField.skillSource}
-    //           value={value}
-    //         />
-    //       );
-    //     }
-    //     if (key.startsWith("skillEx")) {
-    //       return (
-    //         <ResumeTextDetail
-    //           key={key}
-    //           keyName={keyField.skillEx}
-    //           value={value}
-    //         />
-    //       );
-    //     }
-    //     // return (
-    //     //   <ResumeTextDetail key={key} keyName={keyField[key]} value={value} />
-    //     // );
-    //   }
-    // );
+      if (key.startsWith("skillSource")) {
+        return (
+          <ResumeTextDetail
+            key={key}
+            keyName={keyField.skillSource}
+            value={value}
+          />
+        );
+      }
+      if (key.startsWith("skillEx")) {
+        return (
+          <ResumeTextDetail
+            key={key}
+            keyName={keyField.skillEx}
+            value={value}
+          />
+        );
+      }
+      return []; // Return an empty array instead of `undefined`
+    });
+
     Object.entries(formatedData).map(([key, value]) => {
       switch (key) {
         case "resumeFName":
@@ -343,8 +206,8 @@ export default function User() {
           primaryDetailsArray.push(
             <ResumeTextDetail key={key} keyName={keyField[key]} value={value} />
           );
-          setPrimaryState(primaryDetailsArray);
           break;
+
         case "resumeCountry":
         case "resumeState":
         case "resumeDistrict":
@@ -354,8 +217,8 @@ export default function User() {
           addressDetailsArray.push(
             <ResumeTextDetail key={key} keyName={keyField[key]} value={value} />
           );
-          setAddressState(addressDetailsArray);
           break;
+
         case "resumePCountry":
         case "resumePState":
         case "resumePDistrict":
@@ -365,73 +228,61 @@ export default function User() {
           ParmanentaddressDetailsArray.push(
             <ResumeTextDetail key={key} keyName={keyField[key]} value={value} />
           );
-          setParmanentAddressState(ParmanentaddressDetailsArray);
           break;
+
         case "matricInstName":
         case "matricBoard":
         case "matricMarks":
           matricDetailsArray.push(
             <ResumeTextDetail key={key} keyName={keyField[key]} value={value} />
           );
-          setMatricState(matricDetailsArray);
           break;
+
         case "interInstName":
         case "interBoard":
         case "interMarks":
           interDetailsArray.push(
             <ResumeTextDetail key={key} keyName={keyField[key]} value={value} />
           );
-          setInterState(interDetailsArray);
           break;
+
         case "ugInstName":
         case "ugBoard":
         case "ugMarks":
           ugDetailsArray.push(
             <ResumeTextDetail key={key} keyName={keyField[key]} value={value} />
           );
-          setUgState(ugDetailsArray);
           break;
+
         case "pgInstName":
         case "pgBoard":
         case "pgMarks":
           pgDetailsArray.push(
             <ResumeTextDetail key={key} keyName={keyField[key]} value={value} />
           );
-          setPgState(pgDetailsArray);
           break;
+
         case "phdInstName":
         case "phdBoard":
         case "phdMarks":
           phdDetailsArray.push(
             <ResumeTextDetail key={key} keyName={keyField[key]} value={value} />
           );
-          setPhdState(phdDetailsArray);
           break;
       }
     });
-
-    // setTextFieldJSX(textFields);
-    // console.log(qualificationState);
-    // console.log(companyState);
-    // console.log(skillState);
-    // console.log(skillState.length);
   }
 
   function formatDataCorrectly(data: ResumeData): ResumeData {
     const finalKeys = addDynamicfield(data);
     // Step 2: Sort the Object based on the order of keys in `keyOrder`
-    // const entries = Object.entries(finalData); //First covert object into an array
     const entries = Object.entries(data); //First covert object into an array
     const sortedEntries = entries.sort(([keyA], [keyB]) => {
       return finalKeys.indexOf(keyA) - finalKeys.indexOf(keyB);
     });
-    // console.log(sortedEntries);
     // Convert back to an object (if needed) // optimization needed! if we can use directly array then this function does not need to execute
     const sortedObject = Object.fromEntries(sortedEntries);
-    // console.log(sortedObject);
-    // setData(sortedObject);
-
-    // delete some entries
+    // delete some entries(empty fields)
     const finalData = Object.fromEntries(
       Object.entries(sortedObject).filter(
         ([key, value]) =>
@@ -443,11 +294,8 @@ export default function User() {
 
   function addDynamicfield(data: ResumeData): Array<string> {
     const qualificationCount: number = data.qualificationField;
-    // console.log(`qualificationCount: ${qualificationCount}`);
     const companyCount: number = data.workField;
-    // console.log(`companyCount: ${companyCount}`);
     const skillCount: number = data.skillField;
-    // console.log(`skillCount: ${skillCount}`);
     for (let i = 1; i <= qualificationCount; i++) {
       const newQualificationKeys = qualificationDetails.map((item) => item + i);
       keyOrder.push(...newQualificationKeys);
@@ -486,59 +334,59 @@ export default function User() {
           id="profileData"
           className="basis-2/3 h-full overflow-y-scroll scroll-smooth flex flex-col px-12"
         >
-          {primaryState.length > 0 ? (
+          {primaryDetailsArray.length > 0 ? (
             <UserDetailContainer fieldName="Primary Info">
-              {primaryState}
+              {primaryDetailsArray}
             </UserDetailContainer>
           ) : null}
-          {addressState.length > 0 ? (
+          {addressDetailsArray.length > 0 ? (
             <UserDetailContainer fieldName="Address Info">
-              {addressState}
+              {addressDetailsArray}
             </UserDetailContainer>
           ) : null}
-          {parmanentAddressState.length > 0 ? (
+          {ParmanentaddressDetailsArray.length > 0 ? (
             <UserDetailContainer fieldName="Parmanent Address Info">
-              {parmanentAddressState}
+              {ParmanentaddressDetailsArray}
             </UserDetailContainer>
           ) : null}
-          {matricState.length > 0 ? (
+          {matricDetailsArray.length > 0 ? (
             <UserDetailContainer fieldName="Matric Info">
-              {matricState}
+              {matricDetailsArray}
             </UserDetailContainer>
           ) : null}
-          {interState.length > 0 ? (
+          {interDetailsArray.length > 0 ? (
             <UserDetailContainer fieldName="Inter Info">
-              {interState}
+              {interDetailsArray}
             </UserDetailContainer>
           ) : null}
-          {ugState.length > 0 ? (
+          {ugDetailsArray.length > 0 ? (
             <UserDetailContainer fieldName="Undergraduate Info">
-              {ugState}
+              {ugDetailsArray}
             </UserDetailContainer>
           ) : null}
-          {pgState.length > 0 ? (
+          {pgDetailsArray.length > 0 ? (
             <UserDetailContainer fieldName="Postgraduate Info">
-              {pgState}
+              {pgDetailsArray}
             </UserDetailContainer>
           ) : null}
-          {phdState.length > 0 ? (
+          {phdDetailsArray.length > 0 ? (
             <UserDetailContainer fieldName="Phd Info">
-              {phdState}
+              {phdDetailsArray}
             </UserDetailContainer>
           ) : null}
-          {qualificationState.length > 0 ? (
+          {qualificationDetailsArray.length > 0 ? (
             <UserDetailContainer fieldName="Other Qualification Info">
-              {qualificationState}
+              {qualificationDetailsArray}
             </UserDetailContainer>
           ) : null}
-          {companyState.length > 0 ? (
+          {companyDetailsArray.length > 0 ? (
             <UserDetailContainer fieldName="Work Experience">
-              {companyState}
+              {companyDetailsArray}
             </UserDetailContainer>
           ) : null}
-          {skillState.length > 0 ? (
+          {skillDetailsArray.length > 0 ? (
             <UserDetailContainer fieldName="Skills Info">
-              {skillState}
+              {skillDetailsArray}
             </UserDetailContainer>
           ) : null}
         </div>

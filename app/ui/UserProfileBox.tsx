@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface UserProps {
   userData: {
@@ -11,34 +11,24 @@ interface UserProps {
   };
 }
 
-export default function UserProfileBox({userData}: UserProps) {
-  const router = useRouter();
-
-  const userProfileOpener = () => {
-    // console.log(`Button clicked! ${userData.uid}`);
-    router.push(`/app/user/${userData.uid}`)
-  }
-
+export default function UserProfileBox({ userData }: UserProps) {
   return (
-    <div
-      id="client"
-      className="w-40 h-60 relative rounded-2xl bg-slate-800/25 hover:-translate-y-1 hover:scale-110 hover:bg-amber-300 transition ease-in-out cursor-pointer"
-      onClick={userProfileOpener}
-    >
-      <div className="flex flex-col items-center">
-        <Image
-          src={userData.pic}
-          width={300}
-          height={300}
-          id="pic"
-          alt=""
-          className="p-2 rounded-2xl"
-        />
-        <p id="name">{userData.name}</p>
-        <p id="occupation">{userData.occupation}</p>
-        <p id="salary">₹{userData.salary}</p>
-      </div>
-      <div className="absolute inset-0 pointer-events-none border rounded-xl border-white/5"></div>
+    <div className="w-40 h-60 relative rounded-2xl bg-slate-800/25 hover:-translate-y-1 hover:scale-110 hover:bg-amber-300 transition ease-in-out cursor-pointer">
+      <Link href={`/app/user/${userData.uid}`} prefetch={true}>
+        <div className="flex flex-col items-center">
+          <Image
+            src={userData.pic}
+            width={300}
+            height={300}
+            alt="profie pic"
+            className="p-2 rounded-2xl"
+          />
+          <p>{userData.name}</p>
+          <p>{userData.occupation}</p>
+          <p>₹{userData.salary}</p>
+        </div>
+        <div className="absolute inset-0 pointer-events-none border rounded-xl border-white/5"></div>
+      </Link>
     </div>
   );
 }
