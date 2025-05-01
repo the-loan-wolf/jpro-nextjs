@@ -1,5 +1,6 @@
 import UserProfileBox from "../ui/UserProfileBox";
 import { getDocument } from "../utils/firebase-fn";
+import { headers } from 'next/headers'
 
 // Define the document type
 interface UserDocument {
@@ -12,6 +13,10 @@ interface UserDocument {
 }
 
 export default async function App() {
+  // we are doing this to opt out of static rendering
+  const headersList = await headers()
+  const userAgent = headersList.get('user-agent')
+
   let userProfiles: UserDocument[] = [];
 
   try {
