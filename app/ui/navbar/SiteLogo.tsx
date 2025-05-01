@@ -16,7 +16,7 @@ export default function SiteLogo({
         <h1 id="siteLogo" className="font-semibold text-2xl">
           <span className="text-blue-500">Free</span>
           <span className="text-blue-600">Job</span>
-          <span className="text-blue-700">Search</span>
+          <span className="text-blue-700">Searcher</span>
         </h1>
       </Link>
     </>

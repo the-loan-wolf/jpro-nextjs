@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "FreeJobSearch",
+  title: "FreeJobSearcher",
   description: "Find Job while sitting at your home",
 };
 

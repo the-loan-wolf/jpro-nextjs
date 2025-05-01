@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Login | FreeJobSearch",
+  title: "Login | FreeJobSearcher",
   description: "Find Job while sitting at your home",
 };
 

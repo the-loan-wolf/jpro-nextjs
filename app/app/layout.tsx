@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "FreeJobSearch",
+  title: "FreeJobSearcher",
   description: "Find Job while sitting at your home",
 };
 
