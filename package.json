@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.0.2",
+    "@mui/material": "^7.0.2",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-progress": "^1.1.1",
     "babel-plugin-react-compiler": "19.0.0-beta-27714ef-20250124",
@@ -17,9 +21,10 @@
     "firebase": "^10.13.1",
     "jotai": "^2.12.1",
     "lucide-react": "^0.439.0",
-    "next": "15.2.4",
+    "next": "15.3.1",
     "react": "^18",
     "react-dom": "^18",
+    "react-easy-crop": "^5.4.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7"
   },
