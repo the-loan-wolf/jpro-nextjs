@@ -19,6 +19,7 @@ export default function WorkInfo() {
     { compPost: "Post", value: "" },
     { joinDate: "Joining Date", value: "" },
     { lastDate: "Worked Till", value: "" },
+    { workEx: "Want to describe your work there?", value: ""}
   ]);
 
   useEffect(() => {
@@ -52,6 +53,13 @@ export default function WorkInfo() {
           value:
             (serverDataState as Record<string, string | undefined>)[
               `lastDate${i > 0 ? i : ""}`
+            ] ?? "",
+        },
+        {
+          [`workEx${i > 0 ? i : ""}`]: "Want to describe your work there?",
+          value:
+            (serverDataState as Record<string, string | undefined>)[
+              `workEx${i > 0 ? i : ""}`
             ] ?? "",
         }
       );
