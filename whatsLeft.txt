@@ -1,5 +1,4 @@
-1. profile pic crop tool
-2. automatic fetching more data on homepage while scrolling
-3. make firebase more secure
-4. try to convert utils function to server side api
-5. try to convert more client components to server side components
+1. automatic fetching more data on homepage while scrolling (pagination)
+2. make firebase more secure
+3. try to convert utils function to server side api
+4. try to convert more client components to server side components (work going on)

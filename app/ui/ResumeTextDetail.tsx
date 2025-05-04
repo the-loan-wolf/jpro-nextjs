@@ -8,8 +8,8 @@ export default function ResumeTextDetail({
   value,
 }: ResumeTextDetailProps) {
   return (
-    <div className="flex justify-between px-10">
-      <p>{keyName}</p>
+    <div className="flex justify-between flex-wrap px-2 md:px-10">
+      <p className="text-slate-50">{keyName}</p>
       <p>{value}</p>
     </div>
   );

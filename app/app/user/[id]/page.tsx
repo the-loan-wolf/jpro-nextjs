@@ -328,11 +328,11 @@ export default async function User({ params }: Props) {
             alt=""
             className="w-36 rounded-full md:rounded-2xl m-3"
           />
-          <p className="text-white uppercase">{profileName || "Name..."}</p>
+          <p className="text-white uppercase font-bold text-lg font-ebGaramond">{profileName || "Name..."}</p>
         </div>
         <div
           id="profileData"
-          className="basis-2/3 h-full overflow-y-scroll scroll-smooth flex flex-col px-12"
+          className="basis-2/3 h-full md:overflow-y-scroll scroll-smooth flex flex-col lg:px-12 md:px-12"
         >
           {primaryDetailsArray.length > 0 ? (
             <UserDetailContainer fieldName="Primary Info">
