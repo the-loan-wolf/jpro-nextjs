@@ -100,11 +100,14 @@ export default async function User({ params }: Props) {
         }
         if (key.startsWith("instMarks")) {
           return (
-            <ResumeTextDetail
-              key={key}
-              keyName={keyField.instMarks}
-              value={value}
-            />
+            <div key={key}>
+              <ResumeTextDetail
+                key={key}
+                keyName={keyField.instMarks}
+                value={value}
+              />
+              <br></br>
+            </div>
           );
         }
         return []; // Return an empty array instead of `undefined`
@@ -151,11 +154,14 @@ export default async function User({ params }: Props) {
         }
         if (key.startsWith("workEx")) {
           return (
-            <ResumeTextDetail
-              key={key}
-              keyName={keyField.workEx}
-              value={value}
-            />
+            <div key={key}>
+              <ResumeTextDetail
+                key={key}
+                keyName={keyField.workEx}
+                value={value}
+              />
+              <br></br>
+            </div>
           );
         }
         return []; // Return an empty array instead of `undefined`
@@ -183,11 +189,14 @@ export default async function User({ params }: Props) {
       }
       if (key.startsWith("skillEx")) {
         return (
-          <ResumeTextDetail
-            key={key}
-            keyName={keyField.skillEx}
-            value={value}
-          />
+          <div key={key}>
+            <ResumeTextDetail
+              key={key}
+              keyName={keyField.skillEx}
+              value={value}
+            />
+            <br></br>
+          </div>
         );
       }
       return []; // Return an empty array instead of `undefined`
@@ -328,7 +337,9 @@ export default async function User({ params }: Props) {
             alt=""
             className="w-36 rounded-full md:rounded-2xl m-3"
           />
-          <p className="text-white uppercase font-bold text-lg font-ebGaramond">{profileName || "Name..."}</p>
+          <p className="text-white uppercase font-bold text-lg font-ebGaramond">
+            {profileName || "Name..."}
+          </p>
         </div>
         <div
           id="profileData"
