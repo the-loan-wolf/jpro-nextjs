@@ -1,6 +1,9 @@
 import UserProfileBox from "../ui/UserProfileBox";
 import { getDocument } from "../utils/firebase-fn";
 import { headers } from 'next/headers'
+import React, { PureComponent } from "react";
+import { FixedSizeList as List } from "react-window";
+import InfiniteLoader from "react-window-infinite-loader";
 
 // Define the document type
 interface UserDocument {
@@ -10,6 +13,42 @@ interface UserDocument {
   resumeLName: string;
   compPost: string;
   salary: string;
+}
+
+const LOADING = 1;
+const LOADED = 2;
+const itemStatusMap = {};
+
+const isItemLoaded = (index) => !!itemStatusMap[index];
+const loadMoreItems = (startIndex, stopIndex) => {
+  for (let index = startIndex; index <= stopIndex; index++) {
+    itemStatusMap[index] = LOADING;
+  }
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      for (let index = startIndex; index <= stopIndex; index++) {
+        itemStatusMap[index] = LOADED;
+      }
+      resolve();
+    }, 2500)
+  );
+};
+
+class Row extends PureComponent {
+  render() {
+    const { index, style } = this.props;
+    let label;
+    if (itemStatusMap[index] === LOADED) {
+      label = `Row ${index}`;
+    } else {
+      label = "Loading...";
+    }
+    return (
+      <div className="ListItem" style={style}>
+        {label}
+      </div>
+    );
+  }
 }
 
 export default async function App() {
@@ -32,23 +71,42 @@ export default async function App() {
   }
 
   return (
-    <main className="mt-5 flex justify-center min-h-screen">
-      <div
-        className="flex justify-evenly flex-wrap gap-4 max-w-5xl"
-      >
-        {userProfiles.map((user) => (
-          <UserProfileBox
-            key={user.id}
-            userData={{
-              uid: user.id,
-              pic: user.profilePicEle,
-              name: `${user.resumeFName} ${user.resumeLName}`,
-              occupation: user.compPost,
-              salary: user.salary,
-            }}
-          />
-        ))}
-      </div>
-    </main>
+    // <main className="mt-5 flex justify-center min-h-screen">
+    //   <div
+    //     className="flex justify-evenly flex-wrap gap-4 max-w-5xl"
+    //   >
+    //     {userProfiles.map((user) => (
+    //       <UserProfileBox
+    //         key={user.id}
+    //         userData={{
+    //           uid: user.id,
+    //           pic: user.profilePicEle,
+    //           name: `${user.resumeFName} ${user.resumeLName}`,
+    //           occupation: user.compPost,
+    //           salary: user.salary,
+    //         }}
+    //       />
+    //     ))}
+    //   </div>
+    // </main>
+    <InfiniteLoader
+          isItemLoaded={isItemLoaded}
+          itemCount={1000}
+          loadMoreItems={loadMoreItems}
+        >
+          {({ onItemsRendered, ref }) => (
+            <List
+              className="List"
+              height={150}
+              itemCount={1000}
+              itemSize={30}
+              onItemsRendered={onItemsRendered}
+              ref={ref}
+              width={300}
+            >
+              {Row}
+            </List>
+          )}
+        </InfiniteLoader>
   );
 }
