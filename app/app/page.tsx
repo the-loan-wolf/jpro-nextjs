@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import UserProfileBox from "../ui/UserProfileBox";
 import { getDocument } from "../utils/firebase-fn";
 // import { headers } from "next/headers";
@@ -16,9 +16,13 @@ interface UserDocument {
   salary: string;
 }
 
+type Map = {
+  [key: number]: 1 | 2;
+};
+
 const LOADING = 1;
 const LOADED = 2;
-const itemStatusMap = {};
+const itemStatusMap: Map = {};
 
 const isItemLoaded = (index: number) => !!itemStatusMap[index];
 
@@ -32,26 +36,30 @@ const loadMoreItems = (startIndex: number, stopIndex: number) => {
         itemStatusMap[index] = LOADED;
       }
       resolve();
-    }, 2500)
+    }, 500)
   );
 };
 
-class Row extends PureComponent {
-  render() {
-    const { index, style } = this.props;
-    let label;
-    if (itemStatusMap[index] === LOADED) {
-      label = `Row ${index}`;
-    } else {
-      label = "Loading...";
-    }
-    return (
-      <div className="ListItem" style={style}>
-        {label}
-      </div>
-    );
-  }
+interface RowProps {
+  index: number;
+  style: React.CSSProperties; // inline styles react type
 }
+
+// Functional component for Row
+const Row = React.memo(({ index, style }: RowProps) => {
+  let label;
+  if (itemStatusMap[index] === LOADED) {
+    label = `Row ${index}`;
+  } else {
+    label = "Loading...";
+  }
+  return (
+    <div className="ListItem" style={style}>
+      {label}
+    </div>
+  );
+});
+Row.displayName = "Row";
 
 export default function App() {
   // we are doing this to opt out of static rendering
@@ -74,6 +82,9 @@ export default function App() {
   //   );
   // }
 
+  const screenWidth = window.screen.width;
+  const screenHeight = window.screen.height * 0.80;
+
   return (
     // <main className="mt-5 flex justify-center min-h-screen">
     //   <div
@@ -93,24 +104,29 @@ export default function App() {
     //     ))}
     //   </div>
     // </main>
-    <InfiniteLoader
-      isItemLoaded={isItemLoaded}
-      itemCount={1000}
-      loadMoreItems={loadMoreItems}
-    >
-      {({ onItemsRendered, ref }) => (
-        <List
-          className="List"
-          height={150}
+
+    <main className="mt-5 flex justify-center min-h-screen">
+      <div className="flex justify-evenly flex-wrap gap-4 max-w-5xl">
+        <InfiniteLoader
+          isItemLoaded={isItemLoaded}
           itemCount={1000}
-          itemSize={30}
-          onItemsRendered={onItemsRendered}
-          ref={ref}
-          width={300}
+          loadMoreItems={loadMoreItems}
         >
-          {Row}
-        </List>
-      )}
-    </InfiniteLoader>
+          {({ onItemsRendered, ref }) => (
+            <List
+              className="List"
+              height={screenHeight}
+              itemCount={1000}
+              itemSize={30}
+              onItemsRendered={onItemsRendered}
+              ref={ref}
+              width={screenWidth}
+            >
+              {Row}
+            </List>
+          )}
+        </InfiniteLoader>
+      </div>
+    </main>
   );
 }
