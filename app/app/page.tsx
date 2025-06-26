@@ -37,11 +37,9 @@ export default function App() {
   useEffect(() => {
     async function fetchListings() {
       try {
-        console.log("entered into fetchListings");
         const listingRef = collection(db, "resumes");
-        const q = query(listingRef, limit(8));
+        const q = query(listingRef, limit(10));
         const querySnap = await getDocs(q);
-        console.log(querySnap);
         const lastVisible = querySnap.docs[querySnap.docs.length - 1];
         setLastFetchListing(lastVisible);
         const listings: { id: string; data: DocumentData }[] = [];
@@ -64,7 +62,7 @@ export default function App() {
   async function onFetchMoreListings() {
     try {
       const listingRef = collection(db, "resumes");
-      const q = query(listingRef, startAfter(lastFetchedListing), limit(4));
+      const q = query(listingRef, startAfter(lastFetchedListing), limit(10));
       const querySnap = await getDocs(q);
       const lastVisible = querySnap.docs[querySnap.docs.length - 1];
       setLastFetchListing(lastVisible);
@@ -85,7 +83,7 @@ export default function App() {
   return (
     <main>
       <div className="mt-5 flex justify-center">
-        <div className="flex justify-evenly flex-wrap gap-4 max-w-5xl">
+        <div className="flex justify-start flex-wrap gap-4 max-w-5xl lg:max-w-4xl">
           {loading ? (
             <p>loading...</p>
           ) : listings && listings.length > 0 ? (
