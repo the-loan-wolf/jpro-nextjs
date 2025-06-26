@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import UserProfileBox from "../ui/UserProfileBox";
 import { db, getDocument } from "../utils/firebase-fn";
+import Loading from "./loading";
 import { headers } from "next/headers";
 import {
   collection,
@@ -82,30 +83,28 @@ export default function App() {
 
   return (
     <main>
-      <div className="mt-5 flex justify-center">
-        <div className="flex justify-start flex-wrap gap-4 max-w-5xl lg:max-w-4xl">
-          {loading ? (
-            <p>loading...</p>
-          ) : listings && listings.length > 0 ? (
-            <>
-              {listings &&
-                listings.map((listing) => (
-                  <UserProfileBox
-                    key={listing.id}
-                    userData={{
-                      uid: listing.id,
-                      pic: listing.data.profilePicEle,
-                      name: `${listing.data.resumeFName} ${listing.data.resumeLName}`,
-                      occupation: listing.data.compPost,
-                      salary: listing.data.salary,
-                    }}
-                  />
-                ))}
-            </>
-          ) : (
-            <p>There are no current offers</p>
-          )}
-        </div>
+      <div className="mt-5 max-w-6xl mx-auto px-3">
+        {loading ? (
+          <Loading />
+        ) : listings && listings.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center gap-y-4">
+            {listings &&
+              listings.map((listing) => (
+                <UserProfileBox
+                  key={listing.id}
+                  userData={{
+                    uid: listing.id,
+                    pic: listing.data.profilePicEle,
+                    name: `${listing.data.resumeFName} ${listing.data.resumeLName}`,
+                    occupation: listing.data.compPost,
+                    salary: listing.data.salary,
+                  }}
+                />
+              ))}
+          </div>
+        ) : (
+          <p>There are no current offers</p>
+        )}
       </div>
       {lastFetchedListing && (
         <div className="flex justify-center items-center">
