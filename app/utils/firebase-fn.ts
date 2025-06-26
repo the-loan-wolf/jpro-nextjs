@@ -23,7 +23,7 @@ import { firebaseConfig } from "./firebase-config";
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 const storage = getStorage(app);
 
 export async function signUp(
@@ -175,9 +175,12 @@ export const uploadPic = async (picFile: File): Promise<string> => {
   }
 };
 
-export const uploadResume = async (uid: string, resume: {
-  [k: string]: FormDataEntryValue;
-}) => {
+export const uploadResume = async (
+  uid: string,
+  resume: {
+    [k: string]: FormDataEntryValue;
+  }
+) => {
   const docRef = doc(db, "resumes", uid);
   setDoc(docRef, resume)
     .then(() => {
