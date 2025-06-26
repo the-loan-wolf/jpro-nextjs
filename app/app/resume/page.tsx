@@ -77,6 +77,16 @@ const Resume = memo(() => {
     setShouldSubmit(true); // triggers effect to run submission later
   }
 
+  function generateRandomString(length = 28) {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  }
+
   useEffect(() => {
     if (shouldSubmit && !disable) {
       const form = document.querySelector("form") as HTMLFormElement;
@@ -87,7 +97,7 @@ const Resume = memo(() => {
       formValues["skillField"] = skillFieldCount.toString();
       formValues["profilePicEle"] = profilePicUrlString;
       setDisable(true); // here is a bug, checkbox and parmanent address input fields share common state, after changing state here wrong value is getting submited for checkbox
-      loggedInUserId && uploadResume(loggedInUserId, formValues);
+      loggedInUserId && uploadResume(generateRandomString(), formValues);
       console.log(formValues);
 
       setShouldSubmit(false); // reset
