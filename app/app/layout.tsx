@@ -2,6 +2,7 @@ import "../globals.css";
 import NavBar from "@/app/ui/navbar/nav-bar";
 import type { Metadata } from "next";
 import Image from "next/image";
+import { Bounce, ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "FreeJobSearcher",
@@ -14,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" >
+    <html lang="en">
       <head>
         <link
           rel="stylesheet"
@@ -39,6 +40,19 @@ export default function RootLayout({
         </div>
         <NavBar />
         {children}
+        <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition={Bounce}
+        />
       </body>
     </html>
   );

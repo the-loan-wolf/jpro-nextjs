@@ -16,9 +16,12 @@ import {
   collection,
   query,
   getDoc,
+  FieldValue,
+  serverTimestamp,
 } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { firebaseConfig } from "./firebase-config";
+import { toast } from "react-toastify";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -182,9 +185,10 @@ export const uploadResume = async (
   }
 ) => {
   const docRef = doc(db, "resumes", uid);
-  setDoc(docRef, resume)
+  setDoc(docRef, { ...resume, timestamp: serverTimestamp() })
     .then(() => {
       console.log("resumes saved successfully");
+      toast("resumes saved successfully");
     })
     .catch((error) => {
       console.error("resumes is not saved in database", error);
