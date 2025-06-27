@@ -1,3 +1,4 @@
+import { DocumentData } from "firebase/firestore";
 import { atom } from "jotai";
 
 const checkBoxToggleState = atom({
@@ -45,5 +46,16 @@ const skillField = atom(1);
 const qualificationField = atom(0);
 const profilePicUrl = atom("");
 const serverData = atom<ServerDataShape>({});
+const searchInput = atom("");
+const resumeListings = atom<{ id: string; data: DocumentData }[] | null>(null);
 
-export { checkBoxToggleState, workField, skillField, qualificationField, profilePicUrl, serverData };
+export {
+  checkBoxToggleState,
+  workField,
+  skillField,
+  qualificationField,
+  profilePicUrl,
+  serverData,
+  searchInput,
+  resumeListings
+};

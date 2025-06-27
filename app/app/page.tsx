@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import UserProfileBox from "../ui/UserProfileBox";
-import { db, getDocument } from "../utils/firebase-fn";
+import { db } from "../utils/firebase-fn";
 import Loading from "./loading";
 import {
   collection,
@@ -16,6 +16,8 @@ import {
   startAfter,
   where,
 } from "firebase/firestore";
+import { useAtom } from "jotai";
+import { resumeListings } from "../utils/globalStates";
 
 // Define the document type
 interface UserDocument {
@@ -28,9 +30,7 @@ interface UserDocument {
 }
 
 export default function App() {
-  const [listings, setListings] = useState<
-    { id: string; data: DocumentData }[] | null
-  >(null);
+  const [listings, setListings] = useAtom(resumeListings);
   const [loading, setLoading] = useState(true);
   const [lastFetchedListing, setLastFetchListing] =
     useState<QueryDocumentSnapshot<DocumentData, DocumentData> | null>(null);
