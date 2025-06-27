@@ -17,7 +17,7 @@ import {
   where,
 } from "firebase/firestore";
 import { useAtom } from "jotai";
-import { resumeListings } from "../utils/globalStates";
+import { lastListing, resumeListings } from "../utils/globalStates";
 
 // Define the document type
 interface UserDocument {
@@ -32,8 +32,7 @@ interface UserDocument {
 export default function App() {
   const [listings, setListings] = useAtom(resumeListings);
   const [loading, setLoading] = useState(true);
-  const [lastFetchedListing, setLastFetchListing] =
-    useState<QueryDocumentSnapshot<DocumentData, DocumentData> | null>(null);
+  const [lastFetchedListing, setLastFetchListing] = useAtom(lastListing);
 
   useEffect(() => {
     async function fetchListings() {
@@ -57,8 +56,8 @@ export default function App() {
       }
     }
     const saved = sessionStorage.getItem("listings");
-    if (saved) {
-      setListings(JSON.parse(saved));
+    if (listings) {
+      saved && setListings(JSON.parse(saved));
       setLoading(false);
     } else {
       fetchListings();

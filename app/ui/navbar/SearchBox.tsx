@@ -1,15 +1,18 @@
 import { useSetAtom } from "jotai";
-import { resumeListings } from "@/app/utils/globalStates";
+import { lastListing, resumeListings } from "@/app/utils/globalStates";
 import { useEffect, useState } from "react";
 import {
   collection,
+  DocumentData,
   endAt,
   getDocs,
+  limit,
   orderBy,
   query,
   startAt,
 } from "firebase/firestore";
 import { db } from "@/app/utils/firebase-fn";
+import { toast } from "react-toastify";
 
 export default function SearchBox({
   searchBoxToggle,
@@ -20,6 +23,7 @@ export default function SearchBox({
 }) {
   const [inputValue, setInputValue] = useState<string>("");
   const setResults = useSetAtom(resumeListings);
+  const setLastFetchListing = useSetAtom(lastListing);
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -42,7 +46,30 @@ export default function SearchBox({
       if (inputValue.length >= 2) {
         searchUsersByName(inputValue).then((users) => setResults(users));
       } else {
-        setResults([]);
+        async function fetchListings() {
+          try {
+            const listingRef = collection(db, "resumes");
+            const q = query(
+              listingRef,
+              orderBy("timestamp", "desc"),
+              limit(10)
+            );
+            const querySnap = await getDocs(q);
+            const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+            setLastFetchListing(lastVisible);
+            const listings: { id: string; data: DocumentData }[] = [];
+            querySnap.forEach((doc) => {
+              return listings.push({
+                id: doc.id,
+                data: doc.data(),
+              });
+            });
+            setResults(listings);
+          } catch (error) {
+            toast.error("Could not fetch listing");
+          }
+        }
+        fetchListings();
       }
     }, 300); // debounce
 
@@ -62,6 +89,7 @@ export default function SearchBox({
           className="grow py-2 px-5 border rounded focus:outline-none text-black"
           value={inputValue}
           onChange={handleInputChange}
+          placeholder="Search By Name"
         />
         <button
           className="inline-block px-5"

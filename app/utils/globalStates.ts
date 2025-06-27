@@ -1,4 +1,4 @@
-import { DocumentData } from "firebase/firestore";
+import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import { atom } from "jotai";
 
 const checkBoxToggleState = atom({
@@ -48,6 +48,7 @@ const profilePicUrl = atom("");
 const serverData = atom<ServerDataShape>({});
 const searchInput = atom("");
 const resumeListings = atom<{ id: string; data: DocumentData }[] | null>(null);
+const lastListing = atom<QueryDocumentSnapshot<DocumentData, DocumentData> | null>(null);
 
 export {
   checkBoxToggleState,
@@ -57,5 +58,6 @@ export {
   profilePicUrl,
   serverData,
   searchInput,
-  resumeListings
+  resumeListings,
+  lastListing
 };
