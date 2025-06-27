@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import UserProfileBox from "../ui/UserProfileBox";
 import { db, getDocument } from "../utils/firebase-fn";
 import Loading from "./loading";
-import { headers } from "next/headers";
 import {
   collection,
   DocumentData,
@@ -39,7 +38,7 @@ export default function App() {
     async function fetchListings() {
       try {
         const listingRef = collection(db, "resumes");
-        const q = query(listingRef, limit(10));
+        const q = query(listingRef, orderBy("timestamp", "desc"), limit(10));
         const querySnap = await getDocs(q);
         const lastVisible = querySnap.docs[querySnap.docs.length - 1];
         setLastFetchListing(lastVisible);
