@@ -62,7 +62,12 @@ export default function App() {
   async function onFetchMoreListings() {
     try {
       const listingRef = collection(db, "resumes");
-      const q = query(listingRef, startAfter(lastFetchedListing), limit(10));
+      const q = query(
+        listingRef,
+        orderBy("timestamp", "desc"),
+        startAfter(lastFetchedListing),
+        limit(10)
+      );
       const querySnap = await getDocs(q);
       const lastVisible = querySnap.docs[querySnap.docs.length - 1];
       setLastFetchListing(lastVisible);
