@@ -34,6 +34,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [lastFetchedListing, setLastFetchListing] =
     useState<QueryDocumentSnapshot<DocumentData, DocumentData> | null>(null);
+
   useEffect(() => {
     async function fetchListings() {
       try {
@@ -55,8 +56,13 @@ export default function App() {
         toast.error("Could not fetch listing");
       }
     }
-
-    fetchListings();
+    const saved = sessionStorage.getItem("listings");
+    if (saved) {
+      setListings(JSON.parse(saved));
+      setLoading(false);
+    } else {
+      fetchListings();
+    }
   }, []);
 
   async function onFetchMoreListings() {
@@ -84,6 +90,15 @@ export default function App() {
       toast.error("Could not fetch listing");
     }
   }
+
+  // Save listings before unmount
+  useEffect(() => {
+    return () => {
+      if (listings) {
+        sessionStorage.setItem("listings", JSON.stringify(listings));
+      }
+    };
+  }, [listings]);
 
   return (
     <main>
