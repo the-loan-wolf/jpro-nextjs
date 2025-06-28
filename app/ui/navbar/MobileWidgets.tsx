@@ -110,6 +110,7 @@ export default function MobileWidgets({
           className="grow py-2 px-5 border rounded focus:outline-none text-black"
           value={inputValue}
           onChange={handleInputChange}
+          placeholder="Search For Profession"
         />
         <button
           className="inline-block px-5"
