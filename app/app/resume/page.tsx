@@ -86,8 +86,16 @@ const Resume = memo(() => {
       formValues["workField"] = workFieldCount.toString();
       formValues["skillField"] = skillFieldCount.toString();
       formValues["profilePicEle"] = profilePicUrlString;
+      // Convert all string values to lowercase
+      const lowerCaseValues = Object.fromEntries(
+        Object.entries(formValues).map(([key, value]) => [
+          key,
+          typeof value === "string" ? value.toLowerCase() : value,
+        ])
+      );
+      console.log(lowerCaseValues);
       setDisable(true); // here is a bug, checkbox and parmanent address input fields share common state, after changing state here wrong value is getting submited for checkbox
-      loggedInUserId && uploadResume(loggedInUserId, formValues);
+      loggedInUserId && uploadResume(loggedInUserId, lowerCaseValues);
       console.log(formValues);
 
       setShouldSubmit(false); // reset
