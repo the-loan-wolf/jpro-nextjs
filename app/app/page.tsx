@@ -18,6 +18,7 @@ import {
 } from "firebase/firestore";
 import { useAtom } from "jotai";
 import { lastListing, resumeListings } from "../utils/globalStates";
+import Carousel from "../ui/Carousel";
 
 // Define the document type
 interface UserDocument {
@@ -101,6 +102,7 @@ export default function App() {
 
   return (
     <main>
+      <Carousel />
       <div className="mt-5 max-w-6xl mx-auto px-3">
         {loading ? (
           <Loading />
