@@ -324,7 +324,7 @@ export default async function User({ params }: Props) {
   }
 
   return (
-    <main className="mt-5 flex h-[90vh]">
+    <main className="mt-5 flex sm:h-[90vh]">
       <div id="resume-data" className="flex flex-col md:flex-row w-full">
         <div
           id="profilePicDiv"

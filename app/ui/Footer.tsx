@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="bg-white border-t border-gray-200 py-12 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Films Section */}
+          {/* Resumes Section */}
           <div>
             <h3 className="font-semibold text-black mb-4 tracking-wide">
               Resumes
@@ -39,7 +39,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Shop Section */}
+          {/* Profile Section */}
           <div>
             <h3 className="font-semibold text-black mb-4 tracking-wide">
               Profile
@@ -72,7 +72,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Neon Section */}
+          {/* Quick Links Section */}
           <div>
             <h3 className="font-semibold text-black mb-4 tracking-wide">
               Quick Links
