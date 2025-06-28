@@ -25,7 +25,7 @@ export default function SearchBox({
   const setResults = useSetAtom(resumeListings);
   const setLastFetchListing = useSetAtom(lastListing);
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+    setInputValue(event.target.value.toLowerCase());
   };
 
   async function searchUsersByName(namePrefix: string) {
