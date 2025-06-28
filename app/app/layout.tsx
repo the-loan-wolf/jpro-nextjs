@@ -3,6 +3,7 @@ import NavBar from "@/app/ui/navbar/nav-bar";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Bounce, ToastContainer } from "react-toastify";
+import Footer from "../ui/Footer";
 
 export const metadata: Metadata = {
   title: "FreeJobSearcher",
@@ -53,6 +54,7 @@ export default function RootLayout({
           theme="dark"
           transition={Bounce}
         />
+        <Footer />
       </body>
     </html>
   );
