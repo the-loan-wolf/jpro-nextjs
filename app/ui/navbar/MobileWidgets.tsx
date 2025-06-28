@@ -34,7 +34,7 @@ export default function MobileWidgets({
     const usersRef = collection(db, "resumes");
     const q = query(
       usersRef,
-      orderBy("resumeFName"),
+      orderBy("compPost"),
       startAt(namePrefix),
       endAt(namePrefix + "\uf8ff")
     );
