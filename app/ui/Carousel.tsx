@@ -59,7 +59,7 @@ export default function Carousel() {
         }
       }
     fetchListings();
-  });
+  }, []);
   return (
     <Swiper
       // install Swiper modules
