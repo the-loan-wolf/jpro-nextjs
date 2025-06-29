@@ -28,34 +28,52 @@ export default function Carousel() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function fetchListings() {
-        try {
-          const listingRef = collection(db, "featured");
-          const q = query(listingRef, limit(5));
-          const querySnap = await getDocs(q);
-    
-          const listingsData: { id: string; data: DocumentData }[] = [];
-    
-          for (const docSnap of querySnap.docs) {
-            const resumeRef = docSnap.data().ref as DocumentReference;
-            const resumeSnap = await getDoc(resumeRef);
-    
-            if (resumeSnap.exists()) {
-              listingsData.push({
-                id: resumeSnap.id, // or docSnap.id if you want featured ID
-                data: resumeSnap.data(),
-              });
-            }
+      try {
+        const listingRef = collection(db, "featured");
+        const q = query(listingRef, limit(5));
+        const querySnap = await getDocs(q);
+
+        const listingsData: { id: string; data: DocumentData }[] = [];
+
+        for (const docSnap of querySnap.docs) {
+          const resumeRef = docSnap.data().ref as DocumentReference;
+          const resumeSnap = await getDoc(resumeRef);
+
+          if (resumeSnap.exists()) {
+            listingsData.push({
+              id: resumeSnap.id, // or docSnap.id if you want featured ID
+              data: resumeSnap.data(),
+            });
           }
-    
-          setListings(listingsData);
-        } catch (error) {
-          toast.error("Could not fetch listings");
-        } finally {
-          setLoading(false);
         }
+
+        setListings(listingsData);
+      } catch (error) {
+        toast.error("Could not fetch listings");
+      } finally {
+        setLoading(false);
       }
-    fetchListings();
+    }
+
+    const saved = sessionStorage.getItem("featuredListings");
+    if (saved) {
+      setListings(JSON.parse(saved));
+      setLoading(false);
+    } else {
+      fetchListings();
+      console.log("need to go to server");
+    }
   }, []);
+
+  // Save listings before unmount
+  useEffect(() => {
+    return () => {
+      if (listings) {
+        sessionStorage.setItem("featuredListings", JSON.stringify(listings));
+      }
+    };
+  }, [listings]);
+
   return (
     <Swiper
       // install Swiper modules
