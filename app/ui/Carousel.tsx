@@ -32,12 +32,10 @@ export default function Carousel() {
           const listingRef = collection(db, "featured");
           const q = query(listingRef, limit(5));
           const querySnap = await getDocs(q);
-          console.log("querySnap:",querySnap.docs[0].ref);
     
           const listingsData: { id: string; data: DocumentData }[] = [];
     
           for (const docSnap of querySnap.docs) {
-            console.log("document:",docSnap);
             const resumeRef = docSnap.data().ref as DocumentReference;
             const resumeSnap = await getDoc(resumeRef);
     
@@ -50,9 +48,7 @@ export default function Carousel() {
           }
     
           setListings(listingsData);
-          console.log("listings:", listingsData)
         } catch (error) {
-          console.error("WHY NO: ",error);
           toast.error("Could not fetch listings");
         } finally {
           setLoading(false);
@@ -68,12 +64,9 @@ export default function Carousel() {
       slidesPerView={2}
       navigation
       pagination={{ clickable: true }}
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log("slide change")}
       className="w-[90%]"
       autoplay={{
         delay: 1500,
-        disableOnInteraction: false,
       }}
       loop={true}
       speed={1000}
