@@ -102,7 +102,9 @@ export default function App() {
 
   return (
     <main>
-      <Carousel />
+      <div className="w-[95%] lg:w-[80%] mx-auto">
+        <Carousel />
+      </div>
       <div className="mt-5 max-w-6xl mx-auto px-3">
         {loading ? (
           <Loading />
