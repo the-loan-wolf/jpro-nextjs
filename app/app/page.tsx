@@ -1,4 +1,3 @@
-import UserProfileBox from "../ui/UserProfileBox";
 import { db } from "../utils/firebase-fn";
 import {
   collection,
@@ -9,19 +8,29 @@ import {
   query,
 } from "firebase/firestore";
 import Carousel from "../ui/Carousel";
-import LoadMore from "../ui/LoadMore";
+import ListingClientWrapper from "../ui/ListingClientWrapper";
 
 export default async function App() {
   const listingRef = collection(db, "resumes");
   const q = query(listingRef, orderBy("timestamp", "desc"), limit(10));
   const querySnap = await getDocs(q);
+
   const listings: { id: string; data: DocumentData }[] = [];
   querySnap.forEach((doc) => {
-    return listings.push({
+    const raw = doc.data();
+    const cleanData = {
+      ...raw,
+      timestamp: raw.timestamp?.toDate().toISOString() ?? null, // convert Firestore Timestamp
+    };
+    listings.push({
       id: doc.id,
-      data: doc.data(),
+      data: cleanData,
     });
   });
+
+  const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+  const lastVisibleMarker =
+    lastVisible.data().timestamp?.toDate().toISOString() ?? lastVisible.id;
 
   return (
     <main>
@@ -29,23 +38,11 @@ export default async function App() {
         <Carousel />
       </div>
       <div className="mt-5 max-w-6xl mx-auto px-3">
-        <div className="grid grid-cols-2 sm:grid sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-items-center gap-y-4">
-          {listings &&
-            listings.map((listing) => (
-              <UserProfileBox
-                key={listing.id}
-                userData={{
-                  uid: listing.id,
-                  pic: listing.data.profilePicEle,
-                  name: `${listing.data.resumeFName} ${listing.data.resumeLName}`,
-                  occupation: listing.data.compPost,
-                  salary: listing.data.salary,
-                }}
-              />
-            ))}
-        </div>
+        <ListingClientWrapper
+          initialListings={listings}
+          lastVisible={lastVisibleMarker}
+        />
       </div>
-      <LoadMore />
     </main>
   );
 }
