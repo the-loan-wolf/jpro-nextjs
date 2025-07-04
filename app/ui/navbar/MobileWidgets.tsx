@@ -58,7 +58,14 @@ export default function MobileWidgets({
             );
             const querySnap = await getDocs(q);
             const lastVisible = querySnap.docs[querySnap.docs.length - 1];
-            setLastFetchListing(lastVisible);
+            if (lastVisible) {
+              const lastVisibleMarker: number = lastVisible
+                .data()
+                .timestamp.toMillis();
+              setLastFetchListing(lastVisibleMarker);
+            } else {
+              setLastFetchListing(null);
+            }
             const listings: { id: string; data: DocumentData }[] = [];
             querySnap.forEach((doc) => {
               return listings.push({

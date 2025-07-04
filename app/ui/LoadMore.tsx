@@ -8,29 +8,42 @@ import {
   orderBy,
   query,
   startAfter,
+  Timestamp,
 } from "firebase/firestore";
 import { db } from "../utils/firebase-fn";
 import { toast } from "react-toastify";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { lastListing, resumeListings } from "../utils/globalStates";
 import { useState } from "react";
 
 export default function LoadMore() {
-  const [listings, setListings] = useAtom(resumeListings);
+  const setListings = useSetAtom(resumeListings);
   const [loading, setLoading] = useState(true);
   const [lastFetchedListing, setLastFetchListing] = useAtom(lastListing);
+  let startAfterTimestamp: Timestamp | null = null;
+  if (lastFetchedListing) {
+    startAfterTimestamp = Timestamp.fromMillis(lastFetchedListing);
+  }
+
   async function onFetchMoreListings() {
     try {
       const listingRef = collection(db, "resumes");
       const q = query(
         listingRef,
         orderBy("timestamp", "desc"),
-        startAfter(lastFetchedListing),
+        startAfter(startAfterTimestamp),
         limit(10)
       );
       const querySnap = await getDocs(q);
       const lastVisible = querySnap.docs[querySnap.docs.length - 1];
-      setLastFetchListing(lastVisible);
+      if (lastVisible) {
+        const lastVisibleMarker: number = lastVisible
+          .data()
+          .timestamp.toMillis();
+        setLastFetchListing(lastVisibleMarker);
+      } else {
+        setLastFetchListing(null);
+      }
       const listings: { id: string; data: DocumentData }[] = [];
       querySnap.forEach((doc) => {
         return listings.push({

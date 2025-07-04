@@ -29,8 +29,10 @@ export default async function App() {
   });
 
   const lastVisible = querySnap.docs[querySnap.docs.length - 1];
-  const lastVisibleMarker =
-    lastVisible.data().timestamp?.toDate().toISOString() ?? lastVisible.id;
+  // below line is done to serialize the timestamp data
+  // so we can use it in client side to fetch new batch of data
+  // on client we will have to deserialize this data back from number to firestore timestamp
+  const lastVisibleMarker: number = lastVisible.data().timestamp.toMillis();
 
   return (
     <main>

@@ -48,7 +48,7 @@ const profilePicUrl = atom("");
 const serverData = atom<ServerDataShape>({});
 const searchInput = atom("");
 const resumeListings = atom<{ id: string; data: DocumentData }[] | null>(null);
-const lastListing = atom<QueryDocumentSnapshot<DocumentData, DocumentData> | null>(null);
+const lastListing = atom<number | null>(null);
 
 export {
   checkBoxToggleState,
@@ -59,5 +59,5 @@ export {
   serverData,
   searchInput,
   resumeListings,
-  lastListing
+  lastListing,
 };
