@@ -346,12 +346,15 @@ export default async function User({ params }: Props) {
           </p>
           {videoLink && (
             <div>
-              {" "}
               <iframe
-                // width="420"
-                // height="315"
-                className="w-full h-full"
-                src={`https://www.youtube.com/embed/${videoLink}`}
+                className="border-0 mt-2"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                // title="Getting started | Video viewing basics"
+                width="400"
+                height="230"
+                src={`https://www.youtube.com/embed/${videoLink}?autoplay=0&amp;cc_lang_pref=en&amp;cc_load_policy=1&amp;controls=2&amp;rel=0&amp;hl=en&amp;enablejsapi=1&amp;widgetid=1&vf=6`}
+                id="widget2"
               ></iframe>
             </div>
           )}
