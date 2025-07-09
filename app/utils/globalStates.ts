@@ -39,6 +39,7 @@ export interface ServerDataShape {
   phdInstName?: string;
   phdBoard?: string;
   phdMarks?: string;
+  vidIntro?: string;
 }
 
 const workField = atom(1);

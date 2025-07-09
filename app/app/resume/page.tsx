@@ -22,6 +22,7 @@ import {
   firestoreDoc,
   uploadResume,
 } from "@/app/utils/firebase-fn";
+import VideoIntro from "@/app/ui/resumeEntry/VideoIntro";
 
 const Resume = memo(() => {
   const router = useRouter();
@@ -90,7 +91,9 @@ const Resume = memo(() => {
       const lowerCaseValues = Object.fromEntries(
         Object.entries(formValues).map(([key, value]) => [
           key,
-          typeof value === "string" ? value.toLowerCase() : value,
+          key === "vidIntro" || typeof value !== "string"
+            ? value
+            : value.toLowerCase(),
         ])
       );
       console.log(lowerCaseValues);
@@ -111,6 +114,7 @@ const Resume = memo(() => {
         onSubmit={formHandler}
       >
         <ProfilePicUpload />
+        <VideoIntro />
         <PersonalInfo />
         <AddressInfo disable={disable} setDisable={setDisable} />
         <EducationalInfo />

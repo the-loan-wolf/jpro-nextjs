@@ -32,6 +32,7 @@ export default async function User({ params }: Props) {
 
   let profilePic: string = "";
   let profileName: string = "";
+  let videoLink: string = "";
   const primaryDetailsArray: JSX.Element[] = [];
   const addressDetailsArray: JSX.Element[] = [];
   const ParmanentaddressDetailsArray: JSX.Element[] = [];
@@ -58,6 +59,9 @@ export default async function User({ params }: Props) {
   try {
     const data = await getUserDetails(id);
     if (data && typeof data === "object") {
+      if (data.vidIntro) {
+        videoLink = data.vidIntro;
+      }
       parseData(data);
     }
   } catch (error) {
@@ -340,6 +344,17 @@ export default async function User({ params }: Props) {
           <p className="text-white uppercase font-bold text-lg font-ebGaramond">
             {profileName || "Name..."}
           </p>
+          {videoLink && (
+            <div>
+              {" "}
+              <iframe
+                // width="420"
+                // height="315"
+                className="w-full h-full"
+                src={`https://www.youtube.com/embed/${videoLink}`}
+              ></iframe>
+            </div>
+          )}
         </div>
         <div
           id="profileData"
