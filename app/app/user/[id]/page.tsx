@@ -347,6 +347,7 @@ export default async function User({ params }: Props) {
           {videoLink && (
             <div>
               <iframe
+                allowFullScreen={true}
                 className="border-0 mt-2"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
