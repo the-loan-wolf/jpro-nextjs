@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Bounce, ToastContainer } from "react-toastify";
 import Footer from "../ui/Footer";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "FreeJobSearcher",
@@ -18,6 +19,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* <!-- Google tag (gtag.js) --> */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-NMT1XBV8YT"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NMT1XBV8YT');
+      `}
+        </Script>
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
