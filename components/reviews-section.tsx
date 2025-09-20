@@ -11,7 +11,7 @@ const reviews = [
     company: "TechCorp",
     avatar: "/professional-woman-smiling.png",
     rating: 5,
-    text: "JobFlow helped me land my dream job at a top tech company in just 2 weeks! The AI matching was incredibly accurate.",
+    text: "FreeJobSearcher helped me land my dream job at a top tech company in just 2 weeks! The AI matching was incredibly accurate.",
   },
   {
     name: "Marcus Johnson",
@@ -43,7 +43,7 @@ const reviews = [
     company: "BrandCorp",
     avatar: "/professional-woman-marketing.png",
     rating: 5,
-    text: "JobFlow made job searching actually enjoyable. The interface is beautiful and the results are phenomenal.",
+    text: "FreeJobSearcher made job searching actually enjoyable. The interface is beautiful and the results are phenomenal.",
   },
   {
     name: "Alex Rivera",
@@ -79,7 +79,7 @@ export function ReviewsSection() {
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Users Say</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-            Join thousands of professionals who've transformed their careers with JobFlow. Here's what they have to say
+            Join thousands of professionals who've transformed their careers with FreeJobSearcher. Here's what they have to say
             about their experience.
           </p>
         </div>

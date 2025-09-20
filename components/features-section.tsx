@@ -41,7 +41,7 @@ export function FeaturesSection() {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-balance mb-6">
             Why Choose{" "}
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">JobFlow</span>
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">FreeJobSearcher</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
             We've revolutionized job searching with cutting-edge technology and personalized support to help you land

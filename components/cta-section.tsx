@@ -24,7 +24,7 @@ export function CTASection() {
           </h2>
 
           <p className="text-xl text-muted-foreground mb-8 text-pretty">
-            Join over 100,000 professionals who've found their dream jobs through JobFlow. Start your journey today -
+            Join over 100,000 professionals who've found their dream jobs through FreeJobSearcher. Start your journey today -
             it's completely free to get started.
           </p>
 

@@ -9,7 +9,7 @@ export function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center mb-4">
               <Briefcase className="h-8 w-8 text-primary mr-2" />
-              <span className="text-2xl font-bold text-primary">JobFlow</span>
+              <span className="text-2xl font-bold text-primary">FreeJobSearcher</span>
             </div>
             <p className="text-muted-foreground mb-6 max-w-md text-pretty">
               Revolutionizing job search with AI-powered matching and personalized career support. Your dream job is
@@ -18,7 +18,7 @@ export function Footer() {
             <div className="flex space-x-4">
               <div className="flex items-center text-muted-foreground">
                 <EnvelopeClosedIcon className="h-4 w-4 mr-2" />
-                <span className="text-sm">hello@jobflow.com</span>
+                <span className="text-sm">hello@FreeJobSearcher.com</span>
               </div>
             </div>
           </div>
@@ -77,7 +77,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border mt-12 pt-8 text-center text-muted-foreground">
-          <p>&copy; 2024 JobFlow. All rights reserved. Built with ❤️ for job seekers everywhere.</p>
+          <p>&copy; 2024 FreeJobSearcher. All rights reserved. Built with ❤️ for job seekers everywhere.</p>
         </div>
       </div>
     </footer>
