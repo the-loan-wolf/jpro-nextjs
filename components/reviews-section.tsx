@@ -2,6 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Star } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const reviews = [
@@ -100,10 +101,12 @@ export function ReviewsSection() {
             >
               <CardContent className="p-8">
                 <div className="flex items-center mb-4">
-                  <img
+                  <Image
                     src={review.avatar || "/placeholder.svg"}
                     alt={review.name}
-                    className="w-12 h-12 rounded-full mr-4"
+                    width={100}
+                    height={100}
+                    className="w-12 h-12 rounded-full mr-4 object-cover"
                   />
                   <div>
                     <h4 className="font-semibold text-card-foreground">
