@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Briefcase, Users, TrendingUp } from "lucide-react"
-import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { Button } from "@/components/ui/button";
+import { Briefcase, Users, TrendingUp } from "lucide-react";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 
 export function HeroSection() {
   return (
@@ -33,10 +34,15 @@ export function HeroSection() {
             </h1>
           </div>
 
-          <div className="animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+          <div
+            className="animate-fade-in-up"
+            style={{ animationDelay: "0.2s" }}
+          >
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto text-pretty">
-              Join thousands of professionals who've accelerated their careers with our AI-powered job matching
-              platform. Create your profile today and get matched with opportunities that fit your skills perfectly.
+              Join thousands of professionals who&apos;ve accelerated their careers
+              with our AI-powered job matching platform. Create your profile
+              today and get matched with opportunities that fit your skills
+              perfectly.
             </p>
           </div>
 
@@ -44,13 +50,21 @@ export function HeroSection() {
             className="animate-fade-in-up flex flex-col sm:flex-row gap-4 justify-center mb-12"
             style={{ animationDelay: "0.4s" }}
           >
-            <Button size="lg" className="text-lg px-8 py-6 group">
-              Create Your Profile
-              <ArrowRightIcon className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 py-6 glass-card bg-transparent">
-              Browse Jobs
-            </Button>
+            <Link href="/app/login" prefetch={true}>
+              <Button size="lg" className="text-lg px-8 py-6 group">
+                Create Your Profile
+                <ArrowRightIcon className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+            <Link href="/app" prefetch={true}>
+              <Button
+                variant="outline"
+                size="lg"
+                className="text-lg px-8 py-6 glass-card bg-transparent"
+              >
+                Browse Jobs
+              </Button>
+            </Link>
           </div>
 
           <div
@@ -76,5 +90,5 @@ export function HeroSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

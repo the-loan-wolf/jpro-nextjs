@@ -1,5 +1,6 @@
-import { Briefcase } from "lucide-react"
-import { EnvelopeClosedIcon } from "@radix-ui/react-icons"
+import { Briefcase } from "lucide-react";
+import { EnvelopeClosedIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 
 export function Footer() {
   return (
@@ -9,11 +10,13 @@ export function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center mb-4">
               <Briefcase className="h-8 w-8 text-primary mr-2" />
-              <span className="text-2xl font-bold text-primary">FreeJobSearcher</span>
+              <span className="text-2xl font-bold text-primary">
+                FreeJobSearcher
+              </span>
             </div>
             <p className="text-muted-foreground mb-6 max-w-md text-pretty">
-              Revolutionizing job search with AI-powered matching and personalized career support. Your dream job is
-              just a click away.
+              Revolutionizing job search with AI-powered matching and
+              personalized career support. Your dream job is just a click away.
             </p>
             <div className="flex space-x-4">
               <div className="flex items-center text-muted-foreground">
@@ -27,9 +30,13 @@ export function Footer() {
             <h3 className="font-semibold text-foreground mb-4">Platform</h3>
             <ul className="space-y-2 text-muted-foreground">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link
+                  href="/app"
+                  prefetch={true}
+                  className="hover:text-primary transition-colors"
+                >
                   Browse Jobs
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
@@ -77,9 +84,12 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border mt-12 pt-8 text-center text-muted-foreground">
-          <p>&copy; 2024 FreeJobSearcher. All rights reserved. Built with ❤️ for job seekers everywhere.</p>
+          <p>
+            &copy; 2024 FreeJobSearcher. All rights reserved. Built with ❤️ for
+            job seekers everywhere.
+          </p>
         </div>
       </div>
     </footer>
-  )
+  );
 }
