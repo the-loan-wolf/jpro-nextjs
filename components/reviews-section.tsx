@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 const reviews = [
   {
-    name: "Sarah Chen",
+    name: "Sunidhi Singh",
     role: "Software Engineer",
     company: "TechCorp",
     avatar: "/professional-woman-smiling.png",
@@ -15,7 +15,7 @@ const reviews = [
     text: "FreeJobSearcher helped me land my dream job at a top tech company in just 2 weeks! The AI matching was incredibly accurate.",
   },
   {
-    name: "Marcus Johnson",
+    name: "Aniket Sharma",
     role: "Product Manager",
     company: "InnovateCo",
     avatar: "/professional-man-smiling.png",
@@ -23,7 +23,7 @@ const reviews = [
     text: "The personalized job recommendations were spot-on. I received 5 interview invitations in my first week!",
   },
   {
-    name: "Emily Rodriguez",
+    name: "Sapna Kumari",
     role: "UX Designer",
     company: "DesignStudio",
     avatar: "/professional-woman-designer.png",
@@ -31,7 +31,7 @@ const reviews = [
     text: "Amazing platform! The career coaching feature helped me negotiate a 40% salary increase. Highly recommend!",
   },
   {
-    name: "David Kim",
+    name: "Abhishek Kumar",
     role: "Data Scientist",
     company: "DataTech",
     avatar: "/professional-data-scientist.png",
@@ -39,7 +39,7 @@ const reviews = [
     text: "The AI-powered matching is revolutionary. Found my perfect role that I never would have discovered otherwise.",
   },
   {
-    name: "Lisa Thompson",
+    name: "Vikas Kumar",
     role: "Marketing Director",
     company: "BrandCorp",
     avatar: "/professional-woman-marketing.png",
@@ -47,7 +47,7 @@ const reviews = [
     text: "FreeJobSearcher made job searching actually enjoyable. The interface is beautiful and the results are phenomenal.",
   },
   {
-    name: "Alex Rivera",
+    name: "Rahul Singh",
     role: "DevOps Engineer",
     company: "CloudSys",
     avatar: "/professional-person-engineer.jpg",
@@ -62,7 +62,7 @@ export function ReviewsSection() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex(
-        (prevIndex) => (prevIndex + 1) % Math.ceil(reviews.length / 3)
+        (prevIndex) => (prevIndex + 1) % Math.ceil(reviews.length / 3),
       );
     }, 5000);
     return () => clearInterval(timer);
@@ -145,7 +145,7 @@ export function ReviewsSection() {
                   index === currentIndex ? "bg-primary" : "bg-border"
                 }`}
               />
-            )
+            ),
           )}
         </div>
       </div>
